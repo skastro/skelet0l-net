@@ -112,8 +112,88 @@
   .sm-themes button.sel{border-color:#fff #404040 #404040 #fff;outline:2px solid var(--accent);outline-offset:-2px}
 
   /* ============================================================
-     Void / Graphite — deep-space window chrome
+     Themed window chrome — every mode but Win98 gets flat,
+     theme-coloured frames (XP/Vista feel). Three dark (void, dark,
+     monochrome) + three light (win98 grey, light, sepia).
+     Driven by the per-theme --ck-* palettes defined below.
      ============================================================ */
+  html:not([data-theme="win98"]) .win{
+    background:var(--ck-win);border:1px solid var(--ck-bd);border-radius:0;
+    box-shadow:0 10px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  html:not([data-theme="win98"]) .win.active{
+    border-color:var(--ck-bda);
+    box-shadow:0 12px 42px rgba(0,0,0,.5), 0 0 20px var(--ck-glow), 0 0 0 1px var(--ck-bda);
+  }
+  html:not([data-theme="win98"]) .titlebar{
+    background:var(--ck-bar);color:var(--ck-bar-tx);border-bottom:1px solid var(--ck-bd);
+  }
+  html:not([data-theme="win98"]) .win.active .titlebar{background:var(--ck-bara);color:var(--ck-bara-tx)}
+  html:not([data-theme="win98"]) .titlebar .tbtn{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) .titlebar .tbtn:active{filter:brightness(.85)}
+  html:not([data-theme="win98"]) .winbody{border:1px solid var(--ck-bd);background:var(--void)}
+  html:not([data-theme="win98"]) .resize{
+    background:linear-gradient(135deg,transparent 50%,var(--ck-bd) 50%,var(--ck-bd) 60%,transparent 60%,
+      transparent 72%,var(--ck-bd) 72%,var(--ck-bd) 82%,transparent 82%);
+  }
+  html:not([data-theme="win98"]) #taskbar{background:var(--ck-tb);border-top:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #startbtn,
+  html:not([data-theme="win98"]) .tasktab{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #startbtn:active,
+  html:not([data-theme="win98"]) #startbtn.on,
+  html:not([data-theme="win98"]) .tasktab.active{background:var(--ck-ctrla);color:var(--ck-bara-tx);border-color:var(--ck-bda)}
+  html:not([data-theme="win98"]) #clock{background:var(--ck-tb);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #clock .motto{color:var(--ck-muted)}
+  html:not([data-theme="win98"]) #startmenu{background:var(--ck-win);border:1px solid var(--ck-bd);box-shadow:0 12px 42px rgba(0,0,0,.5)}
+  html:not([data-theme="win98"]) #startmenu .sm-rail{background:var(--ck-rail)}
+  html:not([data-theme="win98"]) .sm-item{color:var(--ck-ctrl-tx)}
+  html:not([data-theme="win98"]) .sm-item:hover,
+  html:not([data-theme="win98"]) .sm-item:focus-visible{background:var(--ck-bara);color:var(--ck-bara-tx)}
+  html:not([data-theme="win98"]) .sm-sep{background:var(--ck-bd);border-bottom-color:transparent}
+  html:not([data-theme="win98"]) .sm-label{color:var(--ck-muted)}
+  html:not([data-theme="win98"]) .sm-themes button.sel{outline-color:var(--ck-bda)}
+  html:not([data-theme="win98"]) .dicon:focus-visible,
+  html:not([data-theme="win98"]) .dicon.sel{border-color:var(--ck-bda);background:rgba(184,148,217,.16)}
+
+  /* ---- dark chrome ---- */
+  [data-theme="void"]{
+    --ck-win:#14111C;--ck-bd:#3A3350;--ck-bda:#5A4A78;--ck-glow:rgba(184,148,217,.18);
+    --ck-bar:linear-gradient(90deg,#1C1828,#231C30);--ck-bar-tx:#9A91AE;
+    --ck-bara:linear-gradient(90deg,#2A1E3A,#3A2150);--ck-bara-tx:#F0E7FA;
+    --ck-ctrl:#1A1626;--ck-ctrl-tx:#CFC6DE;--ck-ctrla:#241C34;--ck-tb:#0E0B16;--ck-muted:#9A86C0;
+    --ck-rail:linear-gradient(180deg,#6E4F9C,#241634);
+  }
+  [data-theme="dark"]{
+    --ck-win:#16121E;--ck-bd:#2B2436;--ck-bda:#6E5A2E;--ck-glow:rgba(229,188,92,.20);
+    --ck-bar:linear-gradient(90deg,#1A1626,#221C2E);--ck-bar-tx:#A9A2B8;
+    --ck-bara:linear-gradient(90deg,#3A2E16,#4A3A1C);--ck-bara-tx:#F5E9D2;
+    --ck-ctrl:#1A1626;--ck-ctrl-tx:#C9C2D4;--ck-ctrla:#2A2236;--ck-tb:#0C0A12;--ck-muted:#C8A24E;
+    --ck-rail:linear-gradient(180deg,#8A6A2E,#2A2012);
+  }
+  [data-theme="monochrome"]{
+    --ck-win:#232327;--ck-bd:#3A3A3E;--ck-bda:#6A6A6E;--ck-glow:rgba(190,190,190,.16);
+    --ck-bar:linear-gradient(90deg,#2A2A2E,#323236);--ck-bar-tx:#9A9A9A;
+    --ck-bara:linear-gradient(90deg,#3A3A3E,#4A4A4E);--ck-bara-tx:#FFFFFF;
+    --ck-ctrl:#2A2A2E;--ck-ctrl-tx:#CFCFCF;--ck-ctrla:#3A3A3E;--ck-tb:#1A1A1D;--ck-muted:#9A9A9A;
+    --ck-rail:linear-gradient(180deg,#6A6A6E,#26262A);
+  }
+  /* ---- light chrome ---- */
+  [data-theme="light"]{
+    --ck-win:#F3F1ED;--ck-bd:#C4BEB4;--ck-bda:#9C8B6B;--ck-glow:rgba(139,111,61,.22);
+    --ck-bar:linear-gradient(180deg,#E8E4DC,#D7D2C8);--ck-bar-tx:#6B655A;
+    --ck-bara:linear-gradient(90deg,#C9B89A,#B89F78);--ck-bara-tx:#2A2418;
+    --ck-ctrl:#ECE8E1;--ck-ctrl-tx:#3A362E;--ck-ctrla:#DAD4C8;--ck-tb:#E4DFD5;--ck-muted:#8A8276;
+    --ck-rail:linear-gradient(180deg,#B89F78,#8B6F3D);
+  }
+  [data-theme="sepia"]{
+    --ck-win:#F0E7D4;--ck-bd:#CDBE9C;--ck-bda:#B0863E;--ck-glow:rgba(197,153,77,.25);
+    --ck-bar:linear-gradient(180deg,#E8DABA,#D8C9A8);--ck-bar-tx:#6B5638;
+    --ck-bara:linear-gradient(90deg,#C5994D,#B0863E);--ck-bara-tx:#2C1E0E;
+    --ck-ctrl:#E8DCC4;--ck-ctrl-tx:#3E2D1A;--ck-ctrla:#D8C9A8;--ck-tb:#E4D7B8;--ck-muted:#7A6A4C;
+    --ck-rail:linear-gradient(180deg,#C5994D,#5A4520);
+  }
+
+  /* void keeps its deeper deep-space wallpaper + brighter stars */
   [data-theme="void"] body{
     background:
       radial-gradient(60% 42% at 50% 40%, rgba(150,120,190,.10) 0%, rgba(20,16,30,0) 60%),
@@ -124,47 +204,6 @@
     content:"";position:absolute;inset:0;pointer-events:none;
     background:radial-gradient(70% 30% at 50% 52%, rgba(184,148,217,.07), transparent 70%);
   }
-
-  [data-theme="void"] .win{
-    background:#14111C;
-    border:1px solid #3A3350;
-    box-shadow:0 10px 34px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04);
-  }
-  [data-theme="void"] .win.active{
-    border-color:#5A4A78;
-    box-shadow:0 12px 40px rgba(0,0,0,.72), 0 0 20px rgba(184,148,217,.16), 0 0 0 1px rgba(184,148,217,.22);
-  }
-  [data-theme="void"] .titlebar{
-    background:linear-gradient(90deg,#1C1828,#231C30);color:#9A91AE;border-bottom:1px solid #2C2640;
-  }
-  [data-theme="void"] .win.active .titlebar{
-    background:linear-gradient(90deg,#2A1E3A,#3A2150);color:#F0E7FA;
-  }
-  [data-theme="void"] .titlebar .tbtn{background:#231C30;color:#C9BEDC;border:1px solid #3A3350}
-  [data-theme="void"] .titlebar .tbtn:active{background:#161220;border-color:#3A3350}
-  [data-theme="void"] .winbody{border:1px solid #2C2640;background:var(--void)}
-  [data-theme="void"] .resize{
-    background:linear-gradient(135deg,transparent 50%,#4A4366 50%,#4A4366 60%,transparent 60%,
-      transparent 72%,#4A4366 72%,#4A4366 82%,transparent 82%);
-  }
-
-  [data-theme="void"] #taskbar{background:#0E0B16;border-top:1px solid #2C2640}
-  [data-theme="void"] #startbtn,
-  [data-theme="void"] .tasktab{background:#1A1626;color:#CFC6DE;border:1px solid #342C48}
-  [data-theme="void"] #startbtn:active,
-  [data-theme="void"] #startbtn.on,
-  [data-theme="void"] .tasktab.active{background:#241C34;border-color:#4A3F68;color:#F0E7FA}
-  [data-theme="void"] #clock{background:#0E0B16;color:#B5AEC6;border:1px solid #342C48}
-  [data-theme="void"] #clock .motto{color:#9A86C0}
-  [data-theme="void"] #startmenu{background:#14111C;border:1px solid #3A3350;box-shadow:0 12px 40px rgba(0,0,0,.72)}
-  [data-theme="void"] #startmenu .sm-rail{background:linear-gradient(180deg,#6E4F9C,#241634)}
-  [data-theme="void"] .sm-item{color:#CFC6DE}
-  [data-theme="void"] .sm-item:hover,
-  [data-theme="void"] .sm-item:focus-visible{background:#3A2150;color:#F0E7FA}
-  [data-theme="void"] .sm-sep{background:#2C2640;border-bottom-color:#1A1626}
-  [data-theme="void"] .sm-label{color:#7A7290}
-  [data-theme="void"] .dicon:focus-visible,
-  [data-theme="void"] .dicon.sel{border-color:#8A6FB8;background:rgba(184,148,217,.16)}
 
   /* touch: larger tap targets */
   @media (pointer:coarse){
@@ -456,11 +495,11 @@
   /* ---------- theme switcher (5 modes) ---------- */
   (function themes(){
     var MODES=[
-      {id:"win98",      sw:"#C0C0C0"},
       {id:"void",       sw:"#0C0A14"},
-      {id:"dark",       sw:"#050208"},
-      {id:"light",      sw:"#E8E5E0"},
-      {id:"monochrome", sw:"#1F1F22"},
+      {id:"dark",       sw:"#16121E"},
+      {id:"monochrome", sw:"#232327"},
+      {id:"win98",      sw:"#C0C0C0"},
+      {id:"light",      sw:"#ECE8E1"},
       {id:"sepia",      sw:"#E8DCC4"}
     ];
     var host=document.getElementById("sm-themes");
