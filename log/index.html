@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Ship Log</title>
+<link rel="icon" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/css/frame.w0rk.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{background:radial-gradient(120% 90% at 50% -10%, #251B36 0%, var(--void) 55%, #140F1E 100%);
+    color:var(--pearl);font-family:var(--body);font-size:18px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;padding:22px}
+  .wrap{max-width:680px;margin:0 auto;padding-bottom:40px}
+  button{font-family:inherit;cursor:pointer;color:inherit;background:none;border:none}
+  :focus-visible{outline:2px solid var(--earth);outline-offset:2px;border-radius:4px}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--earth)}
+  h1{font-family:var(--display);font-size:27px;letter-spacing:.06em;margin:.2em 0 .08em;color:var(--pearl)}
+  .sub{font-style:italic;color:#C9B89A;margin-bottom:18px}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px}
+  .back{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);padding:8px 0}
+  .back:hover{color:var(--pearl)}
+
+  .btn{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    border:1px solid var(--rule);border-radius:9px;padding:10px 15px;transition:all .18s;color:var(--pearl)}
+  .btn:hover{border-color:var(--earth);color:#fff}
+  .btn.primary{background:var(--earth);color:#1a1a1a;border-color:var(--earth);font-weight:500}
+  .btn.primary:hover{background:#D6E884}
+  .btn.ghost{color:var(--text-muted)}
+
+  /* ---- tag filter ---- */
+  .filterbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;min-height:8px}
+  .filter-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--air);
+    border:1px solid var(--rule);border-radius:20px;padding:4px 10px;transition:all .15s}
+  .tag:hover{border-color:var(--air);color:#fff}
+  .tag.on{background:var(--air);color:#1a1a1a;border-color:var(--air)}
+
+  /* ---- section heads ---- */
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;margin:22px 0 11px}
+  .sec-h .eyebrow{color:var(--text-muted)}
+
+  /* ---- cards ---- */
+  .cards{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  .card{border:1px solid var(--rule);border-radius:11px;padding:14px 15px;background:rgba(42,32,56,.32);
+    width:100%;text-align:left;transition:border-color .18s,background .18s;display:block}
+  .card:hover{border-color:#C9B89A;background:rgba(42,32,56,.55)}
+  .card.cap{border-left:2px solid var(--air)}
+  .card .t{font-family:var(--display);font-size:18px;color:var(--pearl);margin-bottom:3px;line-height:1.2}
+  .card .snip{font-size:15px;color:var(--text-muted);line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .card .tags{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--air)}
+  .card .when{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--text-muted);margin-left:auto}
+  .card .keep{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--earth);border:1px solid var(--rule);border-radius:14px;padding:3px 9px}
+  .card .keep:hover{border-color:var(--earth)}
+
+  .empty{border:1px dashed var(--rule);border-radius:11px;padding:24px;text-align:center;font-style:italic;color:#C9B89A}
+
+  /* ---- editor ---- */
+  .field-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin:16px 0 7px}
+  input[type=text],textarea{width:100%;background:rgba(20,15,30,.5);border:1px solid var(--rule);border-radius:10px;
+    color:var(--pearl);font-family:var(--body);font-size:18px;line-height:1.5;padding:12px 14px;resize:vertical}
+  input#title{font-family:var(--display);font-size:21px}
+  textarea#body{min-height:200px}
+  input:focus,textarea:focus{outline:none;border-color:var(--earth)}
+  .hint{font-family:var(--body);font-style:italic;font-size:14px;color:var(--text-muted);margin-top:6px}
+  .hint code{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--air)}
+
+  .chips-group{margin-bottom:6px}
+  .chips-group .gl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin:0 0 6px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+  .chip{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);
+    border:1px solid var(--rule);border-radius:18px;padding:6px 11px;transition:all .15s}
+  .chip:hover{border-color:#C9B89A;color:#C9B89A}
+  .chip.sel{color:#1a1a1a;background:#C9B89A;border-color:#C9B89A}
+  .actions{display:flex;gap:11px;margin-top:26px}
+  .actions .btn{flex:1}
+  .actions .btn.ghost{flex:none}
+
+  /* ---- read view ---- */
+  .read .rtitle{font-family:var(--display);font-size:25px;color:var(--pearl);margin:4px 0 6px;line-height:1.2}
+  .read .rmeta{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px}
+  .read .rbody{white-space:pre-wrap;font-size:18px;line-height:1.6;color:#E8DFD5;margin-bottom:18px}
+  .read .rtags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+  .wl{color:var(--earth);border-bottom:1px solid rgba(197,216,110,.4);cursor:pointer}
+  .wl:hover{color:#fff;border-bottom-color:#fff}
+  .wl.missing{color:var(--fire);border-bottom:1px dashed rgba(230,99,160,.5)}
+  .backlinks{border-top:1px solid var(--rule);padding-top:14px;margin-top:8px}
+  .backlinks .bh{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:9px}
+  .backlinks ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .backlinks a{color:var(--earth);font-size:16px;cursor:pointer}
+  .backlinks .none{font-style:italic;color:var(--text-muted);font-size:15px}
+
+  /* ---- toast ---- */
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#2A2038;color:var(--pearl);
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:11px 16px;
+    border:1px solid var(--rule);border-radius:10px;z-index:60;box-shadow:0 6px 24px rgba(0,0,0,.45)}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+
+<script src="/js/navkit.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- storage ---------------- */
+  var Store=(function(){
+    var mem={},ok=true;
+    try{var k="__sl_t";localStorage.setItem(k,"1");localStorage.removeItem(k);}catch(e){ok=false;}
+    return {
+      persistent:ok,
+      get:function(k){ try{return ok?localStorage.getItem(k):(k in mem?mem[k]:null);}catch(e){return k in mem?mem[k]:null;} },
+      set:function(k,v){ try{ if(ok)localStorage.setItem(k,v); else mem[k]=v; }catch(e){mem[k]=v;} }
+    };
+  })();
+  var KEY="shiplog.notes.v1";
+  function loadNotes(){ try{return JSON.parse(Store.get(KEY)||"[]");}catch(e){return [];} }
+  function saveNotes(arr){ Store.set(KEY, JSON.stringify(arr)); }
+
+  /* ---------------- tag vocabulary (Codex VI) ---------------- */
+  var DOMAINS=[
+    {group:"Inner Vessel — the ship's own condition", tags:[
+      {code:"PHYSICAL",  label:"PH · Physical"},
+      {code:"MENTAL",    label:"MN · Mental"},
+      {code:"SPIRITUAL", label:"SP · Spiritual"}
+    ]},
+    {group:"Outer Ports — where the vessel makes berth", tags:[
+      {code:"CAREER",    label:"CR · Career"},
+      {code:"FINANCIAL", label:"FN · Financial"},
+      {code:"SOCIAL",    label:"SO · Social"}
+    ]}
+  ];
+
+  /* ---------------- helpers ---------------- */
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function fmtDate(ts){ var d=new Date(ts);
+    return d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" · "+
+           d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}); }
+  function snippet(s,n){ s=(s||"").replace(/\[\[|\]\]/g,"").replace(/\s+/g," ").trim(); return s.length>n?s.slice(0,n)+"…":s; }
+  function normTag(t){ return String(t).replace(/^#/,"").trim().toUpperCase(); }
+  function findByTitle(title){
+    var t=String(title).trim().toLowerCase();
+    return loadNotes().filter(function(n){ return (n.title||"").trim().toLowerCase()===t; })[0]||null;
+  }
+
+  /* ---------------- state ---------------- */
+  var state={ view:"list", id:null, draft:null, filter:null };
+  var root=document.getElementById("root");
+
+  /* ---------------- list view ---------------- */
+  function listView(){
+    var notes=loadNotes(), caps=NavKit.getCaptures();
+    var ownIds={}; notes.forEach(function(n){ if(n.fromCapture) ownIds[n.fromCapture]=1; });
+    caps=caps.filter(function(c){ return !ownIds[c.id]; });   /* hide captures already kept */
+
+    /* tag filter */
+    if(state.filter){
+      notes=notes.filter(function(n){ return (n.tags||[]).indexOf(state.filter)>=0; });
+      caps=caps.filter(function(c){ return (c.tags||[]).map(normTag).indexOf(state.filter)>=0; });
+    }
+
+    var html='<div class="eyebrow">the log · zettelkasten</div>'
+      +'<h1>The Ship Log</h1>'
+      +'<div class="sub">what was read, tagged, and kept</div>';
+
+    if(!Store.persistent){
+      html+='<div class="empty" style="text-align:left;margin-bottom:14px">Preview mode — notes persist when served from the installed app.</div>';
+    }
+
+    html+='<div class="topbar"><span class="eyebrow" style="color:var(--text-muted)">'
+      +loadNotes().length+' note'+(loadNotes().length===1?"":"s")+'</span>'
+      +'<button class="btn primary" data-action="new">+ New note</button></div>';
+
+    /* active filter pill */
+    if(state.filter){
+      html+='<div class="filterbar"><span class="filter-lbl">Filtered by</span>'
+        +'<button class="tag on" data-action="clear-filter">#'+esc(state.filter)+' ✕</button></div>';
+    }
+
+    /* your notes */
+    html+='<div class="sec-h"><span class="eyebrow">Your notes</span></div>';
+    if(!notes.length){
+      html+='<div class="empty">'+(state.filter?'No notes with this tag.':'No notes yet. Write the first entry, or keep a reading from The Compass below.')+'</div>';
+    } else {
+      html+='<ul class="cards">';
+      notes.forEach(function(n){
+        html+='<li><button class="card" data-action="read" data-id="'+n.id+'">'
+          +'<div class="t">'+esc(n.title||"Untitled")+'</div>'
+          +(n.body?'<div class="snip">'+esc(snippet(n.body,150))+'</div>':'')
+          +'<div class="foot">'+tagStr(n.tags)
+          +'<span class="when">'+fmtDate(n.updated||n.ts)+'</span></div>'
+          +'</button></li>';
+      });
+      html+='</ul>';
+    }
+
+    /* captures from the Compass */
+    html+='<div class="sec-h"><span class="eyebrow">From The Compass</span>'
+      +'<span class="eyebrow" style="color:var(--air)">'+caps.length+' reading'+(caps.length===1?"":"s")+'</span></div>';
+    if(!caps.length){
+      html+='<div class="empty">'+(state.filter?'No captures with this tag.':'No captures yet. Cast a reading in The Compass — it flows in here.')+'</div>';
+    } else {
+      html+='<ul class="cards">';
+      caps.slice(0,20).forEach(function(c){
+        html+='<li><div class="card cap">'
+          +'<div class="t">'+esc(c.title||"Untitled")+'</div>'
+          +(c.body?'<div class="snip">'+esc(snippet(c.body,150))+'</div>':'')
+          +'<div class="foot">'+tagStr((c.tags||[]).map(normTag))
+          +'<button class="keep" data-action="keep" data-cap="'+c.id+'">Keep as note</button>'
+          +'<span class="when">'+fmtDate(c.ts)+'</span></div>'
+          +'</div></li>';
+      });
+      html+='</ul>';
+    }
+    return html;
+  }
+  function tagStr(tags){
+    if(!tags||!tags.length) return '';
+    return '<span class="tags">'+tags.map(function(t){return '#'+esc(t);}).join(" ")+'</span>';
+  }
+
+  /* ---------------- read view ---------------- */
+  function readView(){
+    var notes=loadNotes(), n=null;
+    for(var i=0;i<notes.length;i++){ if(notes[i].id===state.id){ n=notes[i]; break; } }
+    if(!n){ state.view="list"; return listView(); }
+
+    var html='<div class="read">';
+    html+='<div class="topbar"><button class="back" data-action="list">← The Log</button>'
+      +'<button class="btn ghost" data-action="edit" data-id="'+n.id+'">Edit</button></div>';
+    html+='<div class="rtitle">'+esc(n.title||"Untitled")+'</div>';
+    html+='<div class="rmeta">'+fmtDate(n.ts)+(n.updated&&n.updated!==n.ts?' · edited '+fmtDate(n.updated):'')+'</div>';
+    if(n.tags&&n.tags.length){
+      html+='<div class="rtags">'+n.tags.map(function(t){
+        return '<button class="tag" data-action="filter" data-tag="'+esc(t)+'">#'+esc(t)+'</button>';
+      }).join("")+'</div>';
+    }
+    html+='<div class="rbody">'+linkify(n.body||"")+'</div>';
+
+    /* backlinks */
+    var back=loadNotes().filter(function(o){
+      return o.id!==n.id && new RegExp("\\[\\["+escapeRe(n.title||"")+"\\]\\]","i").test(o.body||"");
+    });
+    html+='<div class="backlinks"><div class="bh">Linked from</div>';
+    if(!back.length){ html+='<div class="none">No backlinks yet.</div>'; }
+    else { html+='<ul>'+back.map(function(o){
+      return '<li><a data-action="read" data-id="'+o.id+'">'+esc(o.title||"Untitled")+'</a></li>';
+    }).join("")+'</ul>'; }
+    html+='</div>';
+
+    html+='<div class="actions"><button class="btn ghost" data-action="delete" data-id="'+n.id+'">Delete note</button></div>';
+    html+='</div>';
+    return html;
+  }
+  function escapeRe(s){ return String(s).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+  function linkify(body){
+    var out=esc(body);
+    out=out.replace(/\[\[([^\]]+)\]\]/g, function(_,title){
+      var exists=findByTitle(title);
+      return '<span class="wl'+(exists?'':' missing')+'" data-action="wikilink" data-title="'+esc(title)+'">'+esc(title)+'</span>';
+    });
+    return out;
+  }
+
+  /* ---------------- editor ---------------- */
+  function editView(){
+    var d=state.draft;
+    var html='<div class="topbar"><button class="back" data-action="'+(d.id?'read':'list')+'"'
+      +(d.id?' data-id="'+d.id+'"':'')+'>← '+(d.id?'Cancel':'The Log')+'</button>'
+      +'<span class="eyebrow">'+(d.id?'Edit note':'New note')+'</span></div>';
+
+    html+='<div class="field-lbl">Title</div>'
+      +'<input type="text" id="title" placeholder="Name this entry…" value="'+esc(d.title||"")+'">';
+
+    html+='<div class="field-lbl">Body</div>'
+      +'<textarea id="body" placeholder="Write the note…">'+esc(d.body||"")+'</textarea>'
+      +'<div class="hint">Link other notes with <code>[[Title]]</code>. A red link makes a new note.</div>';
+
+    html+='<div class="field-lbl">Domains</div>';
+    DOMAINS.forEach(function(g){
+      html+='<div class="chips-group"><div class="gl">'+esc(g.group)+'</div><div class="chips">';
+      g.tags.forEach(function(t){
+        var sel=(d.tags||[]).indexOf(t.code)>=0;
+        html+='<button class="chip'+(sel?' sel':'')+'" data-action="toggle-tag" data-tag="'+t.code+'">'+t.label+'</button>';
+      });
+      html+='</div></div>';
+    });
+
+    html+='<div class="field-lbl">Other tags <span style="text-transform:none;letter-spacing:normal;color:var(--text-muted)">(EL shelf — comma separated, e.g. astrology, reharmonization)</span></div>'
+      +'<input type="text" id="freetags" placeholder="astrology, maqam…" value="'+esc(freeTagsOf(d).join(", "))+'">';
+
+    html+='<div class="actions">'
+      +'<button class="btn primary" data-action="save">Save note</button>'
+      +(d.id?'<button class="btn ghost" data-action="delete" data-id="'+d.id+'">Delete</button>':'')
+      +'</div>';
+    return html;
+  }
+  var DOMAIN_CODES=["PHYSICAL","MENTAL","SPIRITUAL","CAREER","FINANCIAL","SOCIAL"];
+  function freeTagsOf(d){ return (d.tags||[]).filter(function(t){ return DOMAIN_CODES.indexOf(t)<0; }).map(function(t){return t.toLowerCase();}); }
+
+  /* ---------------- render + events ---------------- */
+  function render(){
+    root.innerHTML = state.view==="read"?readView() : state.view==="edit"?editView() : listView();
+    window.scrollTo(0,0);
+    var t=document.getElementById("title"); if(t&&state.view==="edit"&&!state.draft.id) t.focus();
+  }
+
+  function captureDraftFields(){
+    if(state.view!=="edit") return;
+    var t=document.getElementById("title"), b=document.getElementById("body"), f=document.getElementById("freetags");
+    if(t) state.draft.title=t.value;
+    if(b) state.draft.body=b.value;
+    if(f){
+      var free=f.value.split(",").map(normTag).filter(Boolean);
+      var domains=(state.draft.tags||[]).filter(function(x){ return DOMAIN_CODES.indexOf(x)>=0; });
+      state.draft.tags=domains.concat(free);
+    }
+  }
+
+  root.addEventListener("click", function(ev){
+    var el=ev.target.closest("[data-action]"); if(!el) return;
+    var act=el.getAttribute("data-action");
+
+    if(act==="new"){ state.draft={tags:[]}; state.view="edit"; render(); }
+    else if(act==="read"){ state.id=el.getAttribute("data-id"); state.view="read"; render(); }
+    else if(act==="list"){ state.view="list"; render(); }
+    else if(act==="edit"){
+      var id=el.getAttribute("data-id"), n=loadNotes().filter(function(x){return x.id===id;})[0];
+      if(n){ state.draft=JSON.parse(JSON.stringify(n)); state.view="edit"; render(); }
+    }
+    else if(act==="toggle-tag"){
+      captureDraftFields();
+      var code=el.getAttribute("data-tag"), tags=state.draft.tags||[];
+      var i=tags.indexOf(code); if(i>=0) tags.splice(i,1); else tags.push(code);
+      state.draft.tags=tags; render();
+    }
+    else if(act==="save"){ captureDraftFields(); commit(); }
+    else if(act==="delete"){
+      var did=el.getAttribute("data-id");
+      saveNotes(loadNotes().filter(function(x){return x.id!==did;}));
+      state.view="list"; render(); toast("Note deleted");
+    }
+    else if(act==="filter"){ state.filter=el.getAttribute("data-tag"); state.view="list"; render(); }
+    else if(act==="clear-filter"){ state.filter=null; render(); }
+    else if(act==="keep"){ keepCapture(el.getAttribute("data-cap")); }
+    else if(act==="wikilink"){
+      var title=el.getAttribute("data-title"), ex=findByTitle(title);
+      if(ex){ state.id=ex.id; state.view="read"; render(); }
+      else { state.draft={tags:[], title:title}; state.view="edit"; render(); }   /* create on click */
+    }
+  });
+
+  function commit(){
+    var d=state.draft;
+    if((!d.title||!d.title.trim()) && (!d.body||!d.body.trim())){
+      toast("Add a title or body first"); return;
+    }
+    var notes=loadNotes(), now=new Date().toISOString();
+    if(d.id){
+      for(var i=0;i<notes.length;i++){ if(notes[i].id===d.id){
+        notes[i].title=d.title||""; notes[i].body=d.body||""; notes[i].tags=d.tags||[]; notes[i].updated=now;
+        if(d.fromCapture) notes[i].fromCapture=d.fromCapture;
+        break; } }
+    } else {
+      var note={ id:uid(), ts:now, updated:now, title:(d.title||"").trim(), body:d.body||"", tags:d.tags||[] };
+      if(d.fromCapture) note.fromCapture=d.fromCapture;
+      notes.unshift(note); d.id=note.id;
+    }
+    saveNotes(notes); state.id=d.id; state.view="read"; render(); toast("Note saved");
+  }
+
+  function keepCapture(capId){
+    var caps=NavKit.getCaptures(), c=null;
+    for(var i=0;i<caps.length;i++){ if(caps[i].id===capId){ c=caps[i]; break; } }
+    if(!c) return;
+    state.draft={ tags:(c.tags||[]).map(normTag), title:c.title||"Untitled bearing",
+      body:c.body||"", fromCapture:c.id };
+    state.view="edit"; render();
+  }
+
+  /* ---------------- toast ---------------- */
+  function toast(msg){
+    var t=document.createElement("div"); t.className="toast"; t.textContent=msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition="opacity .4s"; t.style.opacity="0"; },1400);
+    setTimeout(function(){ t.remove(); },1900);
+  }
+
+  /* live update: new Compass captures appear while on the list */
+  NavKit.onChange(function(){ if(state.view==="list") render(); });
+
+  render();
+})();
+</script>
+</body>
+</html>

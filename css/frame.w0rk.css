@@ -1,0 +1,282 @@
+/* ============================================================
+   frame.w0rk — Theme System v1
+   Portable design-system stylesheet (source of truth)
+   skele.t0l · festina lente
+   Versioning: vM.YY.JJJ.II
+   ------------------------------------------------------------
+   This is the reusable kit. Import it anywhere:
+       <link rel="stylesheet" href="css/frame.w0rk.css">
+   Switch modes by setting a data attribute on <html> or any
+   container:  data-theme="dark|light|monochrome|sepia|win98"
+   Element pastels (Quadruplicity) stay CONSTANT across all modes.
+   ============================================================ */
+
+/* ---- Fonts (Google Fonts) -------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Roboto+Mono:wght@400;500&display=swap');
+
+/* ============================================================
+   1. LOCKED TOKENS
+   ============================================================ */
+:root {
+  /* Container */
+  --void:        #1A1525;   /* plum-charcoal container          */
+
+  /* Quadruplicity — elemental pastels (constant across modes)  */
+  --air:         #B894D9;   /* Orchid     · Reading             */
+  --fire:        #E663A0;   /* Fuchsia    · Speaking            */
+  --water:       #7A8FE0;   /* Cornflower · Listening           */
+  --earth:       #C5D86E;   /* Chartreuse · Writing             */
+
+  /* Magnum Opus — alchemical framing layer                     */
+  --nigredo:     #050208;   /* blackening                       */
+  --albedo:      #F5F5F0;   /* whitening                        */
+  --rubedo:      #C5994D;   /* sepia-gold reddening             */
+  --pearl:       #DDC9A5;   /* champagne · threshold / 0.5      */
+
+  /* Type stack */
+  --display: 'Cinzel', serif;                    /* caps / display      */
+  --body:    'Cormorant Garamond', Georgia, serif;/* body + italic      */
+  --mono:    'Roboto Mono', ui-monospace, monospace; /* skele.t0l labels */
+
+  /* Scale */
+  --measure: 68ch;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --radius: 2px;
+
+  /* Motion */
+  --ease: cubic-bezier(.2, .6, .2, 1);
+}
+
+/* ============================================================
+   2. THEME MODES — semantic variables
+   bg / text / text-muted / head / accent / rule
+   ============================================================ */
+
+/* Dark — the void with gold accent (default) */
+:root,
+[data-theme="dark"] {
+  --bg:        #050208;
+  --surface:   #15101F;
+  --text:      #F5F5F0;
+  --text-muted:#A9A2B8;
+  --head:      #F5F5F0;
+  --accent:    #E5BC5C;
+  --rule:      #2B2436;
+}
+
+/* Light — grey morning workspace */
+[data-theme="light"] {
+  --bg:        #E8E5E0;
+  --surface:   #F3F1ED;
+  --text:      #2A2A30;
+  --text-muted:#5C5A63;
+  --head:      #1E1B26;
+  --accent:    #8B6F3D;
+  --rule:      #CFCAC2;
+}
+
+/* Monochrome — the engraving render */
+[data-theme="monochrome"] {
+  --bg:        #1F1F22;
+  --surface:   #2A2A2E;
+  --text:      #E5E5E5;
+  --text-muted:#9A9A9A;
+  --head:      #FFFFFF;
+  --accent:    #BCBCBC;
+  --rule:      #3A3A3E;
+}
+
+/* Sepia — aged manuscript */
+[data-theme="sepia"] {
+  --bg:        #E8DCC4;
+  --surface:   #F0E7D4;
+  --text:      #3E2D1A;
+  --text-muted:#6B5638;
+  --head:      #2C1E0E;
+  --accent:    #8B6F3D;
+  --rule:      #CDBE9C;
+}
+
+/* Windows 98 — cosmic desktop */
+[data-theme="win98"] {
+  --bg:        #1A1525;       /* desktop ether        */
+  --surface:   #C0C0C0;       /* beveled grey chrome  */
+  --text:      #F5F5F0;       /* on desktop           */
+  --text-muted:#B5AEC2;
+  --head:      #F5F5F0;
+  --accent:    #E663A0;       /* fuchsia title bar    */
+  --rule:      #2B2436;
+  /* bevel tokens */
+  --bevel-light: #FFFFFF;
+  --bevel-dark:  #808080;
+  --bevel-deep:  #404040;
+}
+
+/* ============================================================
+   3. BASE
+   ============================================================ */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: clamp(1.05rem, 0.6vw + 1rem, 1.2rem);
+  line-height: 1.55;
+  transition: background .4s var(--ease), color .4s var(--ease);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  color: var(--head);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.5em;
+}
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.mono { font-family: var(--mono); font-size: 0.82em; letter-spacing: 0.02em; }
+.caps { font-family: var(--display); text-transform: uppercase; letter-spacing: 0.16em; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ============================================================
+   4. COMPONENTS
+   ============================================================ */
+
+/* Swatch */
+.fw-swatch {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+.fw-swatch .chip { height: 84px; }
+.fw-swatch .meta { padding: 0.6rem 0.7rem; }
+.fw-swatch .meta .name { font-family: var(--display); font-size: 0.95rem; letter-spacing: 0.04em; }
+.fw-swatch .meta .hex  { font-family: var(--mono); font-size: 0.72rem; color: var(--text-muted); }
+
+/* Codex card — the canonical specimen surface */
+.fw-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+}
+.fw-card::before {
+  content: "";
+  position: absolute; inset: 6px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ---- Windows 98 chrome ----------------------------------- */
+.fw-win {
+  background: #C0C0C0;
+  border: 2px solid;
+  border-color: var(--bevel-light, #fff) var(--bevel-deep, #404040) var(--bevel-deep, #404040) var(--bevel-light, #fff);
+  box-shadow: 1px 1px 0 var(--bevel-dark, #808080), inset 1px 1px 0 #dfdfdf;
+  color: #1a1a1a;
+  font-family: var(--mono);
+  width: 100%;
+  max-width: 480px;
+}
+.fw-win__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--accent, #E663A0);
+  color: #fff;
+  padding: 3px 4px 3px 7px;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.fw-win__close {
+  width: 18px; height: 16px;
+  display: grid; place-items: center;
+  background: #C0C0C0; color: #1a1a1a;
+  font-family: var(--mono); font-size: 0.7rem; line-height: 1;
+  border: 1px solid;
+  border-color: #fff #404040 #404040 #fff;
+}
+.fw-win__menu {
+  display: flex; gap: 0.9rem;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  border-bottom: 1px solid #808080;
+}
+.fw-win__menu u { text-decoration: underline; }
+.fw-win__well {
+  margin: 8px;
+  padding: 1.4rem 1.1rem;
+  background: var(--void);
+  border: 1px solid;
+  border-color: #404040 #fff #fff #404040;
+  color: var(--pearl);
+  text-align: center;
+}
+.fw-win__well .glyphs { font-size: 1.4rem; letter-spacing: 0.5rem; color: var(--air); }
+.fw-win__well .motto { font-family: var(--body); font-style: italic; font-size: 1.5rem; color: var(--albedo); margin-top: 0.3rem; }
+.fw-win__taskbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 8px; padding: 3px 4px;
+  border-top: 1px solid #fff;
+  font-size: 0.66rem;
+}
+.fw-win__start {
+  font-family: var(--display); font-weight: 600; letter-spacing: 0.04em;
+  padding: 2px 9px;
+  border: 1px solid; border-color: #fff #404040 #404040 #fff;
+  background: #C0C0C0;
+}
+.fw-win__clock {
+  padding: 2px 8px;
+  border: 1px solid; border-color: #404040 #fff #fff #404040;
+}
+
+/* ---- Starfield ------------------------------------------- */
+.fw-stars {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  opacity: 0.9;
+}
+.fw-stars span {
+  position: absolute; width: 2px; height: 2px; border-radius: 50%;
+  background: var(--pearl);
+  animation: fw-twinkle 4s var(--ease) infinite;
+}
+@keyframes fw-twinkle { 0%,100%{opacity:.25} 50%{opacity:1} }
+
+/* ============================================================
+   5. WIN98 GLOBAL SKIN
+   When the whole page is in win98 mode, dress sections as chrome.
+   ============================================================ */
+[data-theme="win98"] body { background: var(--void); }
+[data-theme="win98"] .fw-card {
+  background: #C0C0C0;
+  color: #1a1a1a;
+  border: 2px solid;
+  border-color: #fff #404040 #404040 #fff;
+  border-radius: 0;
+}
+[data-theme="win98"] .fw-card::before { display: none; }
+[data-theme="win98"] h1,
+[data-theme="win98"] h2,
+[data-theme="win98"] h3 { color: #1a1a1a; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}

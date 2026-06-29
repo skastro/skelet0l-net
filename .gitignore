@@ -1,0 +1,12 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / tooling
+.vscode/
+.idea/
+
+# Local env
+.env
+.env.*

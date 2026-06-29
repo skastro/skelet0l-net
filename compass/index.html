@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Compass</title>
+<meta name="theme-color" content="#1A1525">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Compass">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- frame.w0rk — shared design-system source of truth (locked tokens) -->
+<link rel="stylesheet" href="/css/frame.w0rk.css">
+<style>
+  :root{
+    /* Compass tokens, aliased to frame.w0rk's LOCKED layer (one source of truth).
+       --void/--pearl/--fire/--earth/--air/--water/--display/--body/--mono/--rule/--accent
+       all resolve from css/frame.w0rk.css. */
+    --plum: var(--void);
+    --plum-2:#221A30; --plum-3:#2A2038;   /* void-adjacent raised surfaces */
+    --champ: var(--pearl);
+    --champ-dim:#C9B89A;
+    --muted: var(--text-muted);
+    --line: var(--rule);
+    --gold: var(--accent);
+    --f-disp: var(--display);
+    --f-body: var(--body);
+    --f-mono: var(--mono);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(120% 90% at 50% -10%, #251B36 0%, var(--plum) 55%, #140F1E 100%);
+    background-attachment:fixed;
+    color:var(--champ);
+    font-family:var(--f-body);
+    font-size:19px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding:env(safe-area-inset-top) 0 calc(env(safe-area-inset-bottom) + 24px);
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:26px 22px 60px}
+  .mono{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase}
+  .eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  h1,h2,h3{font-family:var(--f-disp);font-weight:600;margin:0;color:var(--champ)}
+  button{font-family:inherit;cursor:pointer;color:inherit;background:none;border:none}
+  :focus-visible{outline:2px solid var(--champ);outline-offset:3px;border-radius:4px}
+
+  /* ---- masthead ---- */
+  .mast{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+  .mast .title{font-family:var(--f-disp);font-size:26px;font-weight:600;letter-spacing:.18em}
+  .mast .sub{font-family:var(--f-body);font-style:italic;font-size:16px;color:var(--champ-dim);letter-spacing:.02em}
+  .mark{width:34px;height:34px;flex:none}
+  .navlink{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:7px 2px}
+  .navlink:hover{color:var(--champ)}
+  .jclock{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+  .seal{display:flex;align-items:center;gap:10px;margin-top:34px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-wrap:wrap}
+  .seal img{opacity:.9;flex:none}
+  .seal .seal-stamp{margin-left:auto;color:var(--champ-dim);letter-spacing:.12em}
+
+  .banner{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:22px;text-align:center;line-height:1.5}
+
+  /* ---- pin: today's bearing ---- */
+  .pin{border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;margin-bottom:18px;
+    background:linear-gradient(180deg, rgba(221,201,165,.05), rgba(221,201,165,0));position:relative;overflow:hidden}
+  .pin .eyebrow{margin-bottom:9px}
+  .pin .obj{font-family:var(--f-disp);font-size:21px;line-height:1.25;color:var(--champ);margin-bottom:4px}
+  .pin .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .pin.empty .obj{font-family:var(--f-body);font-style:italic;font-size:18px;color:var(--champ-dim)}
+  .pin .pinrose{position:absolute;right:-26px;top:-26px;width:120px;height:120px;opacity:.5}
+
+  /* ---- doors ---- */
+  .doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 26px}
+  .door{border:1px solid var(--line);border-radius:14px;padding:16px 15px;text-align:left;width:100%;
+    background:rgba(42,32,56,.35);transition:border-color .2s,transform .2s,background .2s}
+  .door:hover{border-color:var(--champ-dim);transform:translateY(-2px);background:rgba(42,32,56,.6)}
+  .door .dt{font-family:var(--f-disp);font-size:17px;color:var(--champ);margin-bottom:3px}
+  .door .dd{font-family:var(--f-body);font-size:15px;color:var(--muted);line-height:1.35}
+  .door .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-bottom:9px}
+  .door.full{grid-column:1 / -1}
+
+  /* ---- section + log ---- */
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;margin:8px 0 12px}
+  .sec-h .eyebrow{color:var(--muted)}
+  .log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .logitem{border:1px solid var(--line);border-radius:11px;padding:13px 14px;width:100%;text-align:left;
+    display:flex;align-items:center;gap:12px;transition:border-color .18s,background .18s}
+  .logitem:hover{border-color:var(--champ-dim);background:rgba(42,32,56,.4)}
+  .logitem .ix{width:30px;height:30px;flex:none}
+  .logitem .lt{flex:1;min-width:0}
+  .logitem .lt .o{font-family:var(--f-body);font-size:17px;color:var(--champ);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .logitem .lt .m{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  .empty-state{border:1px dashed var(--line);border-radius:12px;padding:26px 18px;text-align:center;color:var(--champ-dim);font-style:italic;font-size:17px}
+
+  /* ---- casting flow ---- */
+  .cast{}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+  .back{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:8px 0}
+  .back:hover{color:var(--champ)}
+  .progress{display:flex;gap:6px;margin-bottom:26px}
+  .progress i{height:3px;flex:1;background:var(--line);border-radius:3px;transition:background .3s}
+  .progress i.on{background:var(--champ-dim)}
+  .step-eyebrow{margin-bottom:14px}
+  .prompt{font-family:var(--f-disp);font-size:25px;line-height:1.28;margin-bottom:8px;color:var(--champ)}
+  .hint{font-family:var(--f-body);font-size:17px;color:var(--muted);margin-bottom:18px;line-height:1.4}
+  textarea, input[type=text]{
+    width:100%;background:rgba(20,15,30,.5);border:1px solid var(--line);border-radius:11px;
+    color:var(--champ);font-family:var(--f-body);font-size:19px;line-height:1.5;padding:14px 15px;resize:vertical}
+  textarea{min-height:120px}
+  textarea:focus,input:focus{outline:none;border-color:var(--accent,var(--champ-dim))}
+  .accent-rule{height:2px;width:42px;border-radius:2px;margin-bottom:16px;background:var(--accent,var(--champ))}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--line);border-radius:20px;padding:7px 12px;transition:all .15s}
+  .chip:hover{border-color:var(--champ-dim);color:var(--champ-dim)}
+  .chip.sel{color:var(--plum);background:var(--champ-dim);border-color:var(--champ-dim)}
+  .chip-label{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:18px 0 0}
+  .actions{display:flex;gap:12px;margin-top:28px}
+  .btn{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:11px;padding:14px 20px;transition:all .18s;flex:1;text-align:center}
+  .btn:hover{border-color:var(--champ-dim)}
+  .btn.primary{background:var(--champ);color:var(--plum);border-color:var(--champ);font-weight:500}
+  .btn.primary:hover{background:#EAD9BC}
+  .btn.ghost{flex:none;padding:14px 18px;color:var(--muted)}
+
+  /* ---- reading / rose ---- */
+  .reading .robj{font-family:var(--f-disp);font-size:25px;line-height:1.25;margin:6px 0 6px;color:var(--champ)}
+  .reading .rmeta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .feeling-note{font-family:var(--f-body);font-style:italic;font-size:18px;color:var(--champ-dim);
+    border-left:2px solid var(--air);padding:2px 0 2px 14px;margin:14px 0 4px}
+  .rosewrap{display:flex;justify-content:center;margin:18px 0 8px}
+  .rose{width:100%;max-width:360px;height:auto}
+  .axis-cap{display:flex;justify-content:space-between;max-width:360px;margin:0 auto 18px;
+    font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .pairhead{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:18px 0 9px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .lcard{border:1px solid var(--line);border-top-width:2px;border-radius:11px;padding:13px 14px;background:rgba(42,32,56,.3);transition:box-shadow .2s,border-color .2s}
+  .lcard.lit{box-shadow:0 0 0 1px var(--c) inset}
+  .lcard .lh{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+  .lcard .ln{font-family:var(--f-disp);font-size:16px;color:var(--c)}
+  .lcard .le{font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .lcard .lx{font-family:var(--f-body);font-size:16.5px;color:var(--champ);line-height:1.42;white-space:pre-wrap}
+  .lcard .lx.blank{color:var(--muted);font-style:italic}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important}
+  }
+  @media (max-width:480px){
+    body{font-size:18px}
+    .doors{grid-template-columns:1fr}
+    .prompt{font-size:23px}
+  }
+  /* load-in for rose needles */
+  .needle{transform-box:fill-box;transform-origin:center;animation:bloom .7s ease-out backwards}
+  @keyframes bloom{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- storage (graceful) ---------------- */
+  var Store = (function(){
+    var mem = {}, ok = true;
+    try { var k="__c_t"; localStorage.setItem(k,"1"); localStorage.removeItem(k); }
+    catch(e){ ok = false; }
+    return {
+      persistent: ok,
+      get:function(key){ try { return ok ? localStorage.getItem(key) : (key in mem ? mem[key] : null); } catch(e){ return key in mem ? mem[key] : null; } },
+      set:function(key,val){ try { if(ok) localStorage.setItem(key,val); else mem[key]=val; } catch(e){ mem[key]=val; } }
+    };
+  })();
+  var KEY = "compass.readings.v1";
+  function load(){ try { return JSON.parse(Store.get(KEY)||"[]"); } catch(e){ return []; } }
+  function save(arr){ Store.set(KEY, JSON.stringify(arr)); }
+
+  /* ---------------- model ---------------- */
+  var LEVERS = [
+    {key:"pressure",    name:"Pressure",    element:"Fire",  color:"var(--fire)",  hex:"#E663A0", dir:"N",
+      q:"What stands between you and it?", hint:"The forces, literal or implied, in your way."},
+    {key:"positioning", name:"Positioning", element:"Earth", color:"var(--earth)", hex:"#C5D86E", dir:"S",
+      q:"Where do you stand right now?", hint:"Your stance toward the pressure \u2014 the lever you control most."},
+    {key:"awareness",   name:"Awareness",   element:"Air",   color:"var(--air)",   hex:"#B894D9", dir:"W",
+      q:"What do you need to see clearly?", hint:"What to stay mindful of, gather, or get curious about."},
+    {key:"skill",       name:"Skill",       element:"Water", color:"var(--water)", hex:"#7A8FE0", dir:"E",
+      q:"What do you bring to bear?", hint:"The abilities and resources you\u2019ll spend."}
+  ];
+  function lever(k){ for(var i=0;i<LEVERS.length;i++){ if(LEVERS[i].key===k) return LEVERS[i]; } }
+
+  var DOMAINS = ["Physical","Mental","Spiritual","Career","Financial","Social"];
+
+  var MODES = {
+    bearing:  {title:"Take a Bearing", color:"var(--champ)", dot:"#DDC9A5",
+               objQ:"Where are you trying to get?", objHint:"Name the objective \u2014 the destination the needle points toward."},
+    ritual:   {title:"Daily Brief", color:"var(--champ)", dot:"#DDC9A5",
+               objQ:"What\u2019s today\u2019s objective?", objHint:"One bearing to orient the whole day around."},
+    recenter: {title:"Re-center", color:"var(--air)", dot:"#B894D9", feeling:true,
+               feelingQ:"Something feels off. Name it.", feelingHint:"What you can describe, you can orient around.",
+               objQ:"What were you trying to get to?", objHint:"Name the objective you lost sight of."}
+  };
+
+  /* ---------------- state ---------------- */
+  var state = { view:"home", mode:null, step:0, draft:null, id:null };
+  var root = document.getElementById("root");
+
+  function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  function isToday(ts){ var d=new Date(ts), n=new Date(); return d.toDateString()===n.toDateString(); }
+  function fmtDate(ts){ var d=new Date(ts); return d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" \u00b7 "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}); }
+  function pad2(n){ return String(n).padStart(2,"0"); }
+  function julianOf(ts){ var d=new Date(ts), s=new Date(d.getFullYear(),0,0); return Math.floor((d-s)/86400000); }
+  // Astral Codex mark — vM.YY.JJJ.II. A cast is compass-class (vC): a helm move
+  // that integrates all four operations rather than a single-medium frac.t0l.
+  function stampOf(r){ var d=new Date(r.ts); return "vC."+String(d.getFullYear()).slice(2)+"."+String(julianOf(r.ts)).padStart(3,"0")+"."+pad2(r.ii||1); }
+  var INSTRUMENT_STAMP = "vC.26.179.02";
+
+  /* ---------------- compass rose (signature) ---------------- */
+  function rose(reading, size, anim){
+    size = size||360;
+    var c=size/2, R=size*0.47, tickR=size*0.43, tipR=size*0.40, baseR=size*0.085, hubR=size*0.085;
+    var dirs={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]};
+    var svg='<svg class="rose" viewBox="0 0 '+size+' '+size+'" role="img" aria-label="Compass reading">';
+    // faint axis lines (given = vertical, grown = horizontal)
+    svg+='<line x1="'+c+'" y1="'+(c-R)+'" x2="'+c+'" y2="'+(c+R)+'" stroke="#3A3050" stroke-width="1"/>';
+    svg+='<line x1="'+(c-R)+'" y1="'+c+'" x2="'+(c+R)+'" y2="'+c+'" stroke="#3A3050" stroke-width="1"/>';
+    // outer ring + ticks
+    svg+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="#3A3050" stroke-width="1.2"/>';
+    for(var a=0;a<360;a+=15){
+      var rad=a*Math.PI/180, big=(a%90===0);
+      var r1=big?tickR-10:tickR-5, r2=tickR;
+      svg+='<line x1="'+(c+Math.sin(rad)*r1)+'" y1="'+(c-Math.cos(rad)*r1)+'" x2="'+(c+Math.sin(rad)*r2)+'" y2="'+(c-Math.cos(rad)*r2)+'" stroke="#3A3050" stroke-width="'+(big?1.4:0.8)+'"/>';
+    }
+    // needles per lever
+    LEVERS.forEach(function(l,i){
+      var d=dirs[l.dir], px=-d[1], py=d[0]; // perpendicular
+      var tip=[c+d[0]*tipR, c+d[1]*tipR];
+      var bl=[c+px*baseR, c+py*baseR];
+      var br=[c-px*baseR, c-py*baseR];
+      var hasText = reading && reading[l.key] && reading[l.key].trim();
+      var op = hasText? 0.92 : 0.32;
+      var pts=tip[0].toFixed(1)+","+tip[1].toFixed(1)+" "+bl[0].toFixed(1)+","+bl[1].toFixed(1)+" "+br[0].toFixed(1)+","+br[1].toFixed(1);
+      var sty = anim ? ' style="animation-delay:'+(0.12*i)+'s"' : '';
+      svg+='<polygon class="needle" data-lever="'+l.key+'" points="'+pts+'" fill="'+l.hex+'" fill-opacity="'+op+'"'+sty+'/>';
+      // point label
+      var lr=R+0; var lx=c+d[0]*(R+ (l.dir==="W"||l.dir==="E"?2:2)); var ly=c+d[1]*(R)+ (l.dir==="N"?-9: l.dir==="S"?17:4);
+      var anchor = l.dir==="W"?"end": l.dir==="E"?"start":"middle";
+      var tx = l.dir==="W"? c-R-6 : l.dir==="E"? c+R+6 : c;
+      var ty = l.dir==="N"? c-R-9 : l.dir==="S"? c+R+18 : c+4;
+      svg+='<text x="'+tx+'" y="'+ty+'" text-anchor="'+anchor+'" fill="'+l.hex+'" font-family="Roboto Mono, monospace" font-size="'+(size*0.032)+'" letter-spacing="1.5">'+l.name.toUpperCase()+'</text>';
+    });
+    // hub + 4-point star
+    svg+='<circle cx="'+c+'" cy="'+c+'" r="'+hubR+'" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.4"/>';
+    var s=hubR*0.62;
+    svg+='<polygon points="'+c+','+(c-s)+' '+(c+s*0.28)+','+(c-s*0.28)+' '+(c+s)+','+c+' '+(c+s*0.28)+','+(c+s*0.28)+' '+c+','+(c+s)+' '+(c-s*0.28)+','+(c+s*0.28)+' '+(c-s)+','+c+' '+(c-s*0.28)+','+(c-s*0.28)+'" fill="#DDC9A5"/>';
+    svg+='</svg>';
+    return svg;
+  }
+
+  function miniRose(reading){
+    // small decorative svg for pin / log
+    var size=120,c=60;
+    var dirs={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]};
+    var svg='<svg viewBox="0 0 120 120" aria-hidden="true">';
+    svg+='<circle cx="60" cy="60" r="50" fill="none" stroke="#3A3050"/>';
+    LEVERS.forEach(function(l){
+      var d=dirs[l.dir],px=-d[1],py=d[0];
+      var tip=[c+d[0]*46,c+d[1]*46], bl=[c+px*7,c+py*7], br=[c-px*7,c-py*7];
+      var has=reading&&reading[l.key]&&reading[l.key].trim();
+      svg+='<polygon points="'+tip[0]+','+tip[1]+' '+bl[0]+','+bl[1]+' '+br[0]+','+br[1]+'" fill="'+l.hex+'" fill-opacity="'+(has?0.9:0.3)+'"/>';
+    });
+    svg+='<circle cx="60" cy="60" r="9" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.2"/></svg>';
+    return svg;
+  }
+
+  /* ---------------- navigation kit bridge ---------------- */
+  var NAVKIT = "navkit.v1.";
+  function leverTag(k){ return {pressure:"#PRESSURE",positioning:"#POSITIONING",awareness:"#AWARENESS",skill:"#SKILLS"}[k]; }
+  function toCapture(r){
+    var tags=["#STRATEGY"];
+    LEVERS.forEach(function(l){ if(r[l.key]&&r[l.key].trim()) tags.push(leverTag(l.key)); });
+    if(r.domain) tags.push("#"+r.domain.toUpperCase());
+    tags.push(r.mode==="ritual"?"#DAILYBRIEF": r.mode==="recenter"?"#RECENTER":"#BEARING");
+    var lines=["Objective: "+(r.objective||"\u2014")];
+    if(r.feeling&&r.feeling.trim()) lines.push("Feeling: "+r.feeling.trim());
+    LEVERS.forEach(function(l){ if(r[l.key]&&r[l.key].trim()) lines.push(l.name+" ("+l.element+"): "+r[l.key].trim()); });
+    return { id:r.id, ts:r.ts, jstamp:stampOf(r), source:"the-compass",
+      title:r.objective||"Untitled bearing", mode:r.mode, domain:r.domain||null,
+      tags:tags, body:lines.join("\n"),
+      levers:{pressure:r.pressure||"",positioning:r.positioning||"",awareness:r.awareness||"",skill:r.skill||""} };
+  }
+  function syncKit(){
+    var readings=load();
+    Store.set(NAVKIT+"readings", JSON.stringify(readings));
+    Store.set(NAVKIT+"captures", JSON.stringify(readings.map(toCapture)));
+    var cur=null;
+    for(var i=0;i<readings.length;i++){ if(readings[i].mode==="ritual"&&isToday(readings[i].ts)){ cur=readings[i]; break; } }
+    if(!cur&&readings.length) cur=readings[0];
+    Store.set(NAVKIT+"currentBearing", cur?JSON.stringify(toCapture(cur)):"");
+    Store.set(NAVKIT+"updated", new Date().toISOString());
+  }
+  function captureMarkdown(r){ var c=toCapture(r); return c.tags.join(" ")+"\n\n"+c.body+"\n\n"+c.jstamp+" \u00b7 "+fmtDate(r.ts); }
+  function copyText(txt, okMsg){
+    var done=function(){ toast(okMsg||"Copied"); };
+    var legacy=function(){ var ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); done(); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(legacy); }
+    else legacy();
+  }
+  function exportJSON(){
+    var data={ schema:"navkit.v1", exported:new Date().toISOString(), readings:load(), captures:load().map(toCapture) };
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+    a.download="compass-navkit-J"+julianOf(new Date().toISOString())+".json"; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},800); toast("Exported navkit JSON");
+  }
+  function toast(msg){
+    var t=document.createElement("div"); t.textContent=msg;
+    t.style.cssText="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--plum-3);color:var(--champ);font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 16px;border:1px solid var(--line);border-radius:10px;z-index:60;box-shadow:0 6px 24px rgba(0,0,0,.45)";
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition="opacity .4s"; t.style.opacity="0"; },1500);
+    setTimeout(function(){ t.remove(); },2000);
+  }
+
+  /* ---------------- views ---------------- */
+  function masthead(){
+    return '<div class="mast">'
+      +'<div><div class="title">The Compass</div><div class="sub">festina lente</div></div>'
+      +'<div style="display:flex;align-items:center;gap:14px">'
+      +'<span class="jclock">J'+julianOf(new Date().toISOString())+'</span>'
+      +'<button class="navlink" data-action="history">Log</button>'
+      +'<span class="mark">'+miniRose(null)+'</span>'
+      +'</div></div>';
+  }
+
+  function familySeal(){
+    return '<div class="seal">'
+      +'<img src="/assets/sigil.svg" alt="skele.t0l" width="22" height="22">'
+      +'<span>skele.t0l \u00b7 frame.w0rk family \u00b7 <span style="font-style:italic;text-transform:none">festina lente</span></span>'
+      +'<span class="seal-stamp">'+INSTRUMENT_STAMP+'</span></div>';
+  }
+
+  function home(){
+    var readings = load();
+    var todays = null;
+    for(var i=0;i<readings.length;i++){ if(readings[i].mode==="ritual" && isToday(readings[i].ts)){ todays=readings[i]; break; } }
+    var html = masthead();
+
+    if(!Store.persistent){
+      html += '<div class="banner">Preview mode \u2014 readings persist when you open the downloaded file or install it to your home screen.</div>';
+    }
+
+    // pin
+    if(todays){
+      html += '<button class="pin" data-action="view" data-id="'+todays.id+'" style="text-align:left;display:block;width:100%">'
+        +'<div class="pinrose">'+miniRose(todays)+'</div>'
+        +'<div class="eyebrow">Today\u2019s Bearing</div>'
+        +'<div class="obj">'+esc(todays.objective||"\u2014")+'</div>'
+        +'<div class="meta">'+(todays.domain?esc(todays.domain)+" \u00b7 ":"")+fmtDate(todays.ts)+'</div></button>';
+    } else {
+      html += '<button class="pin empty" data-action="start" data-mode="ritual" style="text-align:left;display:block;width:100%">'
+        +'<div class="eyebrow">Daily Brief</div>'
+        +'<div class="obj">Set today\u2019s bearing \u2014 one objective to orient around.</div></button>';
+    }
+
+    // doors
+    html += '<div class="doors">'
+      +'<button class="door" data-action="start" data-mode="bearing">'
+        +'<span class="dot" style="background:var(--champ)"></span>'
+        +'<div class="dt">Take a Bearing</div><div class="dd">Cast against any objective, right now.</div></button>'
+      +'<button class="door" data-action="start" data-mode="recenter">'
+        +'<span class="dot" style="background:var(--air)"></span>'
+        +'<div class="dt">Re-center</div><div class="dd">Feeling off? Find the needle again.</div></button>'
+      +'</div>';
+
+    // log preview
+    html += '<div class="sec-h"><span class="eyebrow">Recent Readings</span>'
+      +(readings.length>4?'<button class="navlink" data-action="history">All</button>':'')+'</div>';
+    if(readings.length===0){
+      html += '<div class="empty-state">No readings yet. Take a bearing to begin.</div>';
+    } else {
+      html += '<ul class="log">';
+      readings.slice(0,5).forEach(function(r){
+        html += '<li><button class="logitem" data-action="view" data-id="'+r.id+'">'
+          +'<span class="ix">'+miniRose(r)+'</span>'
+          +'<span class="lt"><span class="o">'+esc(r.objective||"Untitled")+'</span>'
+          +'<span class="m">'+modeLabel(r.mode)+' \u00b7 '+(r.domain?esc(r.domain)+" \u00b7 ":"")+fmtDate(r.ts)+'</span></span>'
+          +'</button></li>';
+      });
+      html += '</ul>';
+    }
+    html += familySeal();
+    return html;
+  }
+
+  function modeLabel(m){ return m==="ritual"?"Daily Brief": m==="recenter"?"Re-center":"Bearing"; }
+
+  function stepsFor(mode){
+    var s=[]; if(MODES[mode].feeling) s.push({type:"feeling"});
+    s.push({type:"objective"});
+    LEVERS.forEach(function(l){ s.push({type:"lever",lever:l}); });
+    return s;
+  }
+
+  function castView(){
+    var m = MODES[state.mode];
+    var steps = stepsFor(state.mode);
+    var total = steps.length;
+    var cur = steps[state.step];
+    var last = state.step===total-1;
+    var d = state.draft;
+
+    var html = '<div class="cast">';
+    html += '<div class="topbar"><button class="back" data-action="'+(state.step===0?"home":"prev")+'">'
+      +(state.step===0?"\u2190 Cancel":"\u2190 Back")+'</button>'
+      +'<span class="eyebrow">'+esc(m.title)+'</span></div>';
+
+    // progress
+    html += '<div class="progress">';
+    for(var i=0;i<total;i++){ html += '<i class="'+(i<=state.step?"on":"")+'"></i>'; }
+    html += '</div>';
+
+    if(cur.type==="feeling"){
+      html += '<div class="step-eyebrow eyebrow" style="color:var(--air)">The Feeling</div>'
+        +'<div class="accent-rule" style="--accent:var(--air)"></div>'
+        +'<div class="prompt">'+esc(m.feelingQ)+'</div>'
+        +'<div class="hint">'+esc(m.feelingHint)+'</div>'
+        +'<textarea id="field" style="--accent:var(--air)" placeholder="Name what\u2019s off\u2026">'+esc(d.feeling||"")+'</textarea>';
+    } else if(cur.type==="objective"){
+      html += '<div class="step-eyebrow eyebrow">The Objective</div>'
+        +'<div class="accent-rule"></div>'
+        +'<div class="prompt">'+esc(m.objQ)+'</div>'
+        +'<div class="hint">'+esc(m.objHint)+'</div>'
+        +'<input type="text" id="field" placeholder="Name the objective\u2026" value="'+esc(d.objective||"")+'">'
+        +'<div class="chip-label">Life-area (optional)</div><div class="chips" id="chips">';
+      DOMAINS.forEach(function(dm){
+        html += '<button class="chip'+(d.domain===dm?" sel":"")+'" data-domain="'+dm+'">'+dm+'</button>';
+      });
+      html += '</div>';
+    } else {
+      var l=cur.lever;
+      html += '<div class="step-eyebrow eyebrow" style="color:'+l.color+'">'+l.name+' \u00b7 '+l.element+'</div>'
+        +'<div class="accent-rule" style="--accent:'+l.color+'"></div>'
+        +'<div class="prompt">'+esc(l.q)+'</div>'
+        +'<div class="hint">'+esc(l.hint)+'</div>'
+        +'<textarea id="field" style="--accent:'+l.color+'" placeholder="\u2026">'+esc(d[l.key]||"")+'</textarea>';
+    }
+
+    html += '<div class="actions">';
+    if(state.step>0) html += '<button class="btn ghost" data-action="prev">Back</button>';
+    html += '<button class="btn primary" data-action="'+(last?"cast":"next")+'">'+(last?"Cast the Reading":"Continue")+'</button>';
+    html += '</div></div>';
+    return html;
+  }
+
+  function readingView(){
+    var readings=load(), r=null;
+    for(var i=0;i<readings.length;i++){ if(readings[i].id===state.id){ r=readings[i]; break; } }
+    if(!r){ state.view="home"; return home(); }
+
+    var html='<div class="reading">';
+    html += '<div class="topbar"><button class="back" data-action="home">\u2190 Home</button>'
+      +'<span class="eyebrow">'+modeLabel(r.mode)+'</span></div>';
+    html += '<div class="rmeta">'+stampOf(r)+' \u00b7 '+fmtDate(r.ts)+(r.domain?' \u00b7 '+esc(r.domain):'')+'</div>';
+    if(r.ii>1){ html += '<div class="rmeta" style="color:var(--air)">iteration '+pad2(r.ii)+' \u00b7 recast \u2014 prior casts sealed in the log</div>'; }
+    html += '<div class="robj">'+esc(r.objective||"Untitled bearing")+'</div>';
+    if(r.feeling && r.feeling.trim()){
+      html += '<div class="feeling-note">'+esc(r.feeling)+'</div>';
+    }
+    html += '<div class="rosewrap">'+rose(r,360,true)+'</div>';
+    html += '<div class="axis-cap"><span>\u2191 the given</span><span>the grown \u2192</span></div>';
+
+    // given pair
+    html += '<div class="pairhead">The Given \u2014 Situation</div><div class="grid2">'
+      + lcard(lever("pressure"), r.pressure) + lcard(lever("positioning"), r.positioning) + '</div>';
+    // grown pair
+    html += '<div class="pairhead">The Grown \u2014 Strategy</div><div class="grid2">'
+      + lcard(lever("awareness"), r.awareness) + lcard(lever("skill"), r.skill) + '</div>';
+
+    html += '<div class="actions">'
+      +'<button class="btn ghost" data-action="send-log" data-id="'+r.id+'" style="flex:1">Send to Ship Log</button>'
+      +'<button class="btn primary" data-action="recast" data-id="'+r.id+'">Recast this bearing</button>'
+      +'</div>';
+    html += '<div class="actions" style="margin-top:10px">'
+      +'<button class="btn ghost" data-action="delete" data-id="'+r.id+'" style="flex:1">Delete reading</button>'
+      +'</div></div>';
+    return html;
+  }
+
+  function lcard(l, text){
+    var blank = !text || !text.trim();
+    return '<div class="lcard" data-lever="'+l.key+'" style="--c:'+l.color+';border-top-color:'+l.color+'">'
+      +'<div class="lh"><span class="ln">'+l.name+'</span><span class="le">'+l.element+'</span></div>'
+      +'<div class="lx'+(blank?' blank':'')+'">'+(blank?"\u2014 not cast":esc(text))+'</div></div>';
+  }
+
+  function historyView(){
+    var readings=load();
+    var html=masthead();
+    html += '<div class="sec-h"><span class="eyebrow">The Log \u00b7 '+readings.length+' reading'+(readings.length===1?"":"s")+'</span>'
+      +'<span style="display:flex;gap:16px">'
+      +(readings.length?'<button class="navlink" data-action="export">Export</button>':'')
+      +'<button class="navlink" data-action="home">Home</button></span></div>';
+    if(readings.length){
+      html += '<div class="banner" style="text-align:left">Readings mirror to the navigation kit \u00b7 <span style="color:var(--champ-dim)">navkit.v1</span> \u2014 the shared channel The Map and The Ship Log read from.</div>';
+    }
+    if(readings.length===0){ html+='<div class="empty-state">No readings yet. Take a bearing to begin.</div>'; return html; }
+    html += '<ul class="log">';
+    readings.forEach(function(r){
+      html += '<li><button class="logitem" data-action="view" data-id="'+r.id+'">'
+        +'<span class="ix">'+miniRose(r)+'</span>'
+        +'<span class="lt"><span class="o">'+esc(r.objective||"Untitled")+'</span>'
+        +'<span class="m">'+modeLabel(r.mode)+' \u00b7 '+(r.domain?esc(r.domain)+" \u00b7 ":"")+fmtDate(r.ts)+'</span></span>'
+        +'</button></li>';
+    });
+    html += '</ul>';
+    html += familySeal();
+    return html;
+  }
+
+  /* ---------------- render + events ---------------- */
+  function render(){
+    var v=state.view;
+    root.innerHTML = v==="cast"?castView() : v==="reading"?readingView() : v==="history"?historyView() : home();
+    window.scrollTo(0,0);
+    var f=document.getElementById("field"); if(f && state.view==="cast"){ f.focus(); }
+  }
+
+  function captureField(){
+    var f=document.getElementById("field"); if(!f) return;
+    var steps=stepsFor(state.mode), cur=steps[state.step];
+    if(cur.type==="feeling") state.draft.feeling=f.value;
+    else if(cur.type==="objective") state.draft.objective=f.value;
+    else state.draft[cur.lever.key]=f.value;
+  }
+
+  root.addEventListener("click", function(ev){
+    var domBtn = ev.target.closest("[data-domain]");
+    if(domBtn){ captureField(); var dm=domBtn.getAttribute("data-domain"); state.draft.domain = (state.draft.domain===dm?null:dm); render(); return; }
+
+    var el = ev.target.closest("[data-action]"); if(!el) return;
+    var act=el.getAttribute("data-action");
+
+    if(act==="start"){ state.mode=el.getAttribute("data-mode"); state.step=0; state.draft={domain:null}; state.view="cast"; render(); }
+    else if(act==="next"){ captureField(); state.step++; render(); }
+    else if(act==="prev"){ captureField(); state.step--; render(); }
+    else if(act==="cast"){ captureField(); commit(); }
+    else if(act==="view"){ state.id=el.getAttribute("data-id"); state.view="reading"; render(); }
+    else if(act==="home"){ state.view="home"; render(); }
+    else if(act==="history"){ state.view="history"; render(); }
+    else if(act==="recast"){
+      var readings=load(),src=null; var id=el.getAttribute("data-id");
+      for(var i=0;i<readings.length;i++){ if(readings[i].id===id){ src=readings[i]; break; } }
+      state.mode="bearing"; state.step=0;
+      state.draft={objective:src?src.objective:"", domain:src?src.domain:null, parentRoot:src?(src.root||src.id):null};
+      state.view="cast"; render();
+    }
+    else if(act==="delete"){
+      var arr=load().filter(function(x){ return x.id!==el.getAttribute("data-id"); });
+      save(arr); syncKit(); state.view="home"; render();
+    }
+    else if(act==="send-log"){
+      var rr=load(), src=null, id=el.getAttribute("data-id");
+      for(var i=0;i<rr.length;i++){ if(rr[i].id===id){ src=rr[i]; break; } }
+      if(src){ syncKit(); copyText(captureMarkdown(src), "Capture copied \u2014 paste into The Ship Log"); }
+    }
+    else if(act==="export"){ exportJSON(); }
+    else if(act==="lever-tap"){ /* reserved */ }
+  });
+
+  // tap a needle to light its card
+  root.addEventListener("click", function(ev){
+    var n=ev.target.closest(".needle"); if(!n) return;
+    var key=n.getAttribute("data-lever");
+    document.querySelectorAll(".lcard").forEach(function(c){ c.classList.toggle("lit", c.getAttribute("data-lever")===key); });
+    var card=document.querySelector('.lcard[data-lever="'+key+'"]'); if(card) card.scrollIntoView({behavior:"smooth",block:"center"});
+  });
+
+  function commit(){
+    var d=state.draft;
+    if(!d.objective || !d.objective.trim()){
+      // require an objective; nudge by focusing
+      state.step = MODES[state.mode].feeling?1:0; render();
+      var f=document.getElementById("field"); if(f){ f.focus(); f.placeholder="Name the objective to cast\u2026"; }
+      return;
+    }
+    var arr=load();
+    var root = d.parentRoot || null;
+    var ii = 1;
+    if(root){ var mx=0; arr.forEach(function(x){ if((x.root||x.id)===root && (x.ii||1)>mx) mx=x.ii||1; }); ii=mx+1; }
+    var reading={ id:uid(), ts:new Date().toISOString(), mode:state.mode,
+      objective:d.objective.trim(), domain:d.domain||null,
+      feeling:d.feeling||"", pressure:d.pressure||"", positioning:d.positioning||"",
+      awareness:d.awareness||"", skill:d.skill||"", ii:ii, root:null };
+    reading.root = root || reading.id;
+    arr.unshift(reading); save(arr); syncKit();
+    state.id=reading.id; state.view="reading"; state.draft=null; render();
+  }
+
+  syncKit();
+  render();
+})();
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("/sw.js").catch(function(e){ console.warn("SW registration failed", e); });
+    });
+  }
+</script>
+</body>
+</html>
