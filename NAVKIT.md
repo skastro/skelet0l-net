@@ -34,7 +34,7 @@ Across separate origins there is no shared memory — sync by **export/import** 
 | `navkit.v1.captures` | `Capture[]` | Same readings in Ship Log ingest form. |
 | `navkit.v1.updated` | ISO string | Last write timestamp. |
 
-The Compass writes all four on every cast, delete, and on load.
+Readings in The Compass are **ephemeral by default** — nothing persists unless the user files it. On **File to the Ship Log** (and on load, for anything already filed), the Compass writes all four keys.
 
 ---
 
@@ -45,13 +45,15 @@ The Compass writes all four on every cast, delete, and on load.
 {
   "id": "lx9f2a31",
   "ts": "2026-06-28T17:40:00.000Z",
-  "mode": "ritual | bearing | recenter",
-  "objective": "Land the Q3 narrative",
-  "domain": "Career",
+  "mode": "reading | ritual | bearing | recenter",
+  "objective": "Reading C.26.185.01 (or a user-given title)",
+  "domain": "Career (null for full readings, which span domains)",
   "feeling": "",
   "pressure": "...", "positioning": "...", "awareness": "...", "skill": "..."
 }
 ```
+
+For `mode: "reading"` (the current full-reading flow), the four lever fields hold the fragments filed to that quadrant across **all** domains, joined — so readers that count filled levers keep working. A full reading also carries an embedded, pre-built `capture` (readers should prefer it over deriving).
 
 ### Capture (Ship Log-facing)
 ```json
