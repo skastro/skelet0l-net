@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>flag.sh1p — the Drydock</title>
+<link rel="icon" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/css/frame.w0rk.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{background:radial-gradient(120% 90% at 50% -10%, #251B36 0%, var(--void) 55%, #140F1E 100%);
+    color:var(--pearl);font-family:var(--body);font-size:18px;line-height:1.55;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px 48px}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--pearl);outline-offset:2px;border-radius:4px}
+
+  /* ---- masthead ---- */
+  .mast{padding:26px 0 18px}
+  .mast .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--fire);margin-bottom:8px}
+  .mast .name{font-family:var(--display);font-size:30px;letter-spacing:.06em;color:var(--pearl);line-height:1}
+  .mast .tag{font-style:italic;color:#C9B89A;font-size:17px;margin-top:6px}
+  .mast .note{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-top:8px}
+
+  h2{font-family:var(--display);font-size:21px;letter-spacing:.03em;color:var(--pearl);margin:28px 0 10px}
+  h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--air);margin:22px 0 10px;font-weight:400}
+  p{margin:0 0 14px}
+  .muted{color:#C9B89A}
+  .lede{font-size:19px;color:#E8DFD5}
+
+  /* ---- flagship card ---- */
+  .ship{border:1px solid var(--rule);border-radius:14px;padding:20px 22px;margin-top:10px;
+    background:linear-gradient(180deg,rgba(230,99,160,.05),rgba(42,32,56,.25))}
+  .ship .sh-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    border-bottom:1px solid var(--rule);padding-bottom:12px;margin-bottom:14px}
+  .ship .sh-title{font-family:var(--display);font-size:22px;color:var(--pearl)}
+  .ship .status{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--fire);border:1px solid rgba(230,99,160,.5);border-radius:14px;padding:4px 10px;flex:none}
+  .ship .wt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin:-8px 0 14px}
+
+  /* ---- mapping rows ---- */
+  .mapgrid{border:1px solid var(--rule);border-radius:11px;overflow:hidden;margin:4px 0 6px}
+  .mrow{display:grid;grid-template-columns:1fr 1.4fr;border-top:1px solid var(--rule)}
+  .mrow:first-child{border-top:none}
+  .mrow .mk{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--air);padding:10px 13px;background:rgba(20,15,30,.4);border-right:1px solid var(--rule)}
+  .mrow .mv{font-size:15.5px;color:#D7CCBE;padding:10px 13px;line-height:1.4}
+  .mrow .mv b{color:var(--pearl);font-weight:500}
+
+  /* ---- course / phases ---- */
+  .course{display:flex;flex-direction:column;gap:8px;margin:4px 0}
+  .phase{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--rule);border-radius:10px;padding:11px 13px;background:rgba(42,32,56,.28)}
+  .phase.now{border-color:rgba(230,99,160,.55);background:linear-gradient(180deg,rgba(230,99,160,.07),rgba(42,32,56,.3))}
+  .phase .pnum{flex:none;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--rule);border-radius:50%;
+    font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+  .phase.now .pnum{border-color:var(--fire);color:var(--fire)}
+  .phase .pt{flex:1;min-width:0}
+  .phase .pn{font-family:var(--display);font-size:16px;color:var(--pearl)}
+  .phase .pn .tagn{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fire);margin-left:8px}
+  .phase .pd{font-size:15px;color:#C9B89A;line-height:1.4;margin-top:2px}
+
+  /* ---- build log ---- */
+  .log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  .log li{border-left:2px solid var(--earth);padding:2px 0 2px 14px}
+  .log .stamp{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--earth)}
+  .log .entry{font-size:16px;color:#D7CCBE;line-height:1.45;margin-top:2px}
+
+  /* ---- guardrail ---- */
+  .rail{border:1px dashed var(--rule);border-radius:11px;padding:14px 16px;font-size:15px;color:#C9B89A;font-style:italic;margin-top:6px}
+  .rail b{font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--water);display:block;margin-bottom:5px}
+
+  /* ---- future berths ---- */
+  .berth{border:1px dashed var(--rule);border-radius:12px;padding:22px;text-align:center;font-style:italic;color:#C9B89A;margin-top:8px}
+
+  .colophon{display:flex;align-items:center;gap:10px;margin-top:30px;padding-top:14px;border-top:1px solid var(--rule);
+    font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+  .colophon img{width:20px;height:20px;opacity:.85}
+  .colophon .right{margin-left:auto;color:#C9B89A}
+
+  @media (max-width:480px){
+    .mrow{grid-template-columns:1fr}
+    .mrow .mk{border-right:none;border-bottom:1px solid var(--rule)}
+  }
+  @media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mast">
+    <div class="eyebrow">the drydock · where flagships are built</div>
+    <div class="name">flag.sh1p</div>
+    <div class="tag">the result that sets sail — frame.w0rk is the strategy; this is the vessel it builds</div>
+    <div class="note">built in public · festina lente</div>
+  </div>
+
+  <p class="lede">Every fleet needs a flagship — the one project the whole system exists to launch. This yard shows the current flagship under construction, keel to mast, in the open.</p>
+
+  <!-- ═══ NOW BUILDING ═══ -->
+  <h2>Now building</h2>
+  <div class="ship">
+    <div class="sh-head">
+      <span class="sh-title">The Creature Compendium</span>
+      <span class="status">phase 0 · keel laid</span>
+    </div>
+    <div class="wt">working title — the vessel is christened at launch</div>
+
+    <p>A monster-taming game that runs as a program on this desktop. Not a clone of anything — the game <em>is</em> the frame.w0rk system made playable: the same elements, spiral, and levers that drive The Compass and The Map, turned into creatures, ranks, and battles.</p>
+
+    <h3>The system is the game</h3>
+    <div class="mapgrid">
+      <div class="mrow"><div class="mk">Type chart</div><div class="mv">The <b>Quadruplicity</b> — Fire · Earth · Air · Water, read in three canonical orders.</div></div>
+      <div class="mrow"><div class="mk">The dex</div><div class="mv"><b>The Compendium</b> — every creature recorded, stamped, and filed.</div></div>
+      <div class="mrow"><div class="mk">Rank ladder</div><div class="mv">The <b>nine-node spiral</b> — harbors 0→4, and at 4 the spiral turns: new game plus is built into the cosmology.</div></div>
+      <div class="mrow"><div class="mk">Evolution</div><div class="mv">The <b>crossings</b> — Kindling, Reflection, Reharmonization, Eclipse.</div></div>
+      <div class="mrow"><div class="mk">Battle verbs</div><div class="mv">The <b>four levers</b> — Pressure, Positioning, Awareness, Skill.</div></div>
+      <div class="mrow"><div class="mk">Catch records</div><div class="mv"><b>Stamps</b> — every capture carries its coordinate (year · day · iteration).</div></div>
+      <div class="mrow"><div class="mk">The world</div><div class="mv">A <b>star-galleon cosmos on a Win98 desktop</b> — tall ships, astrolabes, medieval whimsy.</div></div>
+    </div>
+
+    <h3>The course</h3>
+    <div class="course">
+      <div class="phase now">
+        <span class="pnum">0</span>
+        <span class="pt"><span class="pn">Drydock<span class="tagn">← we are here</span></span>
+        <span class="pd">The keel. Concept fixed, course charted, guardrails set — built in public from the first plank.</span></span>
+      </div>
+      <div class="phase">
+        <span class="pnum">1</span>
+        <span class="pt"><span class="pn">Sea trials</span>
+        <span class="pd">Single-player in the browser — a desktop program with turn-based battles, a small first roster across the four elements, and the spiral as the rank ladder.</span></span>
+      </div>
+      <div class="phase">
+        <span class="pnum">2</span>
+        <span class="pt"><span class="pn">Signals</span>
+        <span class="pd">Trade and battle by exchanged codes — ship-to-ship signals, no server needed.</span></span>
+      </div>
+      <div class="phase">
+        <span class="pnum">3</span>
+        <span class="pt"><span class="pn">Open water</span>
+        <span class="pd">True online play. Charted only when the sea trials find sailors — evidence before ambition.</span></span>
+      </div>
+    </div>
+
+    <h3>Build log</h3>
+    <ul class="log">
+      <li>
+        <span class="stamp">vW.26.185.01 · J185</span>
+        <div class="entry">Keel laid. The Drydock opens: the flagship is a creature compendium built from the frame.w0rk system — the Quadruplicity as its type chart, the spiral as its ranks, the crossings as its evolutions. Phase 0 begins.</div>
+      </li>
+    </ul>
+
+    <h3>Guardrails</h3>
+    <div class="rail">
+      <b>Own iconography only</b>
+      Every creature is drawn from the fleet's own well — constellations, alchemical beasts, nautical grotesques, medieval marginalia. Original designs, original names, our own system underneath. The genre is open water; the vessel is ours.
+    </div>
+  </div>
+
+  <!-- ═══ FUTURE BERTHS ═══ -->
+  <h2>Future berths</h2>
+  <div class="berth">The yard holds room for what comes next. One flagship at a time — festina lente.</div>
+
+  <div class="colophon">
+    <img src="/assets/sigil.svg" alt="">
+    <span>flag.sh1p · frame.w0rk family</span>
+    <span class="right">vW.26.185.01</span>
+  </div>
+
+</div>
+</body>
+</html>
