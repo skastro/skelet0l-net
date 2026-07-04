@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Astral Codex — Desktop</title>
+<title>The Astral Compendium — Desktop</title>
 <meta name="theme-color" content="#1A1525">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Astral Codex">
+<meta name="apple-mobile-web-app-title" content="Compendium">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/css/frame.w0rk.css">
 <style>
   /* ============================================================
-     The Desktop — Win98 shell for the Astral Codex instruments
+     The Desktop — Win98 shell for the Astral Compendium instruments
      ============================================================ */
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;height:100%;overflow:hidden}
@@ -50,6 +50,7 @@
   .win.open{display:flex}
   .win.max{left:0!important;top:0!important;width:100%!important;
     height:calc(100% - var(--taskbar-h))!important}
+  .win.max .resize{display:none}
   .titlebar{display:flex;align-items:center;gap:7px;padding:3px 4px 3px 7px;cursor:default;
     background:linear-gradient(90deg,#808080,#9a8aa6);color:#cfc6da;
     font-family:var(--display);font-size:13px;letter-spacing:.05em;flex:none}
@@ -226,7 +227,7 @@
 <div id="dragveil"></div>
 
 <div id="startmenu" role="menu" aria-label="Start menu">
-  <div class="sm-rail">Astral&nbsp;Codex</div>
+  <div class="sm-rail">Astral&nbsp;Compendium</div>
   <div class="sm-items">
     <div class="sm-label">Instruments</div>
     <div id="sm-apps"></div>
@@ -299,6 +300,7 @@
         +'<span class="glyph">'+app.icon.replace(/width="46" height="46"/,'width="14" height="14"')+'</span>'
         +'<span class="name">'+app.name+'</span>'
         +'<button class="tbtn" data-min title="Minimize" aria-label="Minimize '+app.name+'">_</button>'
+        +'<button class="tbtn" data-maxbtn title="Maximize" aria-label="Maximize '+app.name+'">□</button>'
         +'<button class="tbtn" data-close title="Close" aria-label="Close '+app.name+'">×</button>'
       +'</header>'
       +'<div class="winbody"><iframe title="'+app.name+'" src="'+app.src+'" loading="lazy"></iframe>'
@@ -311,10 +313,28 @@
 
   function maximizeFor(){ return smallScreen(); }
 
+  /* ----- maximize / restore ----- */
+  var userMax = {};
+  function applyMax(id){
+    var w=wins[id]; if(!w) return;
+    w.classList.toggle("max", !!userMax[id] || maximizeFor());
+    var b=w.querySelector("[data-maxbtn]");
+    if(b){
+      b.textContent = userMax[id] ? "❐" : "□";   /* ❐ : □ */
+      b.title = userMax[id] ? "Restore" : "Maximize";
+      b.setAttribute("aria-label", (userMax[id]?"Restore ":"Maximize ")+byId[id].name);
+    }
+  }
+  function toggleMax(id){
+    userMax[id] = !userMax[id];
+    applyMax(id);
+    bringFront(wins[id]); syncTabs(); saveLayout();
+  }
+
   function openApp(id, noFocus){
     var app=byId[id], w=ensureWin(app);
     w.classList.add("open");
-    if(maximizeFor()) w.classList.add("max"); else w.classList.remove("max");
+    applyMax(id);
     bringFront(w);
     ensureTab(app);
     syncTabs();
@@ -347,7 +367,8 @@
     });
     open.sort(function(a,b){ return a.z-b.z; });   /* ascending stacking order */
     try{ localStorage.setItem(LKEY, JSON.stringify({
-      geom:geom, open:open.map(function(o){return o.id;}), tabs:tabIds, active:active
+      geom:geom, open:open.map(function(o){return o.id;}), tabs:tabIds, active:active,
+      max:Object.keys(userMax).filter(function(id){ return userMax[id]; })
     })); }catch(e){}
   }
   function restoreLayout(){
@@ -361,11 +382,12 @@
       var g=saved.geom&&saved.geom[id];
       if(g && !smallScreen()){ w.style.left=g.x; w.style.top=g.y; w.style.width=g.w; w.style.height=g.h; }
     });
+    (saved.max||[]).forEach(function(id){ if(byId[id]) userMax[id]=true; });
     (saved.open||[]).forEach(function(id){
       if(!byId[id]) return;
       var w=wins[id]; if(!w) return;
       w.classList.add("open");
-      if(maximizeFor()) w.classList.add("max"); else w.classList.remove("max");
+      applyMax(id);
       w.style.zIndex=++z;
     });
     var act=saved.active && wins[saved.active] && wins[saved.active].classList.contains("open")
@@ -406,7 +428,12 @@
     var grip=w.querySelector("[data-resize]");
     w.addEventListener("pointerdown", function(){ bringFront(w); syncTabs(); saveLayout(); }, true);
     w.querySelector("[data-min]").addEventListener("click", function(e){ e.stopPropagation(); minimizeApp(app.id); });
+    w.querySelector("[data-maxbtn]").addEventListener("click", function(e){ e.stopPropagation(); toggleMax(app.id); });
     w.querySelector("[data-close]").addEventListener("click", function(e){ e.stopPropagation(); closeApp(app.id); });
+    bar.addEventListener("dblclick", function(e){
+      if(e.target.closest(".tbtn")) return;
+      toggleMax(app.id);                       /* classic: double-click titlebar */
+    });
 
     var mode=null, sx, sy, ox, oy, ow, oh;
     function start(e, m){
@@ -531,8 +558,8 @@
   /* ---------- responsive: re-maximize open windows on small screens ---------- */
   window.addEventListener("resize", function(){
     Object.keys(wins).forEach(function(id){
-      var w=wins[id]; if(!w.classList.contains("open")) return;
-      if(maximizeFor()) w.classList.add("max"); else w.classList.remove("max");
+      if(!wins[id].classList.contains("open")) return;
+      applyMax(id);                            /* respects user maximize */
     });
   });
 

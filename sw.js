@@ -1,4 +1,4 @@
-const CACHE = "codex-desktop-v5";
+const CACHE = "compendium-desktop-v6";
 const ASSETS = [
   "/",
   "/index.html",

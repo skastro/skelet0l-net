@@ -1,4 +1,4 @@
-# The Astral Codex — Netlify configuration
+# The Astral Compendium — Netlify configuration
 
 [[headers]]
   for = "/sw.js"

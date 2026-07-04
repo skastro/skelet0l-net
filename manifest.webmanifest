@@ -1,6 +1,6 @@
 {
-  "name": "The Astral Codex",
-  "short_name": "Astral Codex",
+  "name": "The Astral Compendium",
+  "short_name": "Compendium",
   "description": "A cosmic Windows 98 desktop for the Navigation Kit — The Compass, The Map, and The Ship Log on one chart.",
   "start_url": "/",
   "scope": "/",

@@ -1,5 +1,5 @@
 /* ============================================================
-   navkit.v1 — shared data layer for the Astral Codex desktop
+   navkit.v1 — shared data layer for the Astral Compendium desktop
    skele.t0l · festina lente
    ------------------------------------------------------------
    The Compass is the WRITER. The Map and the Ship Log are READERS.

@@ -124,7 +124,7 @@
   function loadNotes(){ try{return JSON.parse(Store.get(KEY)||"[]");}catch(e){return [];} }
   function saveNotes(arr){ Store.set(KEY, JSON.stringify(arr)); }
 
-  /* ---------------- tag vocabulary (Codex VI) ---------------- */
+  /* ---------------- tag vocabulary (Compendium VI) ---------------- */
   var DOMAINS=[
     {group:"Inner Vessel — the ship's own condition", tags:[
       {code:"PHYSICAL",  label:"PH · Physical"},
