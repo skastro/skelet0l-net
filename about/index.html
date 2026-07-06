@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About — skele.t0l</title>
+<meta name="description" content="Tony. Conservatory musician, strategist, builder. Veteran, entrepreneur, multidisciplinary artist — Cincinnati, OH.">
+<meta name="theme-color" content="#1A1520">
+<link rel="icon" href="/assets/sigil.svg">
+<link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
+<style>
+  /* ============================================================
+     skele.t0l — About
+     tokens from Figma: skelet0l.net — Homepage + About
+     ============================================================ */
+  :root{
+    --ink:      #1A1520;
+    --ink-2:    #2A2230;
+    --panel:    #241E2A;
+    --plum:     #3D2845;
+    --cream:    #E8E0D8;
+    --warm:     #D4C8B8;
+    --muted:    #9A8F82;
+    --gold:     #C9A84C;
+    --rule:     rgba(232,224,216,.10);
+    --card-brd: rgba(232,224,216,.16);
+    --serif:    'Cormorant', Georgia, serif;
+    --sans:     'IBM Plex Sans', system-ui, sans-serif;
+    --mono:     'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  a:hover .lnk,a.lnk:hover{color:var(--gold)}
+  :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
+
+  /* ---- nav ---- */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
+  .logo{display:flex;align-items:baseline}
+  .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
+  .logo .b{font-family:var(--mono);font-weight:500;font-size:19px;color:var(--gold)}
+  .links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;letter-spacing:1.3px}
+  .links a{color:var(--muted)}
+  .links a:hover{color:var(--cream)}
+  .links a.on{color:var(--gold);font-weight:500}
+  .rule{height:1px;background:var(--rule)}
+  #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
+    font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
+
+  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:1.56px;color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
+    font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
+  .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
+  .btn.solid:hover{background:#d9b95e}
+  .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
+  .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+  .lnk{font-family:var(--mono);font-size:13px;letter-spacing:1.04px;color:var(--gold)}
+
+  /* ---- w98 cards ---- */
+  .w98{display:flex;flex-direction:column;background:var(--panel);
+    border:1px solid var(--card-brd);border-radius:2px;overflow:hidden}
+  a.w98:hover{border-color:rgba(201,168,76,.5)}
+  .titlebar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
+    background:linear-gradient(90deg,var(--plum),var(--ink-2))}
+  .titlebar .t{font-family:var(--mono);font-size:12px;letter-spacing:.48px;color:var(--warm)}
+  .titlebar .btns{display:flex;gap:6px}
+  .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(212,200,184,.5)}
+  .titlebar .btns i:last-child{background:rgba(201,168,76,.35)}
+  .w98 .body{display:flex;flex-direction:column;gap:12px;padding:24px}
+
+  /* ---- intro ---- */
+  .intro{display:flex;gap:72px;align-items:center;padding:88px 80px 80px;
+    background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
+  .intro-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:24px}
+  .intro h1{margin:0;font-family:var(--serif);font-weight:600;font-size:54px;line-height:1.12;color:var(--cream)}
+  .intro .roles{font-family:var(--mono);font-size:13px;letter-spacing:1.3px;color:var(--muted)}
+  .intro .sub{margin:0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
+  .intro .place{margin:0;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--warm)}
+  .portrait{flex:none;width:308px}
+  .portrait .body{align-items:center;gap:16px}
+  .portrait svg{display:block;width:260px;height:260px;max-width:100%}
+
+  /* ---- sections ---- */
+  section{padding:72px 80px}
+  section h2{margin:0;font-family:var(--serif);font-weight:600;font-size:38px;color:var(--cream)}
+  section h2.it{font-style:italic}
+  .lede{margin:0;font-weight:300;font-size:17px;line-height:1.6;color:var(--muted);max-width:820px}
+
+  /* ---- bridge ---- */
+  .bridge{display:flex;flex-direction:column;gap:36px}
+  .bridge-row{display:flex;gap:20px;align-items:center}
+  .bridge-row .arrow{flex:none;font-weight:300;font-size:24px;color:var(--gold)}
+  .b-card{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;padding:28px;
+    background:var(--panel);border:1px solid rgba(232,224,216,.14);border-radius:2px}
+  .b-card .glyph{font-weight:300;font-size:30px;line-height:1;color:var(--gold)}
+  .b-card h3{margin:0;font-family:var(--serif);font-weight:600;font-size:24px;color:var(--cream)}
+  .b-card p{margin:0;font-weight:300;font-size:14px;line-height:1.5;color:var(--muted)}
+
+  /* ---- credibility ---- */
+  .cred{display:flex;flex-direction:column;gap:32px;
+    background:linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%)}
+  .cred-row{display:flex;gap:24px;align-items:stretch}
+  .cred-row .w98{flex:1;min-width:0}
+  .cred .titlerow{display:flex;gap:10px;align-items:center}
+  .cred .titlerow .g{font-weight:300;font-size:24px;color:var(--gold)}
+  .cred .titlerow h3{margin:0;font-family:var(--serif);font-weight:600;font-size:24px;color:var(--cream)}
+  .cred .desc{margin:0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
+
+  /* ---- world ---- */
+  .world{display:flex;gap:64px;align-items:center}
+  .world-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  .world-copy h2{font-size:36px}
+  .world .w98{flex:1;min-width:0}
+  .fleet-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .fleet-row .k{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--gold);white-space:nowrap}
+  .fleet-row .v{font-weight:300;font-size:13px;color:var(--muted);text-align:right}
+  .w98 .divider{height:1px;background:rgba(232,224,216,.12)}
+  .flags{display:flex;gap:24px;align-items:center}
+  .flags .f{font-size:20px;color:rgba(201,168,76,.8)}
+  .flags .cap{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--warm)}
+
+  /* ---- cta ---- */
+  .cta{display:flex;flex-direction:column;gap:24px;align-items:center;padding:88px 80px;text-align:center;
+    background:linear-gradient(180deg,var(--ink) 0%,var(--plum) 100%)}
+  .cta h2{margin:0;font-family:var(--serif);font-style:italic;font-weight:600;font-size:40px;color:var(--cream)}
+  .cta p{margin:0;font-weight:300;font-size:16px;color:var(--muted)}
+  .cta .row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+
+  /* ---- footer ---- */
+  footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
+  .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
+  .foot-links a{color:var(--muted)}
+  .foot-links a:hover{color:var(--cream)}
+  .foot-links .dim{color:rgba(154,143,130,.6)}
+  .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
+  .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
+  .foot-base .c{color:rgba(154,143,130,.7)}
+
+  /* ---- mobile ---- */
+  @media (max-width:900px){
+    nav{padding:16px 20px}
+    #menubtn{display:block}
+    .links{display:none;position:absolute;top:60px;left:0;right:0;z-index:50;
+      flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--rule)}
+    .links.open{display:flex}
+    .links a{padding:15px 20px;border-top:1px solid var(--rule)}
+    .intro{flex-direction:column;align-items:flex-start;padding:52px 20px;gap:40px}
+    .intro h1{font-size:35px}
+    .intro .sub{font-size:17px}
+    .portrait{align-self:center}
+    section{padding:52px 20px}
+    section h2{font-size:30px}
+    .world-copy h2{font-size:30px}
+    .bridge-row{flex-direction:column;align-items:stretch}
+    .bridge-row .arrow{transform:rotate(90deg);align-self:center}
+    .cred-row{flex-direction:column}
+    .world{flex-direction:column;align-items:stretch;gap:40px}
+    .cta{padding:60px 20px}
+    .cta h2{font-size:31px}
+    footer{padding:36px 20px}
+    .foot-links{gap:18px}
+    .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/" aria-label="skele.t0l home"><span class="a">skele</span><span class="b">.t0l</span></a>
+  <button id="menubtn" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="links" id="navlinks">
+    <a href="/">HOME</a>
+    <a href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">MUSIC</a>
+    <a class="on" href="/about/" aria-current="page">ABOUT</a>
+    <a href="/os/">OS KIT</a>
+    <a href="/skeletol/">COLLABORATION</a>
+  </div>
+</nav>
+<div class="rule"></div>
+
+<header class="intro">
+  <div class="intro-copy">
+    <p class="eyebrow">ABOUT — /skeletol</p>
+    <h1>Tony. Conservatory musician, strategist, builder.</h1>
+    <p class="roles">VETERAN · ENTREPRENEUR · MULTIDISCIPLINARY ARTIST</p>
+    <p class="sub">I make original music, build public strategy tools, and design systems that hold creative work together. Trained in the conservatory, sharpened as an Army linguist, now building in the open.</p>
+    <p class="place">Cincinnati, OH — festina lente</p>
+  </div>
+  <div class="w98 portrait">
+    <div class="titlebar"><span class="t">portrait.bmp</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <div class="body">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" fill="none" aria-label="skele.t0l sigil">
+        <rect width="260" height="260" rx="2" fill="#2A2230"/>
+        <circle cx="130" cy="130" r="130" fill="url(#pg)"/>
+        <circle cx="130" cy="130" r="99.5" stroke="#C9A84C" stroke-opacity=".45"/>
+        <path d="M130 70L137.348 112.262L172.426 87.5736L147.738 122.652L190 130L147.738 137.348L172.426 172.426L137.348 147.738L130 190L122.652 147.738L87.5736 172.426L112.262 137.348L70 130L112.262 122.652L87.5736 87.5736L122.652 112.262L130 70Z" fill="#C9A84C" fill-opacity=".85"/>
+        <defs>
+          <radialGradient id="pg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(130 130) scale(130)">
+            <stop stop-color="#C9A84C" stop-opacity=".16"/><stop offset="1" stop-color="#C9A84C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="bridge">
+  <p class="eyebrow">THE BRIDGE</p>
+  <h2 class="it">Not random. Strategy creates coherence.</h2>
+  <p class="lede">Music trains the ear for structure. Strategy makes the structure repeatable. Worldbuilding gives it somewhere to live. One discipline feeds the next — the same skeleton under different skins.</p>
+  <div class="bridge-row">
+    <div class="b-card">
+      <span class="glyph">✶</span>
+      <h3>Music</h3>
+      <p>The practice. Discipline of the ear, taste for structure, proof in performance.</p>
+    </div>
+    <span class="arrow">→</span>
+    <div class="b-card">
+      <span class="glyph">☼</span>
+      <h3>Systems</h3>
+      <p>The engine. Strategy and software that make creative work repeatable.</p>
+    </div>
+    <span class="arrow">→</span>
+    <div class="b-card">
+      <span class="glyph">☽</span>
+      <h3>Worlds</h3>
+      <p>The atmosphere. Worldbuilding that gives the work a place to live.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cred">
+  <p class="eyebrow">CREDIBILITY — PLACED, NOT BURIED</p>
+  <h2>Receipts.</h2>
+  <div class="cred-row">
+    <div class="w98">
+      <div class="titlebar"><span class="t">conservatory.log</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <div class="titlerow"><span class="g">✶</span><h3>Conservatory training</h3></div>
+        <p class="desc">Formal musicianship — theory, performance, and the discipline of daily practice.</p>
+      </div>
+    </div>
+    <div class="w98">
+      <div class="titlebar"><span class="t">linguist.log</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <div class="titlerow"><span class="g">⚓</span><h3>Army linguist</h3></div>
+        <p class="desc">Language under pressure. Precision, discipline, and high-stakes communication.</p>
+      </div>
+    </div>
+    <div class="w98">
+      <div class="titlebar"><span class="t">systems.log</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <div class="titlerow"><span class="g">☼</span><h3>Systems work</h3></div>
+        <p class="desc">Strategy tools and software shipped in public — The Compass, frame.w0rk, the OS kit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="world">
+    <div class="world-copy">
+      <p class="eyebrow">THE WORLD — EARNED FLAVOR</p>
+      <h2 class="it">The weird is the reward.</h2>
+      <p class="lede">Baroque and cathedral-melancholy, medieval whimsy, spiritual disco. Intentional anachronism — a Windows 98 desktop sailing an astral sea. The lore runs deep, but it never blocks the door.</p>
+      <a class="lnk" href="/os/">ENTER THE COMPENDIUM ☽</a>
+    </div>
+    <a class="w98" href="/flagship/">
+      <div class="titlebar"><span class="t">fleet.map</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <div class="fleet-row"><span class="k">fr.ame</span><span class="v">the flagship — the brand holding it all</span></div>
+        <div class="fleet-row"><span class="k">skele.t0l</span><span class="v">the captain — Tony, the person</span></div>
+        <div class="fleet-row"><span class="k">frac.t0l</span><span class="v">the engine room — experiments &amp; tools</span></div>
+        <div class="fleet-row"><span class="k">frame.w0rk</span><span class="v">the rigging — the visual system</span></div>
+        <div class="divider"></div>
+        <div class="flags">
+          <span class="f">✶</span><span class="f">⚓</span><span class="f">☽</span><span class="f">☼</span>
+          <span class="cap">— the four disciplines, flying as flags</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="cta">
+  <h2>Ready to build something memorable?</h2>
+  <p>The bridge only matters if it goes somewhere. Pick a direction.</p>
+  <div class="row">
+    <a class="btn solid" href="/skeletol/">WORK WITH TONY →</a>
+    <a class="btn ghost" href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">VIEW FEATURED WORK</a>
+  </div>
+</div>
+
+<div class="rule"></div>
+<footer>
+  <div class="foot-links">
+    <a href="/">HOME</a>
+    <a href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">MUSIC</a>
+    <a href="/about/">ABOUT</a>
+    <a href="/os/">OS KIT</a>
+    <a href="/skeletol/">COLLABORATION</a>
+    <span class="dot">·</span>
+    <a class="dim" href="/flagship/">CULTURE</a>
+  </div>
+  <div class="foot-base">
+    <span>skele.t0l — Cincinnati, OH · festina lente</span>
+    <span class="c">© 2026 skele.t0l</span>
+  </div>
+</footer>
+
+<script>
+  const mb = document.getElementById("menubtn"), nl = document.getElementById("navlinks");
+  mb.addEventListener("click", () => {
+    const open = nl.classList.toggle("open");
+    mb.setAttribute("aria-expanded", open);
+  });
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js").catch(e => console.warn("SW registration failed", e));
+  }
+</script>
+</body>
+</html>

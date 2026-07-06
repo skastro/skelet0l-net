@@ -1,7 +1,9 @@
-const CACHE = "compendium-desktop-v7";
+const CACHE = "compendium-desktop-v8";
 const ASSETS = [
   "/",
   "/index.html",
+  "/about/",
+  "/os/",
   "/skeletol/",
   "/flagship/",
   "/compass/",

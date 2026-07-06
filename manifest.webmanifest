@@ -2,7 +2,7 @@
   "name": "The Astral Compendium",
   "short_name": "Compendium",
   "description": "A cosmic Windows 98 desktop for the Navigation Kit — The Compass, The Map, and The Ship Log on one chart.",
-  "start_url": "/",
+  "start_url": "/os/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
