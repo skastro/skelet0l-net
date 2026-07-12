@@ -83,8 +83,8 @@
 <!-- /skill:chrome -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Collaboration — skele.t0l</title>
-<meta name="description" content="Open to role conversations, creative partnerships, and projects that need someone who can bridge strategy, structure, and creative thinking.">
+<title>Music — skele.t0l</title>
+<meta name="description" content="Performance, band work, and current projects. Tony plays bass in Sunbeat, comes from conservatory oboe and piano training, and has been making music since he was sixteen.">
 <meta name="theme-color" content="#1A1520">
 <link rel="icon" href="/assets/sigil.svg">
 <link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
@@ -111,6 +111,7 @@
   html,body{margin:0;padding:0}
   body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
   a{text-decoration:none;color:inherit}
+  a:hover .lnk,a.lnk:hover{color:var(--gold)}
   :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
 
   nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
@@ -130,16 +131,23 @@
   .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
   section{padding:56px 80px}
-  .item-list{margin-bottom:48px}
-  .item-list h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-  .item-list ul{list-style:none;padding:0;margin:0}
-  .item-list li{padding:10px 0 10px 24px;position:relative;font-weight:300;font-size:16px;line-height:1.6;color:var(--muted)}
-  .item-list li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+  .tiles{display:flex;gap:24px;align-items:stretch}
+  .w98{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--panel);
+    border:1px solid var(--card-brd);border-radius:2px;overflow:hidden}
+  a.w98:hover{border-color:rgba(201,168,76,.5)}
+  .titlebar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
+    background:linear-gradient(90deg,var(--plum),var(--ink-2))}
+  .titlebar .t{font-family:var(--mono);font-size:12px;letter-spacing:.48px;color:var(--warm)}
+  .titlebar .btns{display:flex;gap:6px}
+  .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(212,200,184,.5)}
+  .titlebar .btns i:last-child{background:rgba(201,168,76,.35)}
+  .w98 .body{display:flex;flex-direction:column;gap:12px;padding:24px}
+  .w98 .glyph{font-weight:300;font-size:34px;line-height:1;color:var(--gold)}
+  .w98 h3{margin:0;font-family:var(--serif);font-weight:600;font-size:26px;color:var(--cream)}
+  .w98 .desc{margin:0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
+  .lnk{font-family:var(--mono);font-size:12px;letter-spacing:.72px;color:var(--gold)}
 
-  .reach-out{margin-top:8px}
-  .reach-out h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-
-  .ctas{display:flex;gap:16px;flex-wrap:wrap}
+  .ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:48px}
   .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
     font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
   .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
@@ -169,6 +177,7 @@
     .page-hero h1{font-size:34px}
     .page-hero .lead{font-size:17px}
     section{padding:40px 20px}
+    .tiles{flex-direction:column}
     footer{padding:36px 20px}
     .foot-links{gap:18px}
     .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
@@ -182,36 +191,42 @@
   <button id="menubtn" aria-label="Menu" aria-expanded="false">☰</button>
   <div class="links" id="navlinks">
     <a href="/">HOME</a>
-    <a href="/music/">MUSIC</a>
+    <a class="on" href="/music/" aria-current="page">MUSIC</a>
     <a href="/about/">ABOUT</a>
     <a href="/os/">OS KIT</a>
-    <a class="on" href="/skeletol/" aria-current="page">COLLABORATION</a>
+    <a href="/skeletol/">COLLABORATION</a>
   </div>
 </nav>
 <div class="rule"></div>
 
 <header class="page-hero">
-  <h1>Let's make something real.</h1>
-  <p class="lead">Open to role conversations, creative partnerships, and projects that need someone who can bridge strategy, structure, and creative thinking. If you're looking for a collaborator, teammate, or someone who connects disciplines instead of staying inside one, this is the right door.</p>
+  <h1>Music is the live creative lane.</h1>
+  <p class="lead">Performance, band work, and current projects. Tony plays bass in Sunbeat, comes from conservatory oboe and piano training, and has been making music since he was sixteen.</p>
 </header>
 
 <section>
-  <div class="item-list">
-    <h3>WHAT TONY IS LOOKING FOR</h3>
-    <ul>
-      <li>Employment where strategy, systems, communication, and creative thinking all matter</li>
-      <li>Creative partnerships with musicians, designers, writers, or builders</li>
-      <li>Projects that need rigor, imagination, and clear thinking under pressure</li>
-    </ul>
+  <div class="tiles">
+    <a class="w98" href="https://www.instagram.com/sunbeat.mp3/" target="_blank" rel="noopener">
+      <div class="titlebar"><span class="t">sunbeat.exe</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <span class="glyph">☉</span>
+        <h3>Sunbeat</h3>
+        <p class="desc">Live music momentum. Active, public, and time-sensitive.</p>
+        <span class="lnk">FOLLOW ON INSTAGRAM →</span>
+      </div>
+    </a>
+    <a class="w98" href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">
+      <div class="titlebar"><span class="t">tracks.wav</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <span class="glyph">♫</span>
+        <h3>SoundCloud</h3>
+        <p class="desc">Published tracks and works in progress under skele.t0l.</p>
+        <span class="lnk">LISTEN →</span>
+      </div>
+    </a>
   </div>
-
-  <div class="reach-out">
-    <h3>REACH OUT</h3>
-    <a class="btn solid" href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB: SKASTRO →</a>
-  </div>
-
-  <div class="ctas" style="margin-top:48px">
-    <a class="btn ghost" href="/music/">HEAR THE MUSIC</a>
+  <div class="ctas">
+    <a class="btn solid" href="/about/">LEARN MORE ABOUT TONY →</a>
     <a class="btn ghost" href="/">← HOME</a>
   </div>
 </section>

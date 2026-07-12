@@ -1,10 +1,89 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>skele.t0l — music, tools, and worlds, with structure</title>
-<meta name="description" content="Multidisciplinary artist &amp; strategist building music, tools, and worlds — with structure. Original music, public strategy tools, and living systems, built in the open.">
+<title>skele.t0l — music, systems, and the Astral Compendium</title>
+<meta name="description" content="Tony Scoburgh's portfolio for music, systems, and the Astral Compendium. Musician, analyst, planner, and builder making useful things that still feel alive.">
 <meta name="theme-color" content="#1A1520">
 <link rel="icon" href="/assets/sigil.svg">
 <link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
@@ -12,19 +91,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
 <style>
-  /* ============================================================
-     skele.t0l — Homepage
-     tokens from Figma: skelet0l.net — Homepage + About
-     ============================================================ */
   :root{
-    --ink:      #1A1520;   /* page ground                */
-    --ink-2:    #2A2230;   /* gradient partner           */
-    --panel:    #241E2A;   /* w98 card body              */
-    --plum:     #3D2845;   /* titlebar gradient start    */
-    --cream:    #E8E0D8;   /* headings                   */
-    --warm:     #D4C8B8;   /* titlebar text / italic     */
-    --muted:    #9A8F82;   /* body text                  */
-    --gold:     #C9A84C;   /* accent                     */
+    --ink:      #1A1520;
+    --ink-2:    #2A2230;
+    --panel:    #241E2A;
+    --plum:     #3D2845;
+    --cream:    #E8E0D8;
+    --warm:     #D4C8B8;
+    --muted:    #9A8F82;
+    --gold:     #C9A84C;
     --rule:     rgba(232,224,216,.10);
     --card-brd: rgba(232,224,216,.16);
     --serif:    'Cormorant', Georgia, serif;
@@ -37,7 +112,6 @@
   a{text-decoration:none;color:inherit}
   a:hover .lnk,a.lnk:hover{color:var(--gold)}
   :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
-  .wrap{padding-left:80px;padding-right:80px}
 
   /* ---- nav ---- */
   nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
@@ -70,7 +144,6 @@
   /* compass sigil */
   .sigil{position:relative;flex:none;width:380px;height:380px;z-index:2}
   .sigil svg{display:block;width:100%;height:100%}
-  /* starfield */
   .star-dot{position:absolute;border-radius:50%;background:var(--cream);opacity:.5;z-index:1}
 
   /* ---- sections ---- */
@@ -130,6 +203,8 @@
   .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
   .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
   .foot-base .c{color:rgba(154,143,130,.7)}
+  .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
+  .foot-contact a{color:var(--gold)}
 
   /* ---- mobile ---- */
   @media (max-width:900px){
@@ -162,7 +237,7 @@
   <button id="menubtn" aria-label="Menu" aria-expanded="false">☰</button>
   <div class="links" id="navlinks">
     <a class="on" href="/" aria-current="page">HOME</a>
-    <a href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">MUSIC</a>
+    <a href="/music/">MUSIC</a>
     <a href="/about/">ABOUT</a>
     <a href="/os/">OS KIT</a>
     <a href="/skeletol/">COLLABORATION</a>
@@ -171,7 +246,6 @@
 <div class="rule"></div>
 
 <header class="hero">
-  <!-- starfield -->
   <span class="star-dot" style="left:8%;top:12%;width:3px;height:3px"></span>
   <span class="star-dot" style="left:21%;top:27%;width:2px;height:2px"></span>
   <span class="star-dot" style="left:36%;top:9%;width:2px;height:2px"></span>
@@ -186,11 +260,11 @@
   <span class="star-dot" style="left:54%;top:77%;width:2px;height:2px"></span>
 
   <div class="hero-copy">
-    <p class="eyebrow">☉&nbsp;&nbsp;NOW IN A LIVE PUBLIC PHASE — SUMMER 2026</p>
-    <h1>Multidisciplinary artist &amp; strategist building music, tools, and worlds — with structure.</h1>
-    <p class="sub">Original music, public strategy tools, and living systems — built in the open. Start with what is happening now.</p>
+    <p class="eyebrow">☉  PORTFOLIO — LIVE PUBLIC PHASE</p>
+    <h1>skele.t0l is Tony Scoburgh's portfolio for music, systems, and the Astral Compendium.</h1>
+    <p class="sub">Musician, analyst, planner, and builder making useful things that still feel alive. Start with what's happening now.</p>
     <div class="ctas">
-      <a class="btn solid" href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">VIEW FEATURED WORK →</a>
+      <a class="btn solid" href="/music/">HEAR THE MUSIC →</a>
       <a class="btn ghost" href="/about/">ABOUT TONY</a>
     </div>
   </div>
@@ -215,37 +289,46 @@
   </div>
 </header>
 
-<section class="proof">
+<section>
   <div class="head">
-    <p class="eyebrow">PROOF — ALIVE RIGHT NOW</p>
-    <h2>Three fronts, one system.</h2>
+    <p class="eyebrow">WHERE TO START</p>
+    <h2>Four doors, one portfolio.</h2>
   </div>
   <div class="tiles">
-    <a class="w98" href="https://www.instagram.com/sunbeat.mp3/" target="_blank" rel="noopener">
-      <div class="titlebar"><span class="t">sunbeat.exe</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <a class="w98" href="/music/">
+      <div class="titlebar"><span class="t">music.lane</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="body">
         <span class="glyph">☉</span>
-        <div class="titlerow"><h3>Sunbeat</h3><span class="badge">● LIVE</span></div>
-        <p class="desc">Live music momentum — active, public, and time-sensitive. The lead proof.</p>
-        <span class="lnk">LISTEN →</span>
+        <h3>Music</h3>
+        <p class="desc">Performance, band work, and the projects keeping the practice alive. The main creative lane.</p>
+        <span class="lnk">HEAR THE MUSIC →</span>
       </div>
     </a>
-    <a class="w98" href="/compass/">
-      <div class="titlebar"><span class="t">compass.app</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <a class="w98" href="/about/">
+      <div class="titlebar"><span class="t">about.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <span class="glyph">◈</span>
+        <h3>About</h3>
+        <p class="desc">Who Tony is, how he works, and the path from conservatory training to intelligence, planning, and systems-building.</p>
+        <span class="lnk">LEARN MORE ABOUT TONY →</span>
+      </div>
+    </a>
+    <a class="w98" href="/os/">
+      <div class="titlebar"><span class="t">os.kit</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="body">
         <span class="glyph">✦</span>
-        <div class="titlerow"><h3>The Compass</h3></div>
-        <p class="desc">A public strategy tool. Strategy is not a vibe — it is a usable artifact.</p>
-        <span class="lnk">USE THE TOOL →</span>
+        <h3>OS Kit</h3>
+        <p class="desc">Tools, frameworks, and systems work, including the Compass and frame.w0rk. Where the structure becomes visible.</p>
+        <span class="lnk">SEE THE SYSTEMS SIDE →</span>
       </div>
     </a>
-    <a class="w98" href="/map/">
-      <div class="titlebar"><span class="t">framew0rk.sys</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <a class="w98" href="/skeletol/">
+      <div class="titlebar"><span class="t">collab.open</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="body">
-        <span class="glyph">▦</span>
-        <div class="titlerow"><h3>frame.w0rk</h3></div>
-        <p class="desc">Visual &amp; system design proof. Builder taste and interaction thinking.</p>
-        <span class="lnk">SEE THE SYSTEM →</span>
+        <span class="glyph">⟡</span>
+        <h3>Collaboration</h3>
+        <p class="desc">Open for role conversations, creative partnerships, and projects that need structure without losing the human core.</p>
+        <span class="lnk">LET'S TALK →</span>
       </div>
     </a>
   </div>
@@ -255,9 +338,9 @@
   <div class="band">
     <div>
       <h2>The active front is Music.</h2>
-      <p>Start where the momentum is — everything else unlocks from there.</p>
+      <p>Start where the momentum is. Everything else unlocks from there.</p>
     </div>
-    <a class="btn solid" href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">VIEW FEATURED WORK →</a>
+    <a class="btn solid" href="/music/">HEAR THE MUSIC →</a>
   </div>
 </div>
 
@@ -266,7 +349,7 @@
     <div class="depth-copy">
       <p class="eyebrow">BUILT WITH STRUCTURE</p>
       <h2>Ornament, with structure beneath it.</h2>
-      <p class="big">Behind the music sits a working system: strategy, software, and worldbuilding designed as one architecture. The chrome, the fleet, the sigils — all of it runs on the same skeleton.</p>
+      <p class="big">Behind the music sits a working system: strategy, software, and worldbuilding designed as one architecture. The chrome, the fleet, the sigils: all of it runs on the same skeleton.</p>
       <a class="lnk" style="font-size:13px;letter-spacing:1.04px" href="/os/">EXPLORE THE OS KIT →</a>
     </div>
     <a class="w98" href="/os/">
@@ -277,7 +360,7 @@
         <div class="log-row"><span class="l"><span class="g">☽</span><span class="n">Esoterica</span></span><span class="r">the atmosphere</span></div>
         <div class="log-row"><span class="l"><span class="g">☼</span><span class="n">Builder</span></span><span class="r">the engine</span></div>
         <div class="divider"></div>
-        <p class="motto">The Astral Compendium — depth after trust.</p>
+        <p class="motto">The Astral Compendium: depth after trust.</p>
         <span class="lnk">ENTER THE COMPENDIUM ☽</span>
       </div>
     </a>
@@ -288,15 +371,16 @@
 <footer>
   <div class="foot-links">
     <a href="/">HOME</a>
-    <a href="https://soundcloud.com/skelet0l" target="_blank" rel="noopener">MUSIC</a>
+    <a href="/music/">MUSIC</a>
     <a href="/about/">ABOUT</a>
     <a href="/os/">OS KIT</a>
     <a href="/skeletol/">COLLABORATION</a>
     <span class="dot">·</span>
-    <a class="dim" href="/flagship/">CULTURE</a>
+    <a class="dim" href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB</a>
   </div>
+  <p class="foot-contact">Open to collaboration, creative partnerships, and role conversations. <a href="/skeletol/">Let's talk.</a></p>
   <div class="foot-base">
-    <span>skele.t0l — Cincinnati, OH · festina lente</span>
+    <span>skele.t0l is Tony Scoburgh's portfolio for music, systems, and the Astral Compendium.</span>
     <span class="c">© 2026 skele.t0l</span>
   </div>
 </footer>
