@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://app.clickup-embedded-html.com/ -->
+<html lang="en-US" dir="ltr" dm-allow-colors="" dm-allow-transitions=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base href="/">--><base href="."><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="icon" type="image/png" href="https://app-cdn.clickup.com/assets/favicons/favicon-16x16.png" sizes="16x16"><link rel="icon" type="image/png" href="https://app-cdn.clickup.com/assets/favicons/favicon-32x32.png" sizes="32x32"><link rel="stylesheet" href="./styles-ZE3HU6WY.css" crossorigin="anonymous"><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><style>.cu-embedded-html__container[_ngcontent-ng-c3645015692]{display:flow-root;width:100%}</style><style>html{filter: !important}</style></head><body data-git-sha="f97a21c73f6a5c9aeb341b6428f5801be38fabd8" data-build-version="4.14.5" data-build-time="2026-07-10T22:28:51.791Z" class="artifact-editable"><cu-root ng-version="21.2.17" _nghost-ng-c3645015692=""><div _ngcontent-ng-c3645015692="" class="cu-embedded-html__container">
+
+
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script data-activated="true">
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OS Kit — skele.t0l</title>
+<meta name="description" content="Tools, frameworks, and systems work. Where the structure becomes visible.">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./css2" rel="stylesheet">
+<style>
+:root{
+  --ink: #1A1520;
+  --ink-2: #2A2230;
+  --panel: #241E2A;
+  --plum: #3D2845;
+  --cream: #E8E0D8;
+  --warm: #D4C8B8;
+  --muted: #9A8F82;
+  --gold: #C9A84C;
+  --rule: rgba(232,224,216,.10);
+  --card-brd: rgba(232,224,216,.16);
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+a:hover .lnk,a.lnk:hover{color:var(--gold)}
+:focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
+.logo{display:flex;align-items:baseline}
+.logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
+.logo .b{font-family:var(--mono);font-weight:500;font-size:19px;color:var(--gold)}
+.links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;letter-spacing:1.3px}
+.links a{color:var(--muted)}
+.links a:hover{color:var(--cream)}
+.links a.on{color:var(--gold);font-weight:500}
+.rule{height:1px;background:var(--rule)}
+#menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
+  font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
+
+.page-header{padding:72px 80px 0;max-width:800px}
+.page-header .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:1.56px;color:var(--gold);margin-bottom:16px}
+.page-header h1{margin:0;font-family:var(--serif);font-weight:600;font-size:48px;line-height:1.15;color:var(--cream)}
+
+.content{padding:48px 80px 80px;max-width:800px}
+.content p{font-weight:300;font-size:17px;line-height:1.7;color:var(--warm);margin:0 0 20px}
+.content .lead{font-size:19px;line-height:1.6;color:var(--cream);margin-bottom:32px}
+.content h2{font-family:var(--serif);font-weight:600;font-size:30px;color:var(--cream);margin:48px 0 16px}
+.content h2:first-child{margin-top:0}
+
+.status-card{background:var(--panel);border:1px solid var(--card-brd);border-radius:2px;padding:32px;margin:32px 0}
+.status-card .label{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--gold);margin-bottom:12px}
+.status-card p{font-weight:300;font-size:15px;line-height:1.6;color:var(--muted);margin:0}
+
+.proof-list{margin:32px 0;padding:0;list-style:none}
+.proof-list li{padding:16px 0;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between}
+.proof-list li:last-child{border-bottom:none}
+.proof-list .name{font-weight:400;font-size:16px;color:var(--cream)}
+.proof-list .meta{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.5px}
+.proof-list a{color:var(--gold);font-family:var(--mono);font-size:12px;letter-spacing:.5px}
+.proof-list a:hover{color:var(--cream)}
+
+.page-cta{padding:0 80px 80px;max-width:800px}
+.btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
+  font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
+.btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
+.btn.solid:hover{background:#d9b95e}
+.btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
+.btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.ctas{display:flex;gap:16px;flex-wrap:wrap}
+
+footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
+.foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
+.foot-links a{color:var(--muted)}
+.foot-links a:hover{color:var(--cream)}
+.foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
+.foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
+.foot-base .c{color:rgba(154,143,130,.7)}
+.foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
+.foot-contact a{color:var(--gold)}
+
+@media (max-width:900px){
+  nav{padding:16px 20px}
+  #menubtn{display:block}
+  .links{display:none;position:absolute;top:60px;left:0;right:0;z-index:50;
+    flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--rule)}
+  .links.open{display:flex}
+  .links a{padding:15px 20px;border-top:1px solid var(--rule)}
+  .page-header{padding:48px 20px 0}
+  .page-header h1{font-size:34px}
+  .content{padding:36px 20px 60px}
+  .page-cta{padding:0 20px 60px}
+  footer{padding:36px 20px}
+  .foot-links{gap:18px}
+  .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
+}
+</style>
+
+
+
+<nav>
+  <a href="https://app.clickup-embedded-html.com/" class="logo"><span class="a">skele</span><span class="b">.t0l</span></a>
+  <button id="menubtn" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="links" id="navlinks">
+    <a href="https://app.clickup-embedded-html.com/">HOME</a>
+    <a href="https://app.clickup-embedded-html.com/music/">MUSIC</a>
+    <a href="https://app.clickup-embedded-html.com/about/">ABOUT</a>
+    <a href="https://app.clickup-embedded-html.com/os/" class="on">OS KIT</a>
+    <a href="https://app.clickup-embedded-html.com/collaborate/">COLLABORATION</a>
+  </div>
+</nav>
+<div class="rule"></div>
+
+<header class="page-header">
+  <div class="eyebrow">✦ OS KIT</div>
+  <h1>OS Kit</h1>
+</header>
+
+<main class="content">
+  <p class="lead">Tools, frameworks, and systems work. Where the structure underneath the creative work becomes visible.</p>
+
+  <div class="status-card">
+    <div class="label">PAGE STATUS: IN PROGRESS</div>
+    <p>This page is being expanded. The tools below are live or in active development. Deeper documentation and interactive demos are coming.</p>
+  </div>
+
+  <h2>What's already live</h2>
+  <p>The OS Kit is the builder side of skele.t0l: operational frameworks, planning tools, and the structural thinking that keeps everything else coherent. Some of this already exists and works.</p>
+
+  <ul class="proof-list">
+    <li>
+      <span class="name">Compass</span>
+      <a href="https://app.clickup-embedded-html.com/compass/">VIEW TOOL →</a>
+    </li>
+    <li>
+      <span class="name">frame.w0rk</span>
+      <span class="meta">portfolio architecture</span>
+    </li>
+    <li>
+      <span class="name">Theme system</span>
+      <span class="meta">design tokens + CSS variables</span>
+    </li>
+    <li>
+      <span class="name">The Astral Compendium</span>
+      <a href="https://app.clickup-embedded-html.com/flagship/">EXPLORE →</a>
+    </li>
+  </ul>
+
+  <h2>What's coming</h2>
+  <p>Interactive tool demos, deeper documentation of the naming system and versioning logic, and the full Astral Compendium system reference.</p>
+</main>
+
+<div class="page-cta">
+  <div class="ctas">
+    <a href="https://app.clickup-embedded-html.com/flagship/" class="btn solid">EXPLORE THE FLAGSHIP PROJECT →</a>
+    <a href="https://app.clickup-embedded-html.com/collaborate/" class="btn ghost">LET'S TALK</a>
+  </div>
+</div>
+
+<div class="rule"></div>
+<footer>
+  <div class="foot-links">
+    <a href="https://app.clickup-embedded-html.com/">HOME</a>
+    <a href="https://app.clickup-embedded-html.com/music/">MUSIC</a>
+    <a href="https://app.clickup-embedded-html.com/about/">ABOUT</a>
+    <a href="https://app.clickup-embedded-html.com/os/">OS KIT</a>
+    <a href="https://app.clickup-embedded-html.com/collaborate/">COLLABORATION</a>
+    <span class="dot">·</span>
+    <a href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB</a>
+  </div>
+  <p class="foot-contact">Open to collaboration, creative partnerships, and role conversations. <a href="https://app.clickup-embedded-html.com/collaborate/">Let's talk.</a></p>
+  <div class="foot-base">
+    <span>skele.t0l is Tony Scoburgh's portfolio for music, systems, and the Astral Compendium.</span>
+    <span class="c">© 2026 skele.t0l</span>
+  </div>
+</footer>
+
+<script data-activated="true">
+const mb = document.getElementById("menubtn"), nl = document.getElementById("navlinks");
+mb.addEventListener("click", () => {
+  const open = nl.classList.toggle("open");
+  mb.setAttribute("aria-expanded", open);
+});
+</script>
+
+</div></cu-root><script type="importmap">{ "imports": {"./main.js":"./main-7a6fd17976.js","./common.js":"./common-4e0365a7b9.js","./startRecording.js":"./startRecording-86d3a2d8e4.js","./profiler.js":"./profiler-291e0a6e82.js","./rolldown-runtime.js":"./rolldown-runtime-2681143a8f.js"} }</script><script src="./polyfills-RMGRH36F.js.download" type="module" crossorigin="anonymous"></script><script src="./main-7a6fd17976.js.download" type="module" crossorigin="anonymous"></script><div class="design-ui-credit" aria-hidden="true" style="">💜 by ClickUp Brain</div></body></html>
