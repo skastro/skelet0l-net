@@ -5,31 +5,35 @@
    ============================================================ */
 
 :root{
-  /* PALETTE — frame.w0rk Dark Theme (Figma) */
+  /* DARK THEME — the void (from frame.w0rk Figma palette) */
   --ink: #050208;
   --ink-2: #15101F;
   --panel: #1A1525;
   --plum: #241B33;
   --plum-3: #312444;
+
+  /* text tokens */
   --cream: #F5F5F0;
   --warm: #E8DFD5;
   --muted: #B8AEBC;
-  --gold: #E5BC5C;
   --head: #D8B3F0;
   --champagne: #DDC9A5;
+
+  /* accent */
+  --gold: #E5BC5C;
   --sepia: #C5994D;
 
-  /* QUADRUPLICITY — elemental pastels */
-  --orchid: #B894D9;    /* air */
-  --fuchsia: #E663A0;   /* fire */
-  --cornflower: #7A8FE0;/* water */
-  --chartreuse: #C5D86E;/* earth */
+  /* quadruplicity — elemental pastels */
+  --orchid: #B894D9;
+  --fuchsia: #E663A0;
+  --cornflower: #7A8FE0;
+  --chartreuse: #C5D86E;
 
-  /* DERIVED */
+  /* structural */
   --rule: rgba(90,74,106,.25);
   --card-brd: rgba(90,74,106,.35);
 
-  /* TYPE */
+  /* type */
   --serif: 'Cormorant', Georgia, serif;
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -55,17 +59,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:24px 8
 .rule{height:1px;background:var(--rule)}
 #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
   font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
-
-/* ---- page hero ---- */
-.page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
-.page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--head)}
-.page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
-
-/* ---- typography ---- */
-.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:1.56px;color:var(--gold)}
-h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-.prose{font-weight:300;font-size:16px;line-height:1.7;color:var(--muted);max-width:640px}
-.prose + .prose{margin-top:24px}
 
 /* ---- buttons ---- */
 .ctas{display:flex;gap:16px;flex-wrap:wrap}
@@ -98,15 +91,10 @@ a.w98:hover{border-color:rgba(229,188,92,.5)}
   border:1px solid rgba(229,188,92,.4);font-family:var(--mono);font-weight:500;font-size:10px;
   letter-spacing:.8px;color:var(--gold)}
 
-/* ---- quadruplicity accents ---- */
-.q-fire .glyph{color:var(--fuchsia)}
-.q-fire:hover{border-color:rgba(230,99,160,.5)}
-.q-earth .glyph{color:var(--chartreuse)}
-.q-earth:hover{border-color:rgba(197,216,110,.5)}
-.q-water .glyph{color:var(--cornflower)}
-.q-water:hover{border-color:rgba(122,143,224,.5)}
-.q-air .glyph{color:var(--orchid)}
-.q-air:hover{border-color:rgba(184,148,217,.5)}
+/* ---- page hero (shared) ---- */
+.page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
+.page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--head)}
+.page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
 /* ---- footer ---- */
 footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
@@ -119,6 +107,16 @@ footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
 .foot-base .c{color:rgba(184,174,188,.6)}
 .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
 .foot-contact a{color:var(--gold)}
+
+/* ---- quadruplicity card accents ---- */
+.q-fire .glyph{color:var(--fuchsia)}
+.q-fire:hover{border-color:rgba(230,99,160,.5)}
+.q-earth .glyph{color:var(--chartreuse)}
+.q-earth:hover{border-color:rgba(197,216,110,.5)}
+.q-water .glyph{color:var(--cornflower)}
+.q-water:hover{border-color:rgba(122,143,224,.5)}
+.q-air .glyph{color:var(--orchid)}
+.q-air:hover{border-color:rgba(184,148,217,.5)}
 
 /* ---- mobile ---- */
 @media (max-width:900px){
