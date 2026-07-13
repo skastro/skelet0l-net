@@ -9,16 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root{
-      --ink: #1A1520;
-      --ink-2: #2A2230;
-      --panel: #241E2A;
-      --plum: #3D2845;
+      --ink: #0D1117;
+      --ink-2: #151B23;
+      --panel: #1A2029;
+      --plum: #2D2640;
       --cream: #E8E0D8;
       --warm: #D4C8B8;
       --muted: #9A8F82;
       --gold: #C9A84C;
-      --rule: rgba(232,224,216,.10);
-      --card-brd: rgba(232,224,216,.16);
+      --rule: rgba(232,224,216,.08);
+      --card-brd: rgba(232,224,216,.14);
       --serif: 'Cormorant', Georgia, serif;
       --sans: 'IBM Plex Sans', system-ui, sans-serif;
       --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -47,12 +47,9 @@
     .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
     section{padding:56px 80px}
-    .timeline{list-style:none;padding:0;margin:0}
-    .timeline li{padding:12px 0 12px 24px;position:relative;font-weight:300;font-size:16px;line-height:1.6;color:var(--muted)}
-    .timeline li::before{content:'\2192';position:absolute;left:0;color:var(--gold)}
-    .timeline .year{font-family:var(--mono);font-size:12px;letter-spacing:.8px;color:var(--gold);margin-right:12px}
+    .prose{font-weight:300;font-size:16px;line-height:1.8;color:var(--muted);max-width:640px}
+    .prose + .prose{margin-top:24px}
     h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-    .prose{font-weight:300;font-size:16px;line-height:1.7;color:var(--muted);max-width:640px}
 
     .ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
     .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
@@ -95,23 +92,17 @@
 
   <div class="page-hero">
     <h1>About</h1>
-    <p class="lead">Musician, analyst, planner, and builder. Conservatory-trained, Army-tested. I translate pressure into things that work.</p>
+    <p class="lead">Musician, analyst, planner, and builder. I’ve been fortunate to move through very different worlds, and each one shaped how I think.</p>
   </div>
 
   <section>
-    <h3>THE PATH</h3>
-    <ul class="timeline">
-      <li><span class="year">2014–18</span> UC College-Conservatory of Music (oboe performance, piano, languages)</li>
-      <li><span class="year">2018–25</span> U.S. Army, Fort Hood/Cavazos (intelligence, operations, systems)</li>
-      <li><span class="year">2024–now</span> Procter &amp; Gamble, Site Integrated Planner (Personal Health Care)</li>
-    </ul>
+    <p class="prose">I studied oboe performance and languages at the University of Cincinnati College-Conservatory of Music. After graduating in 2018, I enlisted in the Army and served on Active Duty through 2023, then transitioned to the Reserves until 2025. I’m currently a Site Integrated Planner at Procter &amp; Gamble in Personal Health Care.</p>
 
-    <h3 style="margin-top:48px">WHAT I DO</h3>
-    <p class="prose">I bridge strategy and execution. I build frameworks that hold under pressure. I play oboe and bass guitar. I make useful and non-useful things with the same level of care.</p>
+    <p class="prose">The thread through all of it is systems under pressure: how organizations communicate, how plans survive contact with reality, and how to build things that hold together when the conditions change. I care about psychological safety, clear thinking, and making useful things with the same attention whether anyone is watching or not.</p>
 
     <div class="ctas">
       <a href="/os/" class="btn solid">SEE THE SYSTEMS SIDE →</a>
-      <a href="/music/" class="btn ghost">HEAR THE MUSIC</a>
+      <a href="/music/" class="btn ghost">LISTEN</a>
     </div>
   </section>
 
