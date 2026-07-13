@@ -1,245 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<!-- skill:chrome -->
-<style>
-/* Credit line — bottom-right */
-.design-ui-credit {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  font: 11px/1 system-ui, sans-serif;
-  color: rgba(128,128,128,0.5);
-  pointer-events: none;
-  z-index: 2147483647;
-  transition: opacity 0.4s ease;
-  user-select: none;
-  letter-spacing: 0.02em;
-}
-
-/* Hide chrome on touch devices */
-@media (hover: none) {
-  .design-ui-credit { display: none; }
-}
-
-/* Print fixes */
-@media print {
-  * {
-    transition: none !important;
-    animation: none !important;
-    box-shadow: none !important;
-  }
-  body {
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-  .design-ui-credit { display: none !important; }
-}
-
-</style>
-<script>
-(function () {
-    // Design-ui pages are single compositions, so the whole body is editable.
-    function markEditable() {
-        document.body.classList.add('artifact-editable');
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Collaboration — skele.t0l</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink: #1A1520;
+      --ink-2: #2A2230;
+      --panel: #241E2A;
+      --plum: #3D2845;
+      --cream: #E8E0D8;
+      --warm: #D4C8B8;
+      --muted: #9A8F82;
+      --gold: #C9A84C;
+      --rule: rgba(232,224,216,.10);
+      --card-brd: rgba(232,224,216,.16);
+      --serif: 'Cormorant', Georgia, serif;
+      --sans: 'IBM Plex Sans', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
     }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
 
-    // Credit badge with idle-fade. Hover devices only.
-    function initChromeUI() {
-        if (!matchMedia('(hover: hover)').matches) return;
+    nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
+    .logo{display:flex;align-items:baseline}
+    .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
+    .logo .b{font-family:var(--mono);font-weight:500;font-size:19px;color:var(--gold)}
+    .links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;letter-spacing:1.3px}
+    .links a{color:var(--muted)}
+    .links a:hover{color:var(--cream)}
+    .links a.on{color:var(--gold);font-weight:500}
+    .rule{height:1px;background:var(--rule)}
+    #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
+      font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
 
-        var credit = document.createElement('div');
-        credit.className = 'design-ui-credit';
-        credit.setAttribute('aria-hidden', 'true');
-        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
-        document.body.appendChild(credit);
+    .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
+    .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--cream)}
+    .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
-        var timer = null;
-        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
-        fade(true);
-        var show = function () {
-            fade(false);
-            clearTimeout(timer);
-            timer = setTimeout(function () { fade(true); }, 3000);
-        };
-        document.addEventListener('mousemove', show);
-        show();
+    section{padding:56px 80px}
+    .item-list{margin-bottom:48px}
+    .item-list h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
+    .item-list ul{list-style:none;padding:0;margin:0}
+    .item-list li{padding:10px 0 10px 24px;position:relative;font-weight:300;font-size:16px;line-height:1.6;color:var(--muted)}
+    .item-list li::before{content:'\2192';position:absolute;left:0;color:var(--gold)}
+
+    .reach-out{margin-top:8px}
+    .reach-out h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
+
+    .ctas{display:flex;gap:16px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
+      font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
+    .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
+    .btn.solid:hover{background:#d9b95e}
+    .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
+    .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+
+    footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
+    .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
+    .foot-links a{color:var(--muted)}
+    .foot-links a:hover{color:var(--cream)}
+    .foot-links .dim{color:rgba(154,143,130,.6)}
+    .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
+    .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
+    .foot-base .c{color:rgba(154,143,130,.7)}
+    .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
+    .foot-contact a{color:var(--gold)}
+
+    @media (max-width:900px){
+      nav{padding:16px 20px}
+      #menubtn{display:block}
+      .links{display:none;position:absolute;top:60px;left:0;right:0;z-index:50;
+        flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--rule)}
+      .links.open{display:flex}
+      .links a{padding:15px 20px;border-top:1px solid var(--rule)}
+      .page-hero{padding:56px 20px 36px}
+      .page-hero h1{font-size:34px}
+      .page-hero .lead{font-size:17px}
+      section{padding:40px 20px}
+      footer{padding:36px 20px}
+      .foot-links{gap:18px}
+      .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
     }
-
-    function init() {
-        markEditable();
-        initChromeUI();
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})();
-
-</script>
-<!-- /skill:chrome -->
-
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Collaboration — skele.t0l</title>
-<meta name="description" content="Open to role conversations, creative partnerships, and projects that need someone who can bridge strategy, structure, and creative thinking.">
-<meta name="theme-color" content="#1A1520">
-<link rel="icon" href="/assets/sigil.svg">
-<link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
-<style>
-  :root{
-    --ink:      #1A1520;
-    --ink-2:    #2A2230;
-    --panel:    #241E2A;
-    --plum:     #3D2845;
-    --cream:    #E8E0D8;
-    --warm:     #D4C8B8;
-    --muted:    #9A8F82;
-    --gold:     #C9A84C;
-    --rule:     rgba(232,224,216,.10);
-    --card-brd: rgba(232,224,216,.16);
-    --serif:    'Cormorant', Georgia, serif;
-    --sans:     'IBM Plex Sans', system-ui, sans-serif;
-    --mono:     'IBM Plex Mono', ui-monospace, monospace;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
-  a{text-decoration:none;color:inherit}
-  :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
-
-  nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
-  .logo{display:flex;align-items:baseline}
-  .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
-  .logo .b{font-family:var(--mono);font-weight:500;font-size:19px;color:var(--gold)}
-  .links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;letter-spacing:1.3px}
-  .links a{color:var(--muted)}
-  .links a:hover{color:var(--cream)}
-  .links a.on{color:var(--gold);font-weight:500}
-  .rule{height:1px;background:var(--rule)}
-  #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
-    font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
-
-  .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
-  .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--cream)}
-  .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
-
-  section{padding:56px 80px}
-  .item-list{margin-bottom:48px}
-  .item-list h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-  .item-list ul{list-style:none;padding:0;margin:0}
-  .item-list li{padding:10px 0 10px 24px;position:relative;font-weight:300;font-size:16px;line-height:1.6;color:var(--muted)}
-  .item-list li::before{content:'→';position:absolute;left:0;color:var(--gold)}
-
-  .reach-out{margin-top:8px}
-  .reach-out h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-
-  .ctas{display:flex;gap:16px;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
-    font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
-  .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
-  .btn.solid:hover{background:#d9b95e}
-  .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
-  .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
-
-  footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
-  .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
-  .foot-links a{color:var(--muted)}
-  .foot-links a:hover{color:var(--cream)}
-  .foot-links .dim{color:rgba(154,143,130,.6)}
-  .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
-  .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
-  .foot-base .c{color:rgba(154,143,130,.7)}
-  .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
-  .foot-contact a{color:var(--gold)}
-
-  @media (max-width:900px){
-    nav{padding:16px 20px}
-    #menubtn{display:block}
-    .links{display:none;position:absolute;top:60px;left:0;right:0;z-index:50;
-      flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--rule)}
-    .links.open{display:flex}
-    .links a{padding:15px 20px;border-top:1px solid var(--rule)}
-    .page-hero{padding:56px 20px 36px}
-    .page-hero h1{font-size:34px}
-    .page-hero .lead{font-size:17px}
-    section{padding:40px 20px}
-    footer{padding:36px 20px}
-    .foot-links{gap:18px}
-    .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
-  }
-</style>
+  </style>
 </head>
 <body>
+  <div id="site-header"></div>
 
-<nav>
-  <a class="logo" href="/" aria-label="skele.t0l home"><span class="a">skele</span><span class="b">.t0l</span></a>
-  <button id="menubtn" aria-label="Menu" aria-expanded="false">☰</button>
-  <div class="links" id="navlinks">
-    <a href="/">HOME</a>
-    <a href="/music/">MUSIC</a>
-    <a href="/about/">ABOUT</a>
-    <a href="/os/">OS KIT</a>
-    <a class="on" href="/skeletol/" aria-current="page">COLLABORATION</a>
-  </div>
-</nav>
-<div class="rule"></div>
-
-<header class="page-hero">
-  <h1>Let's make something real.</h1>
-  <p class="lead">Open to role conversations, creative partnerships, and projects that need someone who can bridge strategy, structure, and creative thinking. If you're looking for a collaborator, teammate, or someone who connects disciplines instead of staying inside one, this is the right door.</p>
-</header>
-
-<section>
-  <div class="item-list">
-    <h3>WHAT TONY IS LOOKING FOR</h3>
-    <ul>
-      <li>Employment where strategy, systems, communication, and creative thinking all matter</li>
-      <li>Creative partnerships with musicians, designers, writers, or builders</li>
-      <li>Projects that need rigor, imagination, and clear thinking under pressure</li>
-    </ul>
+  <div class="page-hero">
+    <h1>Let’s make something real.</h1>
+    <p class="lead">Open to role conversations, creative partnerships, and projects where strategy, structure, and creative thinking all matter. If you’re looking for someone who connects disciplines instead of staying inside one, this is the right door.</p>
   </div>
 
-  <div class="reach-out">
-    <h3>REACH OUT</h3>
-    <a class="btn solid" href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB: SKASTRO →</a>
-  </div>
+  <section>
+    <div class="item-list">
+      <h3>WHAT I’M LOOKING FOR</h3>
+      <ul>
+        <li>Employment where strategy, systems, communication, and creative thinking all matter</li>
+        <li>Creative partnerships with musicians, designers, writers, or builders</li>
+        <li>Projects that need rigor, imagination, and clear thinking under pressure</li>
+      </ul>
+    </div>
 
-  <div class="ctas" style="margin-top:48px">
-    <a class="btn ghost" href="/music/">HEAR THE MUSIC</a>
-    <a class="btn ghost" href="/">← HOME</a>
-  </div>
-</section>
+    <div class="reach-out">
+      <h3>REACH OUT</h3>
+      <div class="ctas">
+        <a href="https://github.com/skastro" target="_blank" rel="noopener" class="btn solid">GITHUB: SKASTRO →</a>
+      </div>
+    </div>
 
-<div class="rule"></div>
-<footer>
-  <div class="foot-links">
-    <a href="/">HOME</a>
-    <a href="/music/">MUSIC</a>
-    <a href="/about/">ABOUT</a>
-    <a href="/os/">OS KIT</a>
-    <a href="/skeletol/">COLLABORATION</a>
-    <span class="dot">·</span>
-    <a class="dim" href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB</a>
-  </div>
-  <p class="foot-contact">Open to collaboration, creative partnerships, and role conversations. <a href="/skeletol/">Let's talk.</a></p>
-  <div class="foot-base">
-    <span>skele.t0l is Tony Scoburgh's portfolio for music, systems, and the Astral Compendium.</span>
-    <span class="c">© 2026 skele.t0l</span>
-  </div>
-</footer>
+    <div class="ctas" style="margin-top:48px">
+      <a href="/music/" class="btn ghost">HEAR THE MUSIC</a>
+      <a href="/" class="btn ghost">← HOME</a>
+    </div>
+  </section>
 
-<script>
-  const mb = document.getElementById("menubtn"), nl = document.getElementById("navlinks");
-  mb.addEventListener("click", () => {
-    const open = nl.classList.toggle("open");
-    mb.setAttribute("aria-expanded", open);
-  });
-</script>
+  <div id="site-footer"></div>
+  <script src="/js/shell.js"></script>
 </body>
 </html>
