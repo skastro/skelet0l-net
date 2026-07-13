@@ -30,7 +30,6 @@
     a:hover{color:var(--gold)}
     :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
 
-    /* nav */
     nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
     .logo{display:flex;align-items:baseline}
     .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
@@ -43,12 +42,10 @@
     #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
       font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
 
-    /* page hero */
     .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
     .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--cream)}
     .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
-    /* content */
     section{padding:56px 80px}
     .timeline{list-style:none;padding:0;margin:0}
     .timeline li{padding:12px 0 12px 24px;position:relative;font-weight:300;font-size:16px;line-height:1.6;color:var(--muted)}
@@ -57,7 +54,6 @@
     h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
     .prose{font-weight:300;font-size:16px;line-height:1.7;color:var(--muted);max-width:640px}
 
-    /* CTA */
     .ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
     .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
       font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
@@ -66,18 +62,17 @@
     .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
     .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
 
-    /* footer */
     footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
     .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
     .foot-links a{color:var(--muted)}
     .foot-links a:hover{color:var(--cream)}
+    .foot-links .dim{color:rgba(154,143,130,.6)}
     .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
     .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
     .foot-base .c{color:rgba(154,143,130,.7)}
     .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
     .foot-contact a{color:var(--gold)}
 
-    /* mobile */
     @media (max-width:900px){
       nav{padding:16px 20px}
       #menubtn{display:block}
@@ -99,23 +94,23 @@
   <div id="site-header"></div>
 
   <div class="page-hero">
-    <h1>About Tony</h1>
-    <p class="lead">Musician, analyst, planner, and builder. Conservatory-trained, Army-tested, now translating systems under pressure into things that work.</p>
+    <h1>About</h1>
+    <p class="lead">Musician, analyst, planner, and builder. Conservatory-trained, Army-tested. I translate pressure into things that work.</p>
   </div>
 
   <section>
     <h3>THE PATH</h3>
     <ul class="timeline">
-      <li><span class="year">2014-18</span> UC College-Conservatory of Music (oboe performance, piano, languages)</li>
-      <li><span class="year">2018-25</span> U.S. Army, Fort Hood/Cavazos (intelligence, operations, systems)</li>
-      <li><span class="year">2024-now</span> Procter &amp; Gamble, Site Integrated Planner (Personal Health Care)</li>
+      <li><span class="year">2014–18</span> UC College-Conservatory of Music (oboe performance, piano, languages)</li>
+      <li><span class="year">2018–25</span> U.S. Army, Fort Hood/Cavazos (intelligence, operations, systems)</li>
+      <li><span class="year">2024–now</span> Procter &amp; Gamble, Site Integrated Planner (Personal Health Care)</li>
     </ul>
 
-    <h3 style="margin-top:48px">WHAT TONY DOES</h3>
-    <p class="prose">Bridges strategy and execution. Builds frameworks that hold under pressure. Plays oboe and bass guitar. Makes useful and non-useful things with the same level of care.</p>
+    <h3 style="margin-top:48px">WHAT I DO</h3>
+    <p class="prose">I bridge strategy and execution. I build frameworks that hold under pressure. I play oboe and bass guitar. I make useful and non-useful things with the same level of care.</p>
 
     <div class="ctas">
-      <a href="/os/" class="btn solid">SEE THE SYSTEMS SIDE &rarr;</a>
+      <a href="/os/" class="btn solid">SEE THE SYSTEMS SIDE →</a>
       <a href="/music/" class="btn ghost">HEAR THE MUSIC</a>
     </div>
   </section>

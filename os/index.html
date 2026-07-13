@@ -30,7 +30,6 @@
     a:hover{color:var(--gold)}
     :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
 
-    /* nav */
     nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
     .logo{display:flex;align-items:baseline}
     .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
@@ -43,12 +42,10 @@
     #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
       font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
 
-    /* page hero */
     .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
     .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--cream)}
     .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
-    /* content */
     section{padding:56px 80px}
     h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
     .prose{font-weight:300;font-size:16px;line-height:1.7;color:var(--muted);max-width:640px}
@@ -68,7 +65,6 @@
     .w98 .desc{margin:0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
     .lnk{font-family:var(--mono);font-size:12px;letter-spacing:.72px;color:var(--gold)}
 
-    /* CTA */
     .ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:40px}
     .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
       font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
@@ -77,18 +73,17 @@
     .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
     .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
 
-    /* footer */
     footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
     .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
     .foot-links a{color:var(--muted)}
     .foot-links a:hover{color:var(--cream)}
+    .foot-links .dim{color:rgba(154,143,130,.6)}
     .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
     .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
     .foot-base .c{color:rgba(154,143,130,.7)}
     .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
     .foot-contact a{color:var(--gold)}
 
-    /* mobile */
     @media (max-width:900px){
       nav{padding:16px 20px}
       #menubtn{display:block}
@@ -117,41 +112,41 @@
 
   <section>
     <h3>THE INSTRUMENTS</h3>
-    <p class="prose">Strategy as a daily practice, not a quarterly event. These are the tools Tony built to think with, plan with, and move through ambiguity.</p>
+    <p class="prose">Strategy as a daily practice, not a quarterly event. These are tools I built to think with, plan with, and move through ambiguity.</p>
 
     <div class="tool-grid">
       <a href="/compass/" class="w98">
         <div class="titlebar"><span class="t">compass.app</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
-          <span class="glyph">\u2316</span>
+          <span class="glyph">⌖</span>
           <h4>The Compass</h4>
           <p class="desc">Four-lever strategic orientation tool. Pressure, Positioning, Awareness, Skill. The writer.</p>
-          <span class="lnk">OPEN THE COMPASS &rarr;</span>
+          <span class="lnk">OPEN THE COMPASS →</span>
         </div>
       </a>
       <a href="/map/" class="w98">
         <div class="titlebar"><span class="t">frame.w0rk</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
-          <span class="glyph">\u25C7</span>
+          <span class="glyph">◇</span>
           <h4>The Map</h4>
           <p class="desc">The chart. Where things are, how they connect. A reader of the Compass data layer.</p>
-          <span class="lnk">VIEW THE MAP &rarr;</span>
+          <span class="lnk">VIEW THE MAP →</span>
         </div>
       </a>
       <a href="/flagship/" class="w98">
         <div class="titlebar"><span class="t">flag.sh1p</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
-          <span class="glyph">\u2693</span>
+          <span class="glyph">⚓</span>
           <h4>The Drydock</h4>
           <p class="desc">The Astral Compendium's build environment. Creature-collecting game design, Tortuga Region, 2077.</p>
-          <span class="lnk">ENTER THE DRYDOCK &rarr;</span>
+          <span class="lnk">ENTER THE DRYDOCK →</span>
         </div>
       </a>
     </div>
 
     <div class="ctas">
-      <a href="/skeletol/" class="btn solid">LET'S COLLABORATE &rarr;</a>
-      <a href="/about/" class="btn ghost">ABOUT TONY</a>
+      <a href="/skeletol/" class="btn solid">LET'S COLLABORATE →</a>
+      <a href="/about/" class="btn ghost">ABOUT ME</a>
     </div>
   </section>
 

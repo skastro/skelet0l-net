@@ -24,12 +24,12 @@
   function buildNav() {
     var active = getActive();
     var html = '<nav>'
-      + '<a href="/" class="logo"><span class="a">skele</span><span class="b">.t0l</span></a>'
+      + '<a href="/" class="logo" aria-label="skele.t0l home"><span class="a">skele</span><span class="b">.t0l</span></a>'
       + '<button id="menubtn" aria-label="Menu" aria-expanded="false">\u2630</button>'
       + '<div class="links" id="navlinks">';
 
     NAV_LINKS.forEach(function (lnk) {
-      var cls = (active === lnk.href) ? ' class="on"' : '';
+      var cls = (active === lnk.href) ? ' class="on" aria-current="page"' : '';
       html += '<a href="' + lnk.href + '"' + cls + '>' + lnk.label + '</a>';
     });
 
@@ -45,18 +45,17 @@
     });
 
     html += '<span class="dot">\u00B7</span>'
-      + '<a href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB</a>'
+      + '<a class="dim" href="https://github.com/skastro" target="_blank" rel="noopener">GITHUB</a>'
       + '</div>'
-      + '<div class="foot-contact">Open to collaboration, creative partnerships, and role conversations. <a href="/skeletol/">Let\u2019s talk.</a></div>'
+      + '<p class="foot-contact">Open to collaboration, creative partnerships, and role conversations. <a href="/skeletol/">Let\u2019s chat!</a></p>'
       + '<div class="foot-base">'
-      + '<span>skele.t0l is Tony Scoburgh\u2019s portfolio for music, systems, and the Astral Compendium.</span>'
+      + '<span>skele.t0l: My portfolio for music, systems, and the Astral Compendium.</span>'
       + '<span class="c">\u00A9 2026 skele.t0l</span>'
       + '</div></footer>';
     return html;
   }
 
   function inject() {
-    /* Nav: insert at top of body (before first element) */
     var navTarget = document.getElementById('site-header');
     if (navTarget) {
       navTarget.innerHTML = buildNav();
@@ -64,7 +63,6 @@
       document.body.insertAdjacentHTML('afterbegin', buildNav());
     }
 
-    /* Footer: append at bottom of body */
     var footTarget = document.getElementById('site-footer');
     if (footTarget) {
       footTarget.innerHTML = buildFooter();
@@ -72,7 +70,6 @@
       document.body.insertAdjacentHTML('beforeend', buildFooter());
     }
 
-    /* Mobile menu toggle */
     var btn = document.getElementById('menubtn');
     var links = document.getElementById('navlinks');
     if (btn && links) {
