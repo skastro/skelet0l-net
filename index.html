@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>skele.t0l — music, systems, and the Astral Compendium</title>
 <meta name="description" content="My portfolio for music, systems, and the Astral Compendium. Musician, analyst, planner, and builder making useful things that still feel alive.">
-<meta name="theme-color" content="#0D1117">
+<meta name="theme-color" content="#050208">
 <link rel="icon" href="/assets/sigil.svg">
 <link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,16 +13,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
 <style>
  :root{
- --ink: #0D1117;
- --ink-2: #151B23;
- --panel: #1A2029;
- --plum: #2D2640;
- --cream: #E8E0D8;
- --warm: #D4C8B8;
- --muted: #9A8F82;
- --gold: #C9A84C;
- --rule: rgba(232,224,216,.08);
- --card-brd: rgba(232,224,216,.14);
+ --ink: #050208;
+ --ink-2: #15101F;
+ --panel: #1A1525;
+ --plum: #241B33;
+ --cream: #F5F5F0;
+ --warm: #E8DFD5;
+ --muted: #B8AEBC;
+ --gold: #E5BC5C;
+ --head: #D8B3F0;
+ --rule: rgba(90,74,106,.25);
+ --card-brd: rgba(90,74,106,.35);
+ --orchid: #B894D9;
+ --fuchsia: #E663A0;
+ --cornflower: #7A8FE0;
+ --chartreuse: #C5D86E;
+ --champagne: #DDC9A5;
+ --sepia: #C5994D;
  --serif: 'Cormorant', Georgia, serif;
  --sans: 'IBM Plex Sans', system-ui, sans-serif;
  --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -50,55 +57,55 @@
  background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);overflow:hidden}
  .hero-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:28px;position:relative;z-index:2}
  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:1.56px;color:var(--gold)}
- .hero h2{margin:0;font-family:var(--serif);font-weight:600;font-size:58px;line-height:1.12;color:var(--cream)}
- .hero .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--warm)}
+ .hero h2{margin:0;font-family:var(--serif);font-weight:600;font-size:58px;line-height:1.12;color:var(--head)}
+ .hero .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--champagne)}
  .hero .sub{margin:0;font-weight:300;font-size:19px;line-height:1.55;color:var(--muted);max-width:560px}
  .ctas{display:flex;gap:16px;flex-wrap:wrap}
  .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
  font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
  .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
- .btn.solid:hover{background:#d9b95e}
- .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
- .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+ .btn.solid:hover{background:#f0cc6e}
+ .btn.ghost{border:1px solid rgba(229,188,92,.6);color:var(--gold)}
+ .btn.ghost:hover{border-color:var(--gold);background:rgba(229,188,92,.08)}
  /* compass sigil */
  .sigil{position:relative;flex:none;width:380px;height:380px;z-index:2}
  .sigil svg{display:block;width:100%;height:100%}
- .star-dot{position:absolute;border-radius:50%;background:var(--cream);opacity:.5;z-index:1}
+ .star-dot{position:absolute;border-radius:50%;background:var(--cream);opacity:.4;z-index:1}
  /* ---- sections ---- */
  section{padding:72px 80px}
  .head{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
- .head h2{margin:0;font-family:var(--serif);font-weight:600;font-size:38px;color:var(--cream)}
+ .head h2{margin:0;font-family:var(--serif);font-weight:600;font-size:38px;color:var(--head)}
  /* ---- w98 cards ---- */
  .tiles{display:flex;gap:24px;align-items:stretch}
  .w98{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--panel);
  border:1px solid var(--card-brd);border-radius:2px;overflow:hidden}
- a.w98:hover{border-color:rgba(201,168,76,.5)}
+ a.w98:hover{border-color:rgba(229,188,92,.5)}
  .titlebar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
  background:linear-gradient(90deg,var(--plum),var(--ink-2))}
  .titlebar .t{font-family:var(--mono);font-size:12px;letter-spacing:.48px;color:var(--warm)}
  .titlebar .btns{display:flex;gap:6px}
- .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(212,200,184,.5)}
- .titlebar .btns i:last-child{background:rgba(201,168,76,.35)}
+ .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(184,174,188,.4)}
+ .titlebar .btns i:last-child{background:rgba(229,188,92,.35)}
  .w98 .body{display:flex;flex-direction:column;gap:12px;padding:24px}
  .w98 .glyph{font-weight:300;font-size:34px;line-height:1;color:var(--gold)}
  .w98 h3{margin:0;font-family:var(--serif);font-weight:600;font-size:26px;color:var(--cream)}
  .w98 .desc{margin:0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
  .lnk{font-family:var(--mono);font-size:12px;letter-spacing:.72px;color:var(--gold)}
- .badge{display:inline-flex;padding:3px 8px;border-radius:2px;background:rgba(201,168,76,.14);
- border:1px solid rgba(201,168,76,.4);font-family:var(--mono);font-weight:500;font-size:10px;
+ .badge{display:inline-flex;padding:3px 8px;border-radius:2px;background:rgba(229,188,92,.14);
+ border:1px solid rgba(229,188,92,.4);font-family:var(--mono);font-weight:500;font-size:10px;
  letter-spacing:.8px;color:var(--gold)}
  .titlerow{display:flex;gap:10px;align-items:center}
  /* ---- cta band ---- */
  .cta-band{padding:8px 80px}
  .band{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:48px;
- border:1px solid rgba(201,168,76,.35);border-radius:2px;
+ border:1px solid rgba(229,188,92,.35);border-radius:2px;
  background:linear-gradient(90deg,var(--plum),var(--ink-2))}
- .band h2{margin:0;font-family:var(--serif);font-style:italic;font-weight:600;font-size:30px;color:var(--cream)}
+ .band h2{margin:0;font-family:var(--serif);font-style:italic;font-weight:600;font-size:30px;color:var(--head)}
  .band p{margin:8px 0 0;font-weight:300;font-size:15px;color:var(--muted)}
  /* ---- depth ---- */
  .depth{display:flex;gap:64px;align-items:center}
  .depth-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
- .depth-copy h2{margin:0;font-family:var(--serif);font-weight:600;font-size:36px;color:var(--cream)}
+ .depth-copy h2{margin:0;font-family:var(--serif);font-weight:600;font-size:36px;color:var(--head)}
  .depth-copy .big{margin:0;font-weight:300;font-size:17px;line-height:1.6;color:var(--muted)}
  .depth .w98{flex:1}
  .log-row{display:flex;align-items:center;justify-content:space-between}
@@ -106,17 +113,17 @@
  .log-row .g{font-size:18px;color:var(--gold)}
  .log-row .n{font-weight:500;font-size:15px;color:var(--cream)}
  .log-row .r{font-family:var(--mono);font-size:12px;color:var(--muted)}
- .w98 .divider{height:1px;background:rgba(232,224,216,.12)}
- .w98 .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--warm)}
+ .w98 .divider{height:1px;background:var(--rule)}
+ .w98 .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--champagne)}
  /* ---- footer ---- */
  footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
  .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
  .foot-links a{color:var(--muted)}
  .foot-links a:hover{color:var(--cream)}
- .foot-links .dim{color:rgba(154,143,130,.6)}
- .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
+ .foot-links .dim{color:rgba(184,174,188,.5)}
+ .foot-links .dot{color:rgba(184,174,188,.4);letter-spacing:0}
  .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
- .foot-base .c{color:rgba(154,143,130,.7)}
+ .foot-base .c{color:rgba(184,174,188,.6)}
  .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
  .foot-contact a{color:var(--gold)}
  /* ---- mobile ---- */
@@ -171,17 +178,17 @@
  <div class="sigil" aria-hidden="true">
   <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" fill="none">
    <circle cx="190" cy="190" r="190" fill="url(#sg)"/>
-   <circle cx="190" cy="190" r="169.5" stroke="#C9A84C" stroke-opacity=".45"/>
+   <circle cx="190" cy="190" r="169.5" stroke="#E5BC5C" stroke-opacity=".45"/>
    <circle cx="190" cy="190" r="130" fill="url(#sg2)"/>
-   <path d="M190 40L200.6 179.4L340 190L200.6 200.6L190 340L179.4 200.6L40 190L179.4 179.4L190 40Z" fill="#C9A84C" fill-opacity=".3"/>
-   <path d="M190 95L201.6 161.9L257.2 122.8L218.1 178.4L285 190L218.1 201.6L257.2 257.2L201.6 218.1L190 285L178.4 218.1L122.8 257.2L161.9 201.6L95 190L161.9 178.4L122.8 122.8L178.4 161.9L190 95Z" fill="#C9A84C" fill-opacity=".9"/>
-   <circle cx="190" cy="190" r="5" fill="#E8E0D8"/>
+   <path d="M190 40L200.6 179.4L340 190L200.6 200.6L190 340L179.4 200.6L40 190L179.4 179.4L190 40Z" fill="#E5BC5C" fill-opacity=".3"/>
+   <path d="M190 95L201.6 161.9L257.2 122.8L218.1 178.4L285 190L218.1 201.6L257.2 257.2L201.6 218.1L190 285L178.4 218.1L122.8 257.2L161.9 201.6L95 190L161.9 178.4L122.8 122.8L178.4 161.9L190 95Z" fill="#E5BC5C" fill-opacity=".9"/>
+   <circle cx="190" cy="190" r="5" fill="#F5F5F0"/>
    <defs>
     <radialGradient id="sg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(190 190) scale(190)">
-     <stop stop-color="#C9A84C" stop-opacity=".16"/><stop offset="1" stop-color="#C9A84C" stop-opacity="0"/>
+     <stop stop-color="#E5BC5C" stop-opacity=".16"/><stop offset="1" stop-color="#E5BC5C" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="sg2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(190 190) scale(130)">
-     <stop stop-color="#C9A84C" stop-opacity=".22"/><stop offset="1" stop-color="#C9A84C" stop-opacity="0"/>
+     <stop stop-color="#E5BC5C" stop-opacity=".22"/><stop offset="1" stop-color="#E5BC5C" stop-opacity="0"/>
     </radialGradient>
    </defs>
   </svg>

@@ -9,16 +9,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root{
-      --ink: #0D1117;
-      --ink-2: #151B23;
-      --panel: #1A2029;
-      --plum: #2D2640;
-      --cream: #E8E0D8;
-      --warm: #D4C8B8;
-      --muted: #9A8F82;
-      --gold: #C9A84C;
-      --rule: rgba(232,224,216,.08);
-      --card-brd: rgba(232,224,216,.14);
+      --ink: #050208;
+      --ink-2: #15101F;
+      --panel: #1A1525;
+      --plum: #241B33;
+      --cream: #F5F5F0;
+      --warm: #E8DFD5;
+      --muted: #B8AEBC;
+      --gold: #E5BC5C;
+      --head: #D8B3F0;
+      --rule: rgba(90,74,106,.25);
+      --card-brd: rgba(90,74,106,.35);
+      --orchid: #B894D9;
+      --fuchsia: #E663A0;
+      --cornflower: #7A8FE0;
+      --chartreuse: #C5D86E;
+      --champagne: #DDC9A5;
+      --sepia: #C5994D;
       --serif: 'Cormorant', Georgia, serif;
       --sans: 'IBM Plex Sans', system-ui, sans-serif;
       --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -43,7 +50,7 @@
       font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
 
     .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
-    .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--cream)}
+    .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--head)}
     .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
     section{padding:56px 80px}
@@ -52,35 +59,45 @@
     .tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:24px}
     .w98{display:flex;flex-direction:column;background:var(--panel);
       border:1px solid var(--card-brd);border-radius:2px;overflow:hidden}
-    a.w98:hover{border-color:rgba(201,168,76,.5)}
+    a.w98:hover{border-color:rgba(229,188,92,.5)}
     .titlebar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
       background:linear-gradient(90deg,var(--plum),var(--ink-2))}
     .titlebar .t{font-family:var(--mono);font-size:12px;letter-spacing:.48px;color:var(--warm)}
     .titlebar .btns{display:flex;gap:6px}
-    .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(212,200,184,.5)}
-    .titlebar .btns i:last-child{background:rgba(201,168,76,.35)}
+    .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(184,174,188,.4)}
+    .titlebar .btns i:last-child{background:rgba(229,188,92,.35)}
     .w98 .body{display:flex;flex-direction:column;gap:12px;padding:24px}
-    .w98 .glyph{font-weight:300;font-size:34px;line-height:1;color:var(--gold)}
+    .w98 .glyph{font-weight:300;font-size:34px;line-height:1}
     .w98 h4{margin:0;font-family:var(--serif);font-weight:600;font-size:22px;color:var(--cream)}
     .w98 .desc{margin:0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
     .lnk{font-family:var(--mono);font-size:12px;letter-spacing:.72px;color:var(--gold)}
+
+    /* quadruplicity card accents */
+    .q-fire .glyph{color:var(--fuchsia)}
+    .q-fire:hover{border-color:rgba(230,99,160,.5)}
+    .q-earth .glyph{color:var(--chartreuse)}
+    .q-earth:hover{border-color:rgba(197,216,110,.5)}
+    .q-water .glyph{color:var(--cornflower)}
+    .q-water:hover{border-color:rgba(122,143,224,.5)}
+    .q-air .glyph{color:var(--orchid)}
+    .q-air:hover{border-color:rgba(184,148,217,.5)}
 
     .ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:40px}
     .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
       font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
     .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
-    .btn.solid:hover{background:#d9b95e}
-    .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
-    .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+    .btn.solid:hover{background:#f0cc6e}
+    .btn.ghost{border:1px solid rgba(229,188,92,.6);color:var(--gold)}
+    .btn.ghost:hover{border-color:var(--gold);background:rgba(229,188,92,.08)}
 
     footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
     .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
     .foot-links a{color:var(--muted)}
     .foot-links a:hover{color:var(--cream)}
-    .foot-links .dim{color:rgba(154,143,130,.6)}
-    .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
+    .foot-links .dim{color:rgba(184,174,188,.5)}
+    .foot-links .dot{color:rgba(184,174,188,.4);letter-spacing:0}
     .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
-    .foot-base .c{color:rgba(154,143,130,.7)}
+    .foot-base .c{color:rgba(184,174,188,.6)}
     .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
     .foot-contact a{color:var(--gold)}
 
@@ -115,7 +132,7 @@
     <p class="prose">Strategy as a daily practice, not a quarterly event. These are tools I built to think with, plan with, and move through ambiguity.</p>
 
     <div class="tool-grid">
-      <a href="/compass/" class="w98">
+      <a href="/compass/" class="w98 q-fire">
         <div class="titlebar"><span class="t">compass.app</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
           <span class="glyph">⌖</span>
@@ -124,7 +141,7 @@
           <span class="lnk">OPEN THE COMPASS →</span>
         </div>
       </a>
-      <a href="/map/" class="w98">
+      <a href="/map/" class="w98 q-earth">
         <div class="titlebar"><span class="t">frame.w0rk</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
           <span class="glyph">◇</span>
@@ -133,7 +150,7 @@
           <span class="lnk">VIEW THE MAP →</span>
         </div>
       </a>
-      <a href="/log/" class="w98">
+      <a href="/log/" class="w98 q-water">
         <div class="titlebar"><span class="t">ship.log</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
           <span class="glyph">✶</span>
@@ -142,7 +159,7 @@
           <span class="lnk">OPEN THE LOG →</span>
         </div>
       </a>
-      <a href="/flagship/" class="w98">
+      <a href="/flagship/" class="w98 q-air">
         <div class="titlebar"><span class="t">flag.sh1p</span><span class="btns"><i></i><i></i><i></i></span></div>
         <div class="body">
           <span class="glyph">⚓</span>

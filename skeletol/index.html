@@ -9,16 +9,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root{
-      --ink: #1A1520;
-      --ink-2: #2A2230;
-      --panel: #241E2A;
-      --plum: #3D2845;
-      --cream: #E8E0D8;
-      --warm: #D4C8B8;
-      --muted: #9A8F82;
-      --gold: #C9A84C;
-      --rule: rgba(232,224,216,.10);
-      --card-brd: rgba(232,224,216,.16);
+      --ink: #050208;
+      --ink-2: #15101F;
+      --panel: #1A1525;
+      --plum: #241B33;
+      --cream: #F5F5F0;
+      --warm: #E8DFD5;
+      --muted: #B8AEBC;
+      --gold: #E5BC5C;
+      --head: #D8B3F0;
+      --rule: rgba(90,74,106,.25);
+      --card-brd: rgba(90,74,106,.35);
+      --champagne: #DDC9A5;
       --serif: 'Cormorant', Georgia, serif;
       --sans: 'IBM Plex Sans', system-ui, sans-serif;
       --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -42,7 +44,7 @@
       font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
 
     .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
-    .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--cream)}
+    .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--head)}
     .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
 
     section{padding:56px 80px}
@@ -59,18 +61,18 @@
     .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
       font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
     .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
-    .btn.solid:hover{background:#d9b95e}
-    .btn.ghost{border:1px solid rgba(201,168,76,.6);color:var(--gold)}
-    .btn.ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+    .btn.solid:hover{background:#f0cc6e}
+    .btn.ghost{border:1px solid rgba(229,188,92,.6);color:var(--gold)}
+    .btn.ghost:hover{border-color:var(--gold);background:rgba(229,188,92,.08)}
 
     footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
     .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
     .foot-links a{color:var(--muted)}
     .foot-links a:hover{color:var(--cream)}
-    .foot-links .dim{color:rgba(154,143,130,.6)}
-    .foot-links .dot{color:rgba(154,143,130,.5);letter-spacing:0}
+    .foot-links .dim{color:rgba(184,174,188,.5)}
+    .foot-links .dot{color:rgba(184,174,188,.4);letter-spacing:0}
     .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
-    .foot-base .c{color:rgba(154,143,130,.7)}
+    .foot-base .c{color:rgba(184,174,188,.6)}
     .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
     .foot-contact a{color:var(--gold)}
 
@@ -117,7 +119,7 @@
     </div>
 
     <div class="ctas" style="margin-top:48px">
-      <a href="/music/" class="btn ghost">HEAR THE MUSIC</a>
+      <a href="/music/" class="btn ghost">LISTEN</a>
       <a href="/" class="btn ghost">← HOME</a>
     </div>
   </section>
