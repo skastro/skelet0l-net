@@ -11,47 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="/css/site.css">
 <style>
- :root{
- --ink: #050208;
- --ink-2: #15101F;
- --panel: #1A1525;
- --plum: #241B33;
- --cream: #F5F5F0;
- --warm: #E8DFD5;
- --muted: #B8AEBC;
- --gold: #E5BC5C;
- --head: #D8B3F0;
- --rule: rgba(90,74,106,.25);
- --card-brd: rgba(90,74,106,.35);
- --orchid: #B894D9;
- --fuchsia: #E663A0;
- --cornflower: #7A8FE0;
- --chartreuse: #C5D86E;
- --champagne: #DDC9A5;
- --sepia: #C5994D;
- --serif: 'Cormorant', Georgia, serif;
- --sans: 'IBM Plex Sans', system-ui, sans-serif;
- --mono: 'IBM Plex Mono', ui-monospace, monospace;
- }
- *{box-sizing:border-box}
- html,body{margin:0;padding:0}
- body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
- a{text-decoration:none;color:inherit}
- a:hover .lnk,a.lnk:hover{color:var(--gold)}
- :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
- /* ---- nav ---- */
- nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
- .logo{display:flex;align-items:baseline}
- .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
- .logo .b{font-family:var(--mono);font-weight:500;font-size:19px;color:var(--gold)}
- .links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;letter-spacing:1.3px}
- .links a{color:var(--muted)}
- .links a:hover{color:var(--cream)}
- .links a.on{color:var(--gold);font-weight:500}
- .rule{height:1px;background:var(--rule)}
- #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
- font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
  /* ---- hero ---- */
  .hero{position:relative;display:flex;gap:60px;align-items:center;padding:96px 80px 88px;
  background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);overflow:hidden}
@@ -60,14 +21,6 @@
  .hero h2{margin:0;font-family:var(--serif);font-weight:600;font-size:58px;line-height:1.12;color:var(--head)}
  .hero .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--champagne)}
  .hero .sub{margin:0;font-weight:300;font-size:19px;line-height:1.55;color:var(--muted);max-width:560px}
- .ctas{display:flex;gap:16px;flex-wrap:wrap}
- .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
- font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
- .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
- .btn.solid:hover{background:#f0cc6e}
- .btn.ghost{border:1px solid rgba(229,188,92,.6);color:var(--gold)}
- .btn.ghost:hover{border-color:var(--gold);background:rgba(229,188,92,.08)}
- /* compass sigil */
  .sigil{position:relative;flex:none;width:380px;height:380px;z-index:2}
  .sigil svg{display:block;width:100%;height:100%}
  .star-dot{position:absolute;border-radius:50%;background:var(--cream);opacity:.4;z-index:1}
@@ -75,25 +28,8 @@
  section{padding:72px 80px}
  .head{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
  .head h2{margin:0;font-family:var(--serif);font-weight:600;font-size:38px;color:var(--head)}
- /* ---- w98 cards ---- */
  .tiles{display:flex;gap:24px;align-items:stretch}
- .w98{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--panel);
- border:1px solid var(--card-brd);border-radius:2px;overflow:hidden}
- a.w98:hover{border-color:rgba(229,188,92,.5)}
- .titlebar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
- background:linear-gradient(90deg,var(--plum),var(--ink-2))}
- .titlebar .t{font-family:var(--mono);font-size:12px;letter-spacing:.48px;color:var(--warm)}
- .titlebar .btns{display:flex;gap:6px}
- .titlebar .btns i{width:9px;height:9px;border:1px solid rgba(184,174,188,.4)}
- .titlebar .btns i:last-child{background:rgba(229,188,92,.35)}
- .w98 .body{display:flex;flex-direction:column;gap:12px;padding:24px}
- .w98 .glyph{font-weight:300;font-size:34px;line-height:1;color:var(--gold)}
- .w98 h3{margin:0;font-family:var(--serif);font-weight:600;font-size:26px;color:var(--cream)}
- .w98 .desc{margin:0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
- .lnk{font-family:var(--mono);font-size:12px;letter-spacing:.72px;color:var(--gold)}
- .badge{display:inline-flex;padding:3px 8px;border-radius:2px;background:rgba(229,188,92,.14);
- border:1px solid rgba(229,188,92,.4);font-family:var(--mono);font-weight:500;font-size:10px;
- letter-spacing:.8px;color:var(--gold)}
+ .tiles .w98{flex:1;min-width:0}
  .titlerow{display:flex;gap:10px;align-items:center}
  /* ---- cta band ---- */
  .cta-band{padding:8px 80px}
@@ -113,27 +49,8 @@
  .log-row .g{font-size:18px;color:var(--gold)}
  .log-row .n{font-weight:500;font-size:15px;color:var(--cream)}
  .log-row .r{font-family:var(--mono);font-size:12px;color:var(--muted)}
- .w98 .divider{height:1px;background:var(--rule)}
- .w98 .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--champagne)}
- /* ---- footer ---- */
- footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
- .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
- .foot-links a{color:var(--muted)}
- .foot-links a:hover{color:var(--cream)}
- .foot-links .dim{color:rgba(184,174,188,.5)}
- .foot-links .dot{color:rgba(184,174,188,.4);letter-spacing:0}
- .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
- .foot-base .c{color:rgba(184,174,188,.6)}
- .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
- .foot-contact a{color:var(--gold)}
  /* ---- mobile ---- */
  @media (max-width:900px){
- nav{padding:16px 20px}
- #menubtn{display:block}
- .links{display:none;position:absolute;top:60px;left:0;right:0;z-index:50;
- flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--rule)}
- .links.open{display:flex}
- .links a{padding:15px 20px;border-top:1px solid var(--rule)}
  .hero{flex-direction:column;align-items:flex-start;padding:56px 20px 56px;gap:40px}
  .hero h2{font-size:37px}
  .hero .sub{font-size:17px}
@@ -144,9 +61,6 @@
  .cta-band{padding:8px 20px}
  .band{flex-direction:column;align-items:flex-start;padding:32px 24px}
  .depth{flex-direction:column;align-items:stretch;gap:40px}
- footer{padding:36px 20px}
- .foot-links{gap:18px}
- .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
  }
 </style>
 </head>

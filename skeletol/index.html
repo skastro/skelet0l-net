@@ -7,89 +7,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
   <style>
-    :root{
-      --ink: #050208;
-      --ink-2: #15101F;
-      --panel: #1A1525;
-      --plum: #241B33;
-      --cream: #F5F5F0;
-      --warm: #E8DFD5;
-      --muted: #B8AEBC;
-      --gold: #E5BC5C;
-      --head: #D8B3F0;
-      --rule: rgba(90,74,106,.25);
-      --card-brd: rgba(90,74,106,.35);
-      --champagne: #DDC9A5;
-      --serif: 'Cormorant', Georgia, serif;
-      --sans: 'IBM Plex Sans', system-ui, sans-serif;
-      --mono: 'IBM Plex Mono', ui-monospace, monospace;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
-    a{text-decoration:none;color:inherit}
-    :focus-visible{outline:2px solid var(--cream);outline-offset:2px;border-radius:2px}
-
-    nav{display:flex;align-items:center;justify-content:space-between;padding:24px 80px}
-    .logo{display:flex;align-items:baseline}
-    .logo .a{font-family:var(--serif);font-style:italic;font-weight:600;font-size:26px;color:var(--cream)}
-    .logo .b{font-family:var(--mono);font-weight:500;font-size:19px;color:var(--gold)}
-    .links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;letter-spacing:1.3px}
-    .links a{color:var(--muted)}
-    .links a:hover{color:var(--cream)}
-    .links a.on{color:var(--gold);font-weight:500}
-    .rule{height:1px;background:var(--rule)}
-    #menubtn{display:none;background:none;border:1px solid var(--card-brd);color:var(--cream);
-      font-size:18px;line-height:1;padding:6px 10px;border-radius:2px;cursor:pointer}
-
-    .page-hero{padding:96px 80px 48px;background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
-    .page-hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.15;color:var(--head)}
-    .page-hero .lead{margin:24px 0 0;font-weight:300;font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}
-
     section{padding:56px 80px}
     .item-list{margin-bottom:48px}
     .item-list h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
     .item-list ul{list-style:none;padding:0;margin:0}
     .item-list li{padding:10px 0 10px 24px;position:relative;font-weight:300;font-size:16px;line-height:1.6;color:var(--muted)}
     .item-list li::before{content:'\2192';position:absolute;left:0;color:var(--gold)}
-
     .reach-out{margin-top:8px}
     .reach-out h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-
-    .ctas{display:flex;gap:16px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;padding:16px 28px;border-radius:2px;
-      font-family:var(--mono);font-size:13px;letter-spacing:1.04px;white-space:nowrap}
-    .btn.solid{background:var(--gold);color:var(--ink);font-weight:500}
-    .btn.solid:hover{background:#f0cc6e}
-    .btn.ghost{border:1px solid rgba(229,188,92,.6);color:var(--gold)}
-    .btn.ghost:hover{border-color:var(--gold);background:rgba(229,188,92,.08)}
-
-    footer{padding:44px 80px;font-family:var(--mono);font-size:12px}
-    .foot-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap;letter-spacing:.96px}
-    .foot-links a{color:var(--muted)}
-    .foot-links a:hover{color:var(--cream)}
-    .foot-links .dim{color:rgba(184,174,188,.5)}
-    .foot-links .dot{color:rgba(184,174,188,.4);letter-spacing:0}
-    .foot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;color:var(--muted)}
-    .foot-base .c{color:rgba(184,174,188,.6)}
-    .foot-contact{margin-top:14px;font-size:13px;font-family:var(--sans);color:var(--muted)}
-    .foot-contact a{color:var(--gold)}
-
     @media (max-width:900px){
-      nav{padding:16px 20px}
-      #menubtn{display:block}
-      .links{display:none;position:absolute;top:60px;left:0;right:0;z-index:50;
-        flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--rule)}
-      .links.open{display:flex}
-      .links a{padding:15px 20px;border-top:1px solid var(--rule)}
-      .page-hero{padding:56px 20px 36px}
-      .page-hero h1{font-size:34px}
-      .page-hero .lead{font-size:17px}
       section{padding:40px 20px}
-      footer{padding:36px 20px}
-      .foot-links{gap:18px}
-      .foot-base{flex-direction:column;align-items:flex-start;gap:6px}
     }
   </style>
 </head>
