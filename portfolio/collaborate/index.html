@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collaboration — skele.t0l net</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #050208; --ink-2: #15101F; --panel: #1A1525; --plum: #241B33;
+  --surface-1: #0E0A16; --surface-2: #15101F; --surface-3: #1A1525;
+  --cream: #F5F5F0; --warm: #E8DFD5; --muted: #B8AEBC;
+  --gold: #E5BC5C; --rose: #9B6B7E; --sage: #5E8A72;
+  --border: rgba(90,74,106,.35); --border-strong: rgba(229,188,92,.4);
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: var(--sans); font-weight: 300; line-height: 1.6; letter-spacing: 0.01em; min-height: 100vh; overflow-x: hidden; position: relative; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; background-image: radial-gradient(1px 1px at 12% 8%, rgba(245,245,240,0.3) 0%, transparent 100%), radial-gradient(1px 1px at 67% 12%, rgba(155,107,126,0.25) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 23% 34%, rgba(94,138,114,0.2) 0%, transparent 100%), radial-gradient(1px 1px at 89% 23%, rgba(245,245,240,0.15) 0%, transparent 100%), radial-gradient(1px 1px at 45% 67%, rgba(229,188,92,0.12) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 78% 45%, rgba(155,107,126,0.18) 0%, transparent 100%), radial-gradient(1px 1px at 34% 89%, rgba(94,138,114,0.15) 0%, transparent 100%), radial-gradient(1px 1px at 56% 23%, rgba(245,245,240,0.1) 0%, transparent 100%), radial-gradient(1px 1px at 91% 67%, rgba(155,107,126,0.12) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 8% 56%, rgba(229,188,92,0.15) 0%, transparent 100%), radial-gradient(1px 1px at 43% 91%, rgba(94,138,114,0.15) 0%, transparent 100%), radial-gradient(1px 1px at 72% 78%, rgba(245,245,240,0.12) 0%, transparent 100%), radial-gradient(1px 1px at 15% 72%, rgba(155,107,126,0.18) 0%, transparent 100%), radial-gradient(1px 1px at 95% 45%, rgba(94,138,114,0.12) 0%, transparent 100%); }
+body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 80% 50% at 20% 80%, rgba(155,107,126,0.02) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(94,138,114,0.018) 0%, transparent 70%); }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, var(--ink) 60%, transparent); backdrop-filter: blur(4px); }
+.nav-mark { font-family: var(--mono); font-weight: 500; font-size: 0.8125rem; letter-spacing: 0.08em; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-mark .glyph { font-size: 1.1rem; opacity: 0.8; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-family: var(--mono); font-size: 0.6875rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s var(--ease-out-expo); }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active { color: var(--gold); }
+
+main { position: relative; z-index: 1; }
+
+.collab-hero { padding: 9rem 2rem 4rem; max-width: 48rem; margin: 0 auto; }
+.collab-hero-eyebrow { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); opacity: 0.8; margin-bottom: 1.5rem; }
+.collab-hero-title { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.2; color: var(--cream); margin-bottom: 1.5rem; text-wrap: balance; }
+.collab-hero-text { font-size: 1.0625rem; color: var(--muted); max-width: 40rem; line-height: 1.8; }
+
+.section-label { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+
+.paths-section { padding: 3rem 2rem 4rem; max-width: 48rem; margin: 0 auto; }
+.paths-list { display: flex; flex-direction: column; gap: 1rem; }
+.path-item { background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; padding: 1.75rem 2rem; display: flex; align-items: flex-start; gap: 1.5rem; transition: border-color 0.3s var(--ease-out-expo); }
+.path-item:hover { border-color: var(--border-strong); }
+.path-glyph { font-size: 1.5rem; flex-shrink: 0; opacity: 0.6; margin-top: 0.1rem; }
+.path-glyph--gold { color: var(--gold); }
+.path-glyph--rose { color: var(--rose); }
+.path-glyph--sage { color: var(--sage); }
+.path-content h3 { font-family: var(--serif); font-size: 1.375rem; font-weight: 600; color: var(--cream); margin-bottom: 0.4rem; }
+.path-content p { font-size: 0.9375rem; color: var(--muted); line-height: 1.65; }
+
+.contact-section { padding: 3rem 2rem 4rem; max-width: 48rem; margin: 0 auto; }
+.contact-block { background: var(--surface-1); border: 1px solid rgba(94,138,114,.2); border-radius: 2px; overflow: hidden; }
+.contact-titlebar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: linear-gradient(90deg, var(--plum), var(--ink-2)); border-bottom: 1px solid var(--border); }
+.w98-dots { display: flex; gap: 5px; }
+.w98-dots span { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(184,174,188,.4); }
+.w98-dots span:last-child { background: rgba(229,188,92,.35); }
+.w98-title { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warm); margin-left: 0.25rem; }
+.contact-body { padding: 2.5rem; text-align: center; }
+.contact-body h2 { font-family: var(--serif); font-size: 1.75rem; font-weight: 400; color: var(--cream); margin-bottom: 1rem; }
+.contact-body p { font-size: 0.9375rem; color: var(--muted); line-height: 1.65; margin-bottom: 2rem; max-width: 32rem; margin-left: auto; margin-right: auto; }
+.contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+.contact-link { font-family: var(--mono); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.875rem 2rem; text-decoration: none; border-radius: 2px; transition: all 0.2s var(--ease-out-expo); }
+.contact-link--primary { color: var(--ink); background: var(--gold); }
+.contact-link--primary:hover { background: #f0cc6e; transform: translateY(-1px); }
+.contact-link--secondary { color: var(--cream); border: 1px solid var(--border-strong); background: transparent; }
+.contact-link--secondary:hover { border-color: var(--gold); transform: translateY(-1px); }
+
+.signal-section { padding: 2rem 2rem 5rem; max-width: 48rem; margin: 0 auto; text-align: center; }
+.signal-text { font-family: var(--serif); font-style: italic; font-size: 1.125rem; color: var(--sage); opacity: 0.65; letter-spacing: 0.02em; }
+
+footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 3rem 2rem 2.5rem; max-width: 64rem; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; }
+.footer-identity { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+.footer-identity strong { font-weight: 400; color: var(--cream); }
+.footer-contact { margin-top: 0.5rem; font-family: var(--mono); font-size: 0.75rem; color: var(--sage); opacity: 0.8; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
+.footer-links a { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--cream); }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.25rem; }
+  .nav-links { gap: 1.25rem; }
+  .nav-links a { font-size: 0.625rem; }
+  .collab-hero { padding: 7rem 1.5rem 3rem; }
+  .paths-section, .contact-section, .signal-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .path-item { flex-direction: column; gap: 1rem; }
+  .contact-links { flex-direction: column; align-items: center; }
+  footer { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-links { justify-content: flex-start; }
+}
+@media (max-width: 480px) {
+  .nav-links { gap: 0.75rem; }
+  .collab-hero { padding: 6rem 1.25rem 2.5rem; }
+  .contact-body { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/portfolio/" class="nav-mark"><span class="glyph">◈</span><span>SKELE.T0L</span></a>
+  <ul class="nav-links">
+    <li><a href="/portfolio/">Home</a></li>
+    <li><a href="/portfolio/music/">Music</a></li>
+    <li><a href="/portfolio/about/">About</a></li>
+    <li><a href="/portfolio/os/">OS Kit</a></li>
+    <li><a href="/portfolio/collaborate/" class="active">Collaboration</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="collab-hero">
+    <span class="collab-hero-eyebrow">✦ Collaboration</span>
+    <h1 class="collab-hero-title">Open for role conversations, creative partnerships, and projects that need structure without losing their core essence.</h1>
+    <p class="collab-hero-text">I work best in environments where complexity needs to become clarity, where systems need to serve people, and where someone has to hold both the creative vision and the operational reality at the same time.</p>
+  </section>
+
+  <section class="paths-section">
+    <span class="section-label">What I'm open to</span>
+    <div class="paths-list">
+      <article class="path-item">
+        <span class="path-glyph path-glyph--gold">☉</span>
+        <div class="path-content">
+          <h3>Music and Performance</h3>
+          <p>Session bass, live performance, ensemble work. Conservatory-trained, comfortable reading charts and improvising in the pocket. Available in the Cincinnati area and open to travel for the right project.</p>
+        </div>
+      </article>
+      <article class="path-item">
+        <span class="path-glyph path-glyph--sage">⚓</span>
+        <div class="path-content">
+          <h3>Operations and Strategy Roles</h3>
+          <p>Planning, coordination, systems design, and cross-functional work. I bring a systems-translator's instinct to complex environments: reading the board fast, finding the failure points, building the scaffolding that lets other people do their work.</p>
+        </div>
+      </article>
+      <article class="path-item">
+        <span class="path-glyph path-glyph--rose">✦</span>
+        <div class="path-content">
+          <h3>Creative and Builder Partnerships</h3>
+          <p>Projects that need someone who can hold structure and soul at the same time. Worldbuilding, design systems, interactive tools, and anything where the intersection of rigor and imagination produces something better than either alone.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <article class="contact-block">
+      <div class="contact-titlebar">
+        <div class="w98-dots"><span></span><span></span><span></span></div>
+        <span class="w98-title">Reach Out</span>
+      </div>
+      <div class="contact-body">
+        <h2>Start a conversation.</h2>
+        <p>If something here resonates, or if you have a project that needs this combination of skills, I'd like to hear about it.</p>
+        <div class="contact-links">
+          <a href="mailto:tony.sco.astro@gmail.com" class="contact-link contact-link--primary">Email Me</a>
+          <a href="https://github.com/skastro" class="contact-link contact-link--secondary">GitHub</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="signal-section">
+    <p class="signal-text">Structure without losing essence; clarity without losing depth.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-identity">
+    <strong>skele.t0l net</strong> &middot; Tony Scoburgh<br>
+    <span class="footer-contact">Open to collaboration</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="/portfolio/">Home</a></li>
+    <li><a href="/portfolio/music/">Music</a></li>
+    <li><a href="/portfolio/about/">About</a></li>
+    <li><a href="/portfolio/os/">OS Kit</a></li>
+    <li><a href="/portfolio/collaborate/">Collaboration</a></li>
+    <li><a href="https://github.com/skastro">GitHub</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
