@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>skele.t0l — Chrome Primitives</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1520;
+  --panel: #241E2A;
+  --plum: #3D2845;
+  --cream: #E8E0D8;
+  --gold: #C9A84C;
+  --muted: #9A8F82;
+  --surface-base: var(--ink);
+  --surface-raised: var(--panel);
+  --surface-elevated: var(--plum);
+  --text-primary: var(--cream);
+  --text-secondary: var(--muted);
+  --text-accent: var(--gold);
+  --border-subtle: rgba(157, 143, 130, 0.2);
+  --border-chrome: rgba(157, 143, 130, 0.35);
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: var(--sp-12) var(--sp-8);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--sp-16);
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: var(--sp-3);
+}
+
+.header .stamp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+section {
+  margin-bottom: var(--sp-16);
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  margin-bottom: var(--sp-6);
+}
+
+.section-title {
+  font-family: 'Cormorant', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: var(--sp-4);
+  line-height: 1.2;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--sp-8);
+  max-width: 65ch;
+}
+
+/* Primitive spec blocks */
+.primitive {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--sp-8);
+  margin-bottom: var(--sp-12);
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 700px) {
+  .primitive { grid-template-columns: 1fr; }
+}
+
+.primitive-specs h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  margin-bottom: var(--sp-3);
+}
+
+.primitive-specs .details {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.primitive-specs .use-on {
+  margin-top: var(--sp-4);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Chrome demos */
+.chrome-window {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-chrome);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.chrome-titlebar {
+  background: var(--surface-elevated);
+  padding: var(--sp-2) var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  border-bottom: 1px solid var(--border-subtle);
+  height: 32px;
+}
+
+.chrome-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--border-chrome);
+}
+
+.chrome-dot.active { background: var(--gold); border-color: var(--gold); }
+
+.chrome-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-left: var(--sp-2);
+  letter-spacing: 0.03em;
+}
+
+.chrome-body {
+  padding: var(--sp-6);
+}
+
+.chrome-body p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.chrome-status {
+  background: var(--surface-base);
+  padding: var(--sp-1) var(--sp-3);
+  border-top: 1px solid var(--border-subtle);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  height: 24px;
+  align-items: center;
+}
+
+/* Section frame demo */
+.section-frame-demo {
+  border: 1px solid var(--border-chrome);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  padding: var(--sp-6);
+}
+
+.section-frame-demo .frame-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-4);
+}
+
+.section-frame-demo p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Tab strip demo */
+.tab-strip {
+  display: flex;
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.tab-item {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+  cursor: default;
+}
+
+.tab-item.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.tab-item.hover {
+  color: var(--cream);
+}
+
+/* Divider demos */
+.divider-plain {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--sp-6) 0;
+}
+
+.divider-glyph {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: var(--sp-6) 0;
+}
+
+.divider-glyph::before,
+.divider-glyph::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.divider-glyph span {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Assembly demo */
+.assembly {
+  max-width: 560px;
+}
+
+.assembly .chrome-window {
+  margin-top: var(--sp-4);
+}
+
+.assembly .tab-strip {
+  padding: 0 var(--sp-3);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+}
+
+.assembly .tab-item {
+  padding: var(--sp-3) 0;
+}
+
+.assembly .chrome-body h3 {
+  font-family: 'Cormorant', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: var(--sp-3);
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1>☿ Chrome Primitives</h1>
+  <p class="stamp">artboard_03 · frame.w0rk system reference · 5 primitives + 1 assembly</p>
+</header>
+
+<section>
+  <p class="section-desc">Five repeatable patterns. The chrome is a framing device that makes content feel held, not costumed. If removing it makes the content harder to parse, it's working. If it makes no difference, cut it.</p>
+
+  <!-- 1. Window Header -->
+  <div class="primitive">
+    <div class="primitive-specs">
+      <h3>1 · Window Header</h3>
+      <div class="details">
+        --plum (tier 2) · 32px h · pad 8/12<br>
+        dots 8px: --gold fill + 2 chrome stroke<br>
+        title: mono 500 · 11px · --muted · +0.03em<br>
+        border-bottom: 1px --border-subtle
+      </div>
+      <p class="use-on">Use on: proof cards, project showcases, OS Kit modules</p>
+    </div>
+    <div>
+      <div class="chrome-titlebar" style="border-radius: 4px 4px 0 0; border: 1px solid var(--border-chrome); border-bottom: 1px solid var(--border-subtle);">
+        <span class="chrome-dot active"></span>
+        <span class="chrome-dot"></span>
+        <span class="chrome-dot"></span>
+        <span class="chrome-title">proof_module.exe</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Section Frame -->
+  <div class="primitive">
+    <div class="primitive-specs">
+      <h3>2 · Section Frame</h3>
+      <div class="details">
+        1px --border-chrome · radius 4<br>
+        --panel bg (tier 1) · no titlebar<br>
+        optional mono label · 12px inset · --muted · uppercase
+      </div>
+      <p class="use-on">Use on: page sections needing separation without a full window</p>
+    </div>
+    <div>
+      <div class="section-frame-demo">
+        <div class="frame-label">Section Label</div>
+        <p>Content sits inside the frame. The border gives the contained feel without the full window treatment: no dots, no title, no status.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Tab Strip -->
+  <div class="primitive">
+    <div class="primitive-specs">
+      <h3>3 · Tab Strip</h3>
+      <div class="details">
+        mono 500 · 12px · uppercase · +0.06em<br>
+        default --muted · hover --cream (no underline)<br>
+        active --gold + 2px gold underline (offset 4px)<br>
+        gap 24px (sp-6)
+      </div>
+      <p class="use-on">Use on: content switching in chrome windows, OS Kit categories</p>
+    </div>
+    <div>
+      <div class="tab-strip">
+        <span class="tab-item active">Active</span>
+        <span class="tab-item hover">Hover</span>
+        <span class="tab-item">Default</span>
+        <span class="tab-item">Default</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Status Strip -->
+  <div class="primitive">
+    <div class="primitive-specs">
+      <h3>4 · Status Strip</h3>
+      <div class="details">
+        --ink bg (tier 0) · 24px h · pad 4/12<br>
+        border-top: 1px --border-subtle<br>
+        mono 500 · 10px · --muted · space-between<br>
+        left: glyph + label · right: state / timestamp / progress
+      </div>
+      <p class="use-on">Use on: bottom of chrome windows, footer-like metadata</p>
+    </div>
+    <div>
+      <div class="chrome-status" style="border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+        <span>◈ skele.t0l</span>
+        <span>ready</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Divider -->
+  <div class="primitive">
+    <div class="primitive-specs">
+      <h3>5 · Divider</h3>
+      <div class="details">
+        1px --border-subtle · full width<br>
+        A: plain line<br>
+        B: glyph centered on --ink pad, breaking the line<br>
+        glyph --muted or --gold · same size as surrounding text
+      </div>
+      <p class="use-on">Use on: section breaks, between content groups</p>
+    </div>
+    <div>
+      <hr class="divider-plain">
+      <div class="divider-glyph"><span>✦</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Assembly -->
+<section>
+  <p class="section-label">◈ Assembly</p>
+  <h2 class="section-title">Full Window Composite</h2>
+  <p class="section-desc">Window header + tab strip + content area + status strip. Nesting order, top to bottom. One window, four primitives. Remove any layer and the content gets harder to parse: that is the test.</p>
+
+  <div class="assembly">
+    <div class="chrome-window">
+      <div class="chrome-titlebar">
+        <span class="chrome-dot active"></span>
+        <span class="chrome-dot"></span>
+        <span class="chrome-dot"></span>
+        <span class="chrome-title">os_kit.exe</span>
+      </div>
+      <div class="tab-strip">
+        <span class="tab-item active">Modules</span>
+        <span class="tab-item">Patterns</span>
+        <span class="tab-item">Glyphs</span>
+      </div>
+      <div class="chrome-body">
+        <h3>Content feels held</h3>
+        <p>The window treatment gives structure without stealing focus. Header carries identity, tabs carry navigation, the status strip carries state. Remove any layer and the content gets harder to parse: that is the test.</p>
+      </div>
+      <div class="chrome-status">
+        <span>◈ skele.t0l</span>
+        <span>3 tabs · ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
