@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>skele.t0l — Chrome Primitives Spec</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1520;
+  --panel: #241E2A;
+  --plum: #3D2845;
+  --cream: #E8E0D8;
+  --gold: #C9A84C;
+  --muted: #9A8F82;
+  --surface-base: var(--ink);
+  --surface-raised: var(--panel);
+  --surface-elevated: var(--plum);
+  --text-primary: var(--cream);
+  --text-secondary: var(--muted);
+  --text-accent: var(--gold);
+  --border-subtle: rgba(157, 143, 130, 0.2);
+  --border-chrome: rgba(157, 143, 130, 0.35);
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: var(--sp-12) var(--sp-8);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--sp-16);
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: var(--sp-3);
+}
+
+.header .stamp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.intro {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--sp-12);
+  max-width: 75ch;
+  line-height: 1.5;
+}
+
+section {
+  margin-bottom: var(--sp-16);
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  margin-bottom: var(--sp-4);
+}
+
+.primitive-block {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--sp-8);
+  margin-bottom: var(--sp-12);
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 700px) {
+  .primitive-block { grid-template-columns: 1fr; }
+}
+
+.primitive-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.primitive-meta strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.primitive-meta .use-on {
+  margin-top: var(--sp-3);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* 1. Window Header Demo */
+.demo-window-header {
+  background: var(--plum);
+  height: 32px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.demo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.demo-dot.active { background: var(--gold); }
+.demo-dot.inactive { border: 1px solid var(--border-chrome); }
+
+.demo-window-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  margin-left: var(--sp-2);
+}
+
+/* 2. Section Frame Demo */
+.demo-section-frame {
+  border: 1px solid var(--border-chrome);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  padding: var(--sp-6);
+}
+
+.demo-section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--sp-3);
+}
+
+.demo-section-content {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 3. Tab Strip Demo */
+.demo-tab-strip {
+  display: flex;
+  gap: var(--sp-6);
+  padding: var(--sp-3) 0;
+}
+
+.demo-tab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 6px;
+}
+
+.demo-tab.active {
+  color: var(--gold);
+  border-bottom: 2px solid var(--gold);
+}
+
+.demo-tab.hover { color: var(--cream); }
+.demo-tab.default { color: var(--muted); }
+
+/* 4. Status Strip Demo */
+.demo-status-strip {
+  background: var(--ink);
+  height: 24px;
+  padding: 4px 12px;
+  border-top: 1px solid var(--border-subtle);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* 5. Divider Demo */
+.demo-divider-plain {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--sp-4) 0;
+}
+
+.demo-divider-glyph {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: var(--sp-4) 0;
+}
+
+.demo-divider-glyph::before,
+.demo-divider-glyph::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.demo-divider-glyph span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Assembly Demo */
+.demo-assembly {
+  border: 1px solid var(--border-chrome);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  max-width: 520px;
+}
+
+.demo-assembly .body {
+  padding: var(--sp-6);
+  background: var(--panel);
+}
+
+.demo-assembly .body h3 {
+  font-family: 'Cormorant', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: var(--sp-3);
+  color: var(--cream);
+}
+
+.demo-assembly .body p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 50ch;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1>◈ Chrome Primitives</h1>
+  <p class="stamp">artboard_03 · frame.w0rk foundations · 5 primitives · 1 assembly</p>
+</header>
+
+<p class="intro">Five repeatable patterns. The chrome is a framing device that makes content feel held, not costumed. If removing it makes the content harder to parse, it's working. If it makes no difference, cut it.</p>
+
+<!-- 1. Window Header -->
+<section>
+  <div class="primitive-block">
+    <div class="primitive-meta">
+      <p class="section-label">1 · Window Header</p>
+      <p><strong>--plum</strong> (tier 2) · 32px h · pad 8/12</p>
+      <p>dots 8px: <strong>--gold</strong> fill + 2 chrome stroke</p>
+      <p>title: mono 500 · 11px · --muted · +0.03em</p>
+      <p>border-bottom: 1px --border-subtle</p>
+      <p class="use-on">use on: proof cards, project showcases, OS Kit modules</p>
+    </div>
+    <div>
+      <div class="demo-window-header">
+        <span class="demo-dot active"></span>
+        <span class="demo-dot inactive"></span>
+        <span class="demo-dot inactive"></span>
+        <span class="demo-window-title">proof_module.exe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Section Frame -->
+<section>
+  <div class="primitive-block">
+    <div class="primitive-meta">
+      <p class="section-label">2 · Section Frame</p>
+      <p>1px <strong>--border-chrome</strong> · radius 4</p>
+      <p><strong>--panel</strong> bg (tier 1) · no titlebar</p>
+      <p>optional mono label · 12px inset · --muted · uppercase</p>
+      <p class="use-on">use on: page sections needing separation without a full window</p>
+    </div>
+    <div>
+      <div class="demo-section-frame">
+        <div class="demo-section-label">Section Label</div>
+        <div class="demo-section-content">Content sits inside the frame. The border gives the contained feel without the full window treatment: no dots, no title, no status.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Tab Strip -->
+<section>
+  <div class="primitive-block">
+    <div class="primitive-meta">
+      <p class="section-label">3 · Tab Strip</p>
+      <p>mono 500 · 12px · uppercase · +0.06em</p>
+      <p>default <strong>--muted</strong> · hover <strong>--cream</strong> (no underline)</p>
+      <p>active <strong>--gold</strong> + 2px gold underline (offset 4px)</p>
+      <p>gap 24px (sp-6)</p>
+      <p class="use-on">use on: content switching in chrome windows, OS Kit categories</p>
+    </div>
+    <div>
+      <div class="demo-tab-strip">
+        <span class="demo-tab active">Active</span>
+        <span class="demo-tab hover">Hover</span>
+        <span class="demo-tab default">Default</span>
+        <span class="demo-tab default">Default</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Status Strip -->
+<section>
+  <div class="primitive-block">
+    <div class="primitive-meta">
+      <p class="section-label">4 · Status Strip</p>
+      <p><strong>--ink</strong> bg (tier 0) · 24px h · pad 4/12</p>
+      <p>border-top: 1px --border-subtle</p>
+      <p>mono 500 · 10px · --muted · space-between</p>
+      <p>left: glyph + label · right: state / timestamp / progress</p>
+      <p class="use-on">use on: bottom of chrome windows, footer-like metadata</p>
+    </div>
+    <div>
+      <div class="demo-status-strip">
+        <span>◈ skele.t0l</span>
+        <span>ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Divider -->
+<section>
+  <div class="primitive-block">
+    <div class="primitive-meta">
+      <p class="section-label">5 · Divider</p>
+      <p>1px <strong>--border-subtle</strong> · full width</p>
+      <p>A: plain line</p>
+      <p>B: glyph centered on --ink pad, breaking the line</p>
+      <p>glyph --muted or --gold · same size as surrounding text</p>
+      <p class="use-on">use on: section breaks, between content groups</p>
+    </div>
+    <div>
+      <hr class="demo-divider-plain">
+      <div class="demo-divider-glyph"><span>✦</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Assembly -->
+<section>
+  <p class="section-label">Assembly</p>
+  <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--sp-6); max-width: 60ch;">Window header + tab strip + content area + status strip. Nesting order, top to bottom. One window, four primitives.</p>
+  <div class="demo-assembly">
+    <div class="demo-window-header">
+      <span class="demo-dot active"></span>
+      <span class="demo-dot inactive"></span>
+      <span class="demo-dot inactive"></span>
+      <span class="demo-window-title">os_kit.exe</span>
+    </div>
+    <div style="padding: 0 12px; background: var(--panel); border-bottom: 1px solid var(--border-subtle);">
+      <div class="demo-tab-strip">
+        <span class="demo-tab active">Modules</span>
+        <span class="demo-tab default">Patterns</span>
+        <span class="demo-tab default">Glyphs</span>
+      </div>
+    </div>
+    <div class="body">
+      <h3>Content feels held</h3>
+      <p>The window treatment gives structure without stealing focus. Header carries identity, tabs carry navigation, the status strip carries state. Remove any layer and the content gets harder to parse: that is the test.</p>
+    </div>
+    <div class="demo-status-strip">
+      <span>◈ skele.t0l</span>
+      <span>3 tabs · ready</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
