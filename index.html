@@ -1,200 +1,452 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>skele.t0l — music, systems, and the Astral Compendium</title>
-<meta name="description" content="My portfolio for music, systems, and the Astral Compendium. Musician, analyst, planner, and builder making useful things that still feel alive.">
-<meta name="theme-color" content="#050208">
-<link rel="icon" href="/assets/sigil.svg">
-<link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>skele.t0l net</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="/css/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
- /* ---- hero ---- */
- .hero{position:relative;display:flex;gap:60px;align-items:center;padding:96px 80px 88px;
- background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);overflow:hidden}
- .hero-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:28px;position:relative;z-index:2}
- .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:1.56px;color:var(--gold)}
- .hero h2{margin:0;font-family:var(--serif);font-weight:600;font-size:58px;line-height:1.12;color:var(--head)}
- .hero .motto{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--champagne)}
- .hero .sub{margin:0;font-weight:300;font-size:19px;line-height:1.55;color:var(--muted);max-width:560px}
- .sigil{position:relative;flex:none;width:380px;height:380px;z-index:2}
- .sigil svg{display:block;width:100%;height:100%}
- .star-dot{position:absolute;border-radius:50%;background:var(--cream);opacity:.4;z-index:1}
- /* ---- sections ---- */
- section{padding:72px 80px}
- .head{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
- .head h2{margin:0;font-family:var(--serif);font-weight:600;font-size:38px;color:var(--head)}
- .tiles{display:flex;gap:24px;align-items:stretch}
- .tiles .w98{flex:1;min-width:0}
- .titlerow{display:flex;gap:10px;align-items:center}
- /* ---- cta band ---- */
- .cta-band{padding:8px 80px}
- .band{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:48px;
- border:1px solid rgba(229,188,92,.35);border-radius:2px;
- background:linear-gradient(90deg,var(--plum),var(--ink-2))}
- .band h2{margin:0;font-family:var(--serif);font-style:italic;font-weight:600;font-size:30px;color:var(--head)}
- .band p{margin:8px 0 0;font-weight:300;font-size:15px;color:var(--muted)}
- /* ---- depth ---- */
- .depth{display:flex;gap:64px;align-items:center}
- .depth-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
- .depth-copy h2{margin:0;font-family:var(--serif);font-weight:600;font-size:36px;color:var(--head)}
- .depth-copy .big{margin:0;font-weight:300;font-size:17px;line-height:1.6;color:var(--muted)}
- .depth .w98{flex:1}
- .log-row{display:flex;align-items:center;justify-content:space-between}
- .log-row .l{display:flex;gap:14px;align-items:center}
- .log-row .g{font-size:18px;color:var(--gold)}
- .log-row .n{font-weight:500;font-size:15px;color:var(--cream)}
- .log-row .r{font-family:var(--mono);font-size:12px;color:var(--muted)}
- /* ---- mobile ---- */
- @media (max-width:900px){
- .hero{flex-direction:column;align-items:flex-start;padding:56px 20px 56px;gap:40px}
- .hero h2{font-size:37px}
- .hero .sub{font-size:17px}
- .sigil{width:280px;height:280px;align-self:center}
- section{padding:52px 20px}
- .head h2{font-size:30px}
- .tiles{flex-direction:column}
- .cta-band{padding:8px 20px}
- .band{flex-direction:column;align-items:flex-start;padding:32px 24px}
- .depth{flex-direction:column;align-items:stretch;gap:40px}
- }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #050208;
+  --ink-2: #15101F;
+  --panel: #1A1525;
+  --plum: #241B33;
+  --surface-1: #0E0A16;
+  --surface-2: #15101F;
+  --surface-3: #1A1525;
+  --cream: #F5F5F0;
+  --warm: #E8DFD5;
+  --muted: #B8AEBC;
+  --gold: #E5BC5C;
+  --rose: #9B6B7E;
+  --sage: #5E8A72;
+  --border: rgba(90,74,106,.35);
+  --border-strong: rgba(229,188,92,.4);
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 8%, rgba(245,245,240,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 67% 12%, rgba(155,107,126,0.25) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 23% 34%, rgba(94,138,114,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 89% 23%, rgba(245,245,240,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 67%, rgba(229,188,92,0.12) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 78% 45%, rgba(155,107,126,0.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 34% 89%, rgba(94,138,114,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 56% 23%, rgba(245,245,240,0.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 91% 67%, rgba(155,107,126,0.12) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 8% 56%, rgba(229,188,92,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 43% 91%, rgba(94,138,114,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 72% 78%, rgba(245,245,240,0.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 72%, rgba(155,107,126,0.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 45%, rgba(94,138,114,0.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 28% 15%, rgba(245,245,240,0.14) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 61% 52%, rgba(229,188,92,0.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 83% 88%, rgba(155,107,126,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 95%, rgba(94,138,114,0.18) 0%, transparent 100%);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 80%, rgba(155,107,126,0.02) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(94,138,114,0.018) 0%, transparent 70%);
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, var(--ink) 60%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.nav-mark {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-mark .glyph { font-size: 1.1rem; opacity: 0.8; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out-expo);
+}
+
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active { color: var(--gold); }
+
+main { position: relative; z-index: 1; }
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 2rem 6rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.hero-sigil {
+  font-size: 2.5rem;
+  color: var(--rose);
+  opacity: 0.6;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.hero-statement {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.hero-sub {
+  font-size: 1.0625rem;
+  color: var(--muted);
+  max-width: 38rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.hero-motto {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--sage);
+  opacity: 0.7;
+  margin-top: 2.5rem;
+  letter-spacing: 0.02em;
+}
+
+.proof-section {
+  padding: 4rem 2rem 6rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.w98-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
+}
+
+.w98-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.w98-card:first-child { grid-column: 1 / -1; }
+
+.w98-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(90deg, var(--plum), var(--ink-2));
+  border-bottom: 1px solid var(--border);
+}
+
+.w98-dots { display: flex; gap: 5px; }
+.w98-dots span { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(184,174,188,.4); }
+.w98-dots span:last-child { background: rgba(229,188,92,.35); }
+
+.w98-title {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-left: 0.25rem;
+}
+
+.w98-body { padding: 1.75rem; }
+
+.w98-card-heading {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.w98-card-text {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  max-width: 48ch;
+}
+
+.w98-card-glyph {
+  display: block;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.w98-card-glyph--gold { color: var(--gold); }
+.w98-card-glyph--rose { color: var(--rose); }
+.w98-card-glyph--sage { color: var(--sage); }
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.card-link:hover { opacity: 0.7; }
+.card-link::after { content: ' \2192'; }
+.card-link--rose { color: var(--rose); }
+.card-link--sage { color: var(--sage); }
+
+.cta-section {
+  padding: 6rem 2rem 8rem;
+  text-align: center;
+}
+
+.cta-section .glyph-line {
+  font-size: 1.25rem;
+  color: var(--rose);
+  opacity: 0.35;
+  letter-spacing: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.cta-button {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s var(--ease-out-expo), transform 0.15s var(--ease-out-expo);
+}
+
+.cta-button:hover { background: #f0cc6e; transform: translateY(-1px); }
+
+.cta-sub {
+  margin-top: 1.25rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem 2.5rem;
+  max-width: 64rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+}
+
+.footer-identity { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+.footer-identity strong { font-weight: 400; color: var(--cream); }
+.footer-contact { margin-top: 0.5rem; font-family: var(--mono); font-size: 0.75rem; color: var(--sage); opacity: 0.8; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
+.footer-links a { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--cream); }
+
+.deco-glyph { position: absolute; color: var(--rose); opacity: 0.05; pointer-events: none; z-index: 0; }
+.deco-glyph--1 { top: 18%; right: 8%; font-size: 2rem; }
+.deco-glyph--2 { top: 45%; left: 5%; font-size: 1.5rem; color: var(--sage); }
+.deco-glyph--3 { top: 72%; right: 12%; font-size: 1.75rem; }
+.deco-glyph--4 { top: 88%; left: 9%; font-size: 1.25rem; color: var(--sage); }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.25rem; }
+  .nav-links { gap: 1.25rem; }
+  .nav-links a { font-size: 0.625rem; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .hero-statement { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+  .proof-section { padding: 2rem 1.5rem 4rem; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .w98-card:first-child { grid-column: 1; }
+  footer { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-links { justify-content: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .nav-links { gap: 0.75rem; }
+  .hero { padding: 6rem 1.25rem 3rem; }
+  .proof-section { padding: 1.5rem 1.25rem 3rem; }
+  .cta-section { padding: 4rem 1.25rem 5rem; }
+}
 </style>
 </head>
 <body>
-<div id="site-header"></div>
 
-<header class="hero">
- <span class="star-dot" style="left:8%;top:12%;width:3px;height:3px"></span>
- <span class="star-dot" style="left:21%;top:27%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:36%;top:9%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:49%;top:23%;width:3px;height:3px"></span>
- <span class="star-dot" style="left:58%;top:11%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:5%;top:55%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:17%;top:70%;width:3px;height:3px"></span>
- <span class="star-dot" style="left:44%;top:62%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:29%;top:41%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:66%;top:57%;width:3px;height:3px"></span>
- <span class="star-dot" style="left:73%;top:16%;width:2px;height:2px"></span>
- <span class="star-dot" style="left:54%;top:77%;width:2px;height:2px"></span>
- <div class="hero-copy">
-  <p class="eyebrow">☿ ART PORTFOLIO</p>
-  <h2>skele.t0l — A collection of music, systems,<br> and the Astral Compendium</h2>
-  <p class="motto">by Tony Scoburgh</p>
-  <p class="sub">Musician, analyst, planner, and builder <br> making useful and non-useful things</p>
-  <div class="ctas">
-   <a class="btn solid" href="/music/">LISTEN →</a>
+<span class="deco-glyph deco-glyph--1">☽</span>
+<span class="deco-glyph deco-glyph--2">✶</span>
+<span class="deco-glyph deco-glyph--3">⟡</span>
+<span class="deco-glyph deco-glyph--4">☿</span>
+
+<nav>
+  <a href="/" class="nav-mark"><span class="glyph">◈</span><span>SKELE.T0L</span></a>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/music/">Music</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/os/">OS Kit</a></li>
+    <li><a href="/collaborate/">Collaboration</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero">
+    <span class="hero-sigil">◈</span>
+    <h1 class="hero-statement">Musician, analyst, planner, and builder making useful and non-useful things.</h1>
+    <p class="hero-sub">I turn signal into structure and complexity into something people can act on. Conservatory-trained, Army-forged, currently building systems at Procter &amp; Gamble and playing bass in Sunbeat.</p>
+    <p class="hero-motto">Ornamentation and structure; fabula and syuzhet; as above, so below.</p>
+  </section>
+
+  <section class="proof-section">
+    <div class="proof-grid">
+      <article class="w98-card">
+        <div class="w98-titlebar">
+          <div class="w98-dots"><span></span><span></span><span></span></div>
+          <span class="w98-title">Now Playing</span>
+        </div>
+        <div class="w98-body">
+          <span class="w98-card-glyph w98-card-glyph--gold">☉</span>
+          <h2 class="w98-card-heading">Sunbeat</h2>
+          <p class="w98-card-text">Bass guitar, live sets, and a practice built on conservatory training across oboe, piano, and keys. The music is active, not archival.</p>
+          <a href="/music/" class="card-link">Listen</a>
+        </div>
+      </article>
+
+      <article class="w98-card">
+        <div class="w98-titlebar">
+          <div class="w98-dots"><span></span><span></span><span></span></div>
+          <span class="w98-title">Systems</span>
+        </div>
+        <div class="w98-body">
+          <span class="w98-card-glyph w98-card-glyph--sage">⚓</span>
+          <h2 class="w98-card-heading">OS Kit</h2>
+          <p class="w98-card-text">Frameworks, planning tools, and operational scaffolding I use to keep creative and strategic work moving under real constraints.</p>
+          <a href="/os/" class="card-link card-link--sage">Explore</a>
+        </div>
+      </article>
+
+      <article class="w98-card">
+        <div class="w98-titlebar">
+          <div class="w98-dots"><span></span><span></span><span></span></div>
+          <span class="w98-title">Open</span>
+        </div>
+        <div class="w98-body">
+          <span class="w98-card-glyph w98-card-glyph--rose">✦</span>
+          <h2 class="w98-card-heading">Collaboration</h2>
+          <p class="w98-card-text">Role conversations, creative partnerships, and projects that need structure without losing their core essence.</p>
+          <a href="/collaborate/" class="card-link card-link--rose">Connect</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="glyph-line">✶ ⟡ ✶</div>
+    <a href="/music/" class="cta-button">Hear the Music</a>
+    <p class="cta-sub">The strongest proof is the work itself.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-identity">
+    <strong>skele.t0l net</strong> &middot; Tony Scoburgh<br>
+    <span class="footer-contact">Open to collaboration</span>
   </div>
- </div>
- <div class="sigil" aria-hidden="true">
-  <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" fill="none">
-   <circle cx="190" cy="190" r="190" fill="url(#sg)"/>
-   <circle cx="190" cy="190" r="169.5" stroke="#E5BC5C" stroke-opacity=".45"/>
-   <circle cx="190" cy="190" r="130" fill="url(#sg2)"/>
-   <path d="M190 40L200.6 179.4L340 190L200.6 200.6L190 340L179.4 200.6L40 190L179.4 179.4L190 40Z" fill="#E5BC5C" fill-opacity=".3"/>
-   <path d="M190 95L201.6 161.9L257.2 122.8L218.1 178.4L285 190L218.1 201.6L257.2 257.2L201.6 218.1L190 285L178.4 218.1L122.8 257.2L161.9 201.6L95 190L161.9 178.4L122.8 122.8L178.4 161.9L190 95Z" fill="#E5BC5C" fill-opacity=".9"/>
-   <circle cx="190" cy="190" r="5" fill="#F5F5F0"/>
-   <defs>
-    <radialGradient id="sg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(190 190) scale(190)">
-     <stop stop-color="#E5BC5C" stop-opacity=".16"/><stop offset="1" stop-color="#E5BC5C" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="sg2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(190 190) scale(130)">
-     <stop stop-color="#E5BC5C" stop-opacity=".22"/><stop offset="1" stop-color="#E5BC5C" stop-opacity="0"/>
-    </radialGradient>
-   </defs>
-  </svg>
- </div>
-</header>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/music/">Music</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/os/">OS Kit</a></li>
+    <li><a href="/collaborate/">Collaboration</a></li>
+    <li><a href="https://github.com/skastro">GitHub</a></li>
+  </ul>
+</footer>
 
-<section>
- <div class="head">
-  <p class="eyebrow">PATHWAYS</p>
-  <h2>Four windows into <i>skele.t0l</i> .</h2>
- </div>
- <div class="tiles">
-  <a class="w98" href="/music/">
-   <div class="titlebar"><span class="t">music.lane</span><span class="btns"><i></i><i></i><i></i></span></div>
-   <div class="body">
-    <span class="glyph">☉</span>
-    <h3>Music</h3>
-    <p class="desc">Performance, projects, persistence and practice - my main creative lane.</p>
-    <span class="lnk">LISTEN →</span>
-   </div>
-  </a>
-  <a class="w98" href="/about/">
-   <div class="titlebar"><span class="t">about.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
-   <div class="body">
-    <span class="glyph">◈</span>
-    <h3>About</h3>
-    <p class="desc">My journey from conservatory training to intelligence, planning, and systems-building.</p>
-    <span class="lnk">LEARN MORE →</span>
-   </div>
-  </a>
-  <a class="w98" href="/os/">
-   <div class="titlebar"><span class="t">os.kit</span><span class="btns"><i></i><i></i><i></i></span></div>
-   <div class="body">
-    <span class="glyph">✦</span>
-    <h3>OS Kit</h3>
-    <p class="desc">Tools, frameworks, and systems work blueprints.</p>
-    <span class="lnk">SEE THE SYSTEMS →</span>
-   </div>
-  </a>
-  <a class="w98" href="/skeletol/">
-   <div class="titlebar"><span class="t">collab.open</span><span class="btns"><i></i><i></i><i></i></span></div>
-   <div class="body">
-    <span class="glyph">⟡</span>
-    <h3>Collaboration</h3>
-    <p class="desc">Open for role conversations, creative partnerships, and projects that need structure without losing their core essence.</p>
-    <span class="lnk">LET'S CHAT →</span>
-   </div>
-  </a>
- </div>
-</section>
-
-<div class="cta-band">
- <div class="band">
-  <div>
-   <h2>MERRY GO ROUND</h2>
-   <p>latest track</p>
-  </div>
-  <a class="btn solid" href="/music/">LISTEN →</a>
- </div>
-</div>
-
-<section>
- <div class="depth">
-  <div class="depth-copy">
-   <p class="eyebrow">THE OS Kit</p>
-   <h2>Ornamentation and structure ; fabula and syuzhet ; as above, so below.</h2>
-   <p class="big">Strategy, software, and worldbuilding synthesized into one overly nostalgic architecture.</p>
-   <a class="lnk" style="font-size:13px;letter-spacing:1.04px" href="/os/">EXPLORE THE OS KIT →</a>
-  </div>
-  <a class="w98" href="/flagship/">
-   <div class="titlebar"><span class="t">compendium.log</span><span class="btns"><i></i><i></i><i></i></span></div>
-   <div class="body">
-    <div class="log-row"><span class="l"><span class="g">✶</span><span class="n">Music</span></span><span class="r">practice</span></div>
-    <div class="log-row"><span class="l"><span class="g">⚓</span><span class="n">Language</span></span><span class="r">discipline</span></div>
-    <div class="log-row"><span class="l"><span class="g">☽</span><span class="n">Esoterica</span></span><span class="r">atmosphere</span></div>
-    <div class="log-row"><span class="l"><span class="g">☼</span><span class="n">Builder</span></span><span class="r">engine</span></div>
-    <div class="divider"></div>
-    <p class="motto">The Astral Compendium</p>
-    <span class="lnk">☽ ENTER THE COMPENDIUM ☽</span>
-   </div>
-  </a>
- </div>
-</section>
-
-<div class="rule"></div>
-<div id="site-footer"></div>
-
-<script src="/js/shell.js"></script>
-<script>
- if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").catch(e => console.warn("SW registration failed", e));
- }
-</script>
 </body>
 </html>
