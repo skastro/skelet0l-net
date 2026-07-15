@@ -4,18 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About — skele.t0l</title>
+  <meta name="description" content="Musician, analyst, planner, and builder. Conservatory training, military service, corporate planning, and a creative system called skele.t0l.">
+  <link rel="icon" href="/assets/sigil.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css">
   <style>
     section{padding:56px 80px}
     .prose{font-weight:300;font-size:16px;line-height:1.8;color:var(--muted);max-width:640px}
     .prose + .prose{margin-top:24px}
-    h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:0 0 18px}
-    .ctas{margin-top:32px}
+    h3{font-family:var(--mono);font-size:13px;letter-spacing:1.2px;color:var(--gold);margin:48px 0 18px}
+    h3:first-of-type{margin-top:0}
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:24px}
+    .skills-grid div h4{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--cream);margin:0 0 12px;text-transform:uppercase}
+    .skills-grid ul{list-style:none;padding:0;margin:0}
+    .skills-grid li{padding:6px 0;font-weight:300;font-size:15px;line-height:1.5;color:var(--muted)}
+    .timeline{list-style:none;padding:0;margin:24px 0 0}
+    .timeline li{padding:12px 0 12px 24px;position:relative;font-weight:300;font-size:15px;line-height:1.6;color:var(--muted)}
+    .timeline li::before{content:'\2727';position:absolute;left:0;color:var(--gold)}
+    .timeline strong{color:var(--cream);font-weight:500}
+    .ctas{margin-top:48px}
     @media (max-width:900px){
       section{padding:40px 20px}
+      .skills-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -24,17 +36,85 @@
 
   <div class="page-hero">
     <h1>About</h1>
-    <p class="lead">Musician, analyst, planner, and builder. I’ve been fortunate to move through very different worlds, and each one shaped how I think.</p>
+    <p class="lead">Musician, analyst, planner, and builder. I've been fortunate to move through very different worlds, and each one shaped how I think.</p>
   </div>
 
   <section>
-    <p class="prose">I studied oboe performance and languages at the University of Cincinnati College-Conservatory of Music. After graduating in 2018, I enlisted in the Army and served on Active Duty through 2023, then transitioned to the Reserves until 2025. I’m currently a Site Integrated Planner at Procter &amp; Gamble in Personal Health Care.</p>
+    <h3>☉ IDENTITY</h3>
+    <p class="prose">I'm Tony Scoburgh: a conservatory-trained musician, Army intelligence veteran, supply-chain planner, and builder of systems that put people first. I spent five years working in Arabic signals intelligence under a TS-SCI clearance, three years coordinating planning and master data work inside Procter &amp; Gamble, and most of my life making music, teaching, and listening for how groups actually move together.</p>
+    <p class="prose">What connects all of it is the same instinct: I learn fast in opaque environments, I translate complexity into something people can act on, and I build the process layer that keeps teams from failing the people inside them. Right now I'm building public work under the name <strong>skele.t0l</strong>, studying organizational psychology, and looking for work and collaboration that use the full range instead of one narrow slice.</p>
 
-    <p class="prose">The thread through all of it is systems under pressure: how organizations communicate, how plans survive contact with reality, and how to build things that hold together when the conditions change. I care about psychological safety, clear thinking, and making useful things with the same attention whether anyone is watching or not.</p>
+    <h3>✦ WHAT I DO</h3>
+    <p class="prose">I make work at the intersection of music, systems, and human coordination.</p>
+    <p class="prose">Most of what I do starts with the same question: how do you make something complex usable without draining the life out of it? That question shows up in different forms depending on the surface. Sometimes it looks like planning. Sometimes it looks like teaching. Sometimes it looks like music. Sometimes it looks like building a tool, a framework, or a world people can actually enter.</p>
+    <p class="prose">Professionally, I've worked in environments where clarity matters. In the Army, I served as a Cryptologic Language Analyst and SIGINT operator working in Arabic, turning raw signal into reporting that other people had to act on. At Procter &amp; Gamble, I've worked in integrated planning and master data coordination, helping keep production aligned across materials, systems, and cross-functional teams. In both spaces, the through-line has been the same: read the board quickly, organize the signal, reduce failure points, and help people move.</p>
+    <p class="prose">Music is the oldest version of that instinct. I come from conservatory training in music education and oboe performance, and I still think like both a performer and an ensemble builder. I care about timing, listening, structure, and what it takes for a group to become more than a pile of individuals. That shows up in my creative work, in the way I teach, and in the systems I'm drawn to build.</p>
+    <p class="prose">The public name for that wider body of work is <strong>skele.t0l</strong>. Under it, I'm building music, tools, writing, and a larger creative framework called <strong>The Astral Compendium</strong>. The worldbuilding matters to me, but not as camouflage. It's there to give continuity and symbolic weight to the work, not to hide simple meaning behind lore. The point is still clarity: making something vivid enough to remember and solid enough to use.</p>
+    <p class="prose">I'm especially interested in work that sits between disciplines: strategy that needs taste, art that needs structure, systems that need empathy, and teams that need someone who can translate between worlds.</p>
+
+    <h3>◈ SKILLS INVENTORY</h3>
+    <div class="skills-grid">
+      <div>
+        <h4>Planning &amp; Operations</h4>
+        <ul>
+          <li>Integrated production planning</li>
+          <li>Master data coordination</li>
+          <li>Process documentation</li>
+          <li>Workflow design and cleanup</li>
+          <li>Cross-functional alignment under pressure</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Analysis &amp; Systems Thinking</h4>
+        <ul>
+          <li>Turning messy information into decision-ready structure</li>
+          <li>Pattern recognition in high-noise environments</li>
+          <li>Dashboard and reporting support</li>
+          <li>Knowledge organization and cataloging</li>
+          <li>Building frameworks that people can actually use</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Music &amp; Direction</h4>
+        <ul>
+          <li>Oboe, piano, and bass guitar</li>
+          <li>Conservatory music training (UC CCM)</li>
+          <li>Music education and ensemble leadership</li>
+          <li>Choral direction / co-direction</li>
+          <li>Composition and creative direction under skele.t0l</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tools &amp; Technical Fluency</h4>
+        <ul>
+          <li>SQL</li>
+          <li>Power BI</li>
+          <li>ArcGIS</li>
+          <li>Azure / PowerShell / Linux</li>
+          <li>Microsoft Office and documentation systems</li>
+          <li>Metadata and information-handling workflows</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>☽ LEARNING NOW</h3>
+    <p class="prose">Right now I'm deepening the parts of my work that connect systems to human wellbeing. I'm participating in IBM SkillsBuild through a VA program, starting community college in August 2026, and studying toward a longer research direction in organizational psychology, psychological safety, trauma-informed work, and failure prevention. I'm interested in why teams break, why institutions drift, and what kinds of structure actually help people stay effective without becoming disposable.</p>
+
+    <h3>⌖ TIMELINE</h3>
+    <ul class="timeline">
+      <li><strong>2014–2018:</strong> University of Cincinnati College-Conservatory of Music (music education, oboe performance)</li>
+      <li><strong>2018–2025:</strong> U.S. Army (Arabic Cryptologic Language Analyst / SIGINT operator)</li>
+      <li><strong>2023–present:</strong> Procter &amp; Gamble (site integrated planning, master data coordination)</li>
+      <li><strong>2026–present:</strong> Building the public portfolio and creative system under <strong>skele.t0l</strong></li>
+    </ul>
+
+    <h3>⟡ LOOKING FOR</h3>
+    <p class="prose">I'm looking for work, collaboration, and creative partnerships that make use of the full stack: analysis, planning, music, communication, teaching, and systems design. That could mean roles in strategy, operations, research support, knowledge systems, creative production, or interdisciplinary teams that need someone who can connect structure and meaning. I'm also open to collaboration across music, game design, and tool-making, especially work that benefits from rigor, imagination, and clear thinking under pressure.</p>
 
     <div class="ctas">
       <a href="/os/" class="btn solid">SEE THE SYSTEMS SIDE →</a>
-      <a href="/music/" class="btn ghost">LISTEN</a>
+      <a href="/skeletol/" class="btn ghost">LET'S COLLABORATE</a>
+      <a href="/" class="btn ghost">← HOME</a>
     </div>
   </section>
 
