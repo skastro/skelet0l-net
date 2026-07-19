@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en" data-theme="win98">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Astral Compendium — Desktop</title>
+<meta name="theme-color" content="#1A1525">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Compendium">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/icons/apple-touch-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<!-- frame.w0rk — shared design system (tokens, fonts, win98 mode, starfield) -->
+<link rel="stylesheet" href="/css/frame.w0rk.css">
+<style>
+  /* ============================================================
+     The Desktop — Win98 shell for the Astral Compendium instruments
+     ============================================================ */
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;overflow:hidden}
+  body{
+    background:
+      radial-gradient(120% 90% at 50% -10%, #251B36 0%, var(--void) 55%, #140F1E 100%);
+    color:var(--pearl);
+    font-family:var(--mono);
+    -webkit-font-smoothing:antialiased;
+    user-select:none;
+  }
+
+  /* ---- desktop surface ---- */
+  #desktop{position:fixed;inset:0;overflow:hidden}
+  .stars span{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--pearl);
+    animation:fw-twinkle 4s var(--ease) infinite}
+
+  /* ---- desktop icons ---- */
+  .icons{position:absolute;top:14px;left:14px;display:flex;flex-direction:column;gap:6px;z-index:5}
+  .dicon{width:88px;display:flex;flex-direction:column;align-items:center;gap:5px;
+    padding:8px 4px;border:1px solid transparent;background:none;cursor:pointer;color:var(--pearl)}
+  .dicon:focus-visible,.dicon.sel{outline:none;border:1px dotted #C8B89A;background:rgba(184,148,217,.14)}
+  .dicon .glyph{width:46px;height:46px;display:grid;place-items:center;filter:drop-shadow(0 1px 2px #0008)}
+  .dicon .lbl{font-size:11px;line-height:1.25;text-align:center;letter-spacing:.02em;
+    color:#EDE6D8;text-shadow:0 1px 2px #000,0 0 2px #000}
+
+  /* ---- windows ---- */
+  .win{position:absolute;display:none;flex-direction:column;min-width:240px;min-height:160px;
+    background:#C0C0C0;border:2px solid;border-color:#fff #404040 #404040 #fff;
+    box-shadow:2px 2px 0 #00000066, inset 1px 1px 0 #dfdfdf;z-index:10}
+  .win.open{display:flex}
+  .win.max{left:0!important;top:0!important;width:100%!important;
+    height:calc(100% - var(--taskbar-h))!important}
+  .win.max .resize{display:none}
+  .titlebar{display:flex;align-items:center;gap:7px;padding:3px 4px 3px 7px;cursor:default;
+    background:linear-gradient(90deg,#808080,#9a8aa6);color:#cfc6da;
+    font-family:var(--display);font-size:13px;letter-spacing:.05em;flex:none}
+  .win.active .titlebar{background:linear-gradient(90deg,var(--accent),#8a3f6a);color:#fff}
+  .titlebar .glyph{flex:none;display:grid;place-items:center;width:16px;height:16px}
+  .titlebar .name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .titlebar .tbtn{flex:none;width:18px;height:16px;display:grid;place-items:center;
+    background:#C0C0C0;color:#1a1a1a;font-family:var(--mono);font-size:11px;line-height:1;cursor:pointer;
+    border:1px solid;border-color:#fff #404040 #404040 #fff}
+  .titlebar .tbtn:active{border-color:#404040 #fff #fff #404040}
+  .winbody{flex:1;margin:3px;border:2px solid;border-color:#404040 #fff #fff #404040;
+    background:var(--void);overflow:hidden;position:relative}
+  .winbody iframe{display:block;width:100%;height:100%;border:0;background:var(--void)}
+  .resize{position:absolute;right:0;bottom:0;width:16px;height:16px;cursor:nwse-resize;z-index:2;
+    background:linear-gradient(135deg,transparent 50%,#808080 50%,#808080 60%,transparent 60%,
+      transparent 72%,#808080 72%,#808080 82%,transparent 82%)}
+
+  /* overlay captures pointer events over iframes while dragging/resizing */
+  #dragveil{position:fixed;inset:0;z-index:9999;display:none;cursor:inherit}
+  #dragveil.on{display:block}
+
+  /* ---- taskbar ---- */
+  :root{--taskbar-h:34px}
+  #taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--taskbar-h);z-index:9000;
+    display:flex;align-items:center;gap:5px;padding:3px 5px;
+    background:#C0C0C0;border-top:2px solid #fff}
+  #startbtn{flex:none;display:flex;align-items:center;gap:6px;padding:3px 10px 3px 7px;cursor:pointer;
+    font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.04em;color:#1a1a1a;
+    background:#C0C0C0;border:2px solid;border-color:#fff #404040 #404040 #fff}
+  #startbtn:active,#startbtn.on{border-color:#404040 #fff #fff #404040}
+  #startbtn .s-glyph{width:16px;height:16px;display:grid;place-items:center}
+  .tasktabs{flex:1;display:flex;gap:4px;overflow:hidden}
+  .tasktab{max-width:180px;flex:0 1 160px;display:flex;align-items:center;gap:6px;padding:3px 9px;cursor:pointer;
+    font-family:var(--mono);font-size:11px;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    background:#C0C0C0;border:2px solid;border-color:#fff #404040 #404040 #fff}
+  .tasktab.active{border-color:#404040 #fff #fff #404040;background:#b4b4b4;font-weight:600}
+  #clock{flex:none;display:flex;flex-direction:column;align-items:center;line-height:1.15;
+    padding:2px 10px;font-family:var(--mono);font-size:10.5px;color:#1a1a1a;
+    border:2px solid;border-color:#404040 #fff #fff #404040}
+  #clock .motto{font-family:var(--body);font-style:italic;font-size:11px;color:#3a2b52}
+
+  /* ---- start menu ---- */
+  #startmenu{position:fixed;left:5px;bottom:calc(var(--taskbar-h) + 4px);z-index:9500;display:none;
+    width:230px;background:#C0C0C0;border:2px solid;border-color:#fff #404040 #404040 #fff;
+    box-shadow:3px 3px 0 #0007}
+  #startmenu.on{display:block}
+  #startmenu .sm-rail{position:absolute;left:0;top:0;bottom:0;width:26px;
+    background:linear-gradient(180deg,var(--accent),#3a2b52);writing-mode:vertical-rl;transform:rotate(180deg);
+    display:grid;place-items:center;font-family:var(--display);font-size:12px;letter-spacing:.18em;color:#fff}
+  #startmenu .sm-items{margin-left:26px;padding:4px}
+  .sm-item{display:flex;align-items:center;gap:9px;width:100%;padding:7px 10px;cursor:pointer;text-align:left;
+    font-family:var(--mono);font-size:12px;color:#1a1a1a;background:none;border:0}
+  .sm-item:hover,.sm-item:focus-visible{outline:none;background:var(--accent);color:#fff}
+  .sm-item .glyph{flex:none;width:22px;height:22px;display:grid;place-items:center}
+  .sm-sep{height:1px;margin:4px 6px;background:#808080;border-bottom:1px solid #fff}
+  .sm-label{padding:5px 10px 2px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5a5a5a}
+  .sm-themes{display:flex;flex-wrap:wrap;gap:5px;padding:4px 10px 9px}
+  .sm-themes button{width:24px;height:24px;cursor:pointer;border:2px solid;border-color:#404040 #fff #fff #404040;
+    padding:0;font-size:0}
+  .sm-themes button.sel{border-color:#fff #404040 #404040 #fff;outline:2px solid var(--accent);outline-offset:-2px}
+
+  /* ============================================================
+     Themed window chrome — every mode but Win98 gets flat,
+     theme-coloured frames (XP/Vista feel). Three dark (void, dark,
+     monochrome) + three light (win98 grey, light, sepia).
+     Driven by the per-theme --ck-* palettes defined below.
+     ============================================================ */
+  html:not([data-theme="win98"]) .win{
+    background:var(--ck-win);border:1px solid var(--ck-bd);border-radius:0;
+    box-shadow:0 10px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  html:not([data-theme="win98"]) .win.active{
+    border-color:var(--ck-bda);
+    box-shadow:0 12px 42px rgba(0,0,0,.5), 0 0 20px var(--ck-glow), 0 0 0 1px var(--ck-bda);
+  }
+  html:not([data-theme="win98"]) .titlebar{
+    background:var(--ck-bar);color:var(--ck-bar-tx);border-bottom:1px solid var(--ck-bd);
+  }
+  html:not([data-theme="win98"]) .win.active .titlebar{background:var(--ck-bara);color:var(--ck-bara-tx)}
+  html:not([data-theme="win98"]) .titlebar .tbtn{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) .titlebar .tbtn:active{filter:brightness(.85)}
+  html:not([data-theme="win98"]) .winbody{border:1px solid var(--ck-bd);background:var(--void)}
+  html:not([data-theme="win98"]) .resize{
+    background:linear-gradient(135deg,transparent 50%,var(--ck-bd) 50%,var(--ck-bd) 60%,transparent 60%,
+      transparent 72%,var(--ck-bd) 72%,var(--ck-bd) 82%,transparent 82%);
+  }
+  html:not([data-theme="win98"]) #taskbar{background:var(--ck-tb);border-top:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #startbtn,
+  html:not([data-theme="win98"]) .tasktab{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #startbtn:active,
+  html:not([data-theme="win98"]) #startbtn.on,
+  html:not([data-theme="win98"]) .tasktab.active{background:var(--ck-ctrla);color:var(--ck-bara-tx);border-color:var(--ck-bda)}
+  html:not([data-theme="win98"]) #clock{background:var(--ck-tb);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #clock .motto{color:var(--ck-muted)}
+  html:not([data-theme="win98"]) #startmenu{background:var(--ck-win);border:1px solid var(--ck-bd);box-shadow:0 12px 42px rgba(0,0,0,.5)}
+  html:not([data-theme="win98"]) #startmenu .sm-rail{background:var(--ck-rail)}
+  html:not([data-theme="win98"]) .sm-item{color:var(--ck-ctrl-tx)}
+  html:not([data-theme="win98"]) .sm-item:hover,
+  html:not([data-theme="win98"]) .sm-item:focus-visible{background:var(--ck-bara);color:var(--ck-bara-tx)}
+  html:not([data-theme="win98"]) .sm-sep{background:var(--ck-bd);border-bottom-color:transparent}
+  html:not([data-theme="win98"]) .sm-label{color:var(--ck-muted)}
+  html:not([data-theme="win98"]) .sm-themes button.sel{outline-color:var(--ck-bda)}
+  html:not([data-theme="win98"]) .dicon:focus-visible,
+  html:not([data-theme="win98"]) .dicon.sel{border-color:var(--ck-bda);background:rgba(184,148,217,.16)}
+
+  /* ---- dark chrome ---- */
+  [data-theme="void"]{
+    --ck-win:#14111C;--ck-bd:#3A3350;--ck-bda:#5A4A78;--ck-glow:rgba(184,148,217,.18);
+    --ck-bar:linear-gradient(90deg,#1C1828,#231C30);--ck-bar-tx:#9A91AE;
+    --ck-bara:linear-gradient(90deg,#2A1E3A,#3A2150);--ck-bara-tx:#F0E7FA;
+    --ck-ctrl:#1A1626;--ck-ctrl-tx:#CFC6DE;--ck-ctrla:#241C34;--ck-tb:#0E0B16;--ck-muted:#9A86C0;
+    --ck-rail:linear-gradient(180deg,#6E4F9C,#241634);
+  }
+  [data-theme="dark"]{
+    --ck-win:#16121E;--ck-bd:#2B2436;--ck-bda:#6E5A2E;--ck-glow:rgba(229,188,92,.20);
+    --ck-bar:linear-gradient(90deg,#1A1626,#221C2E);--ck-bar-tx:#A9A2B8;
+    --ck-bara:linear-gradient(90deg,#3A2E16,#4A3A1C);--ck-bara-tx:#F5E9D2;
+    --ck-ctrl:#1A1626;--ck-ctrl-tx:#C9C2D4;--ck-ctrla:#2A2236;--ck-tb:#0C0A12;--ck-muted:#C8A24E;
+    --ck-rail:linear-gradient(180deg,#8A6A2E,#2A2012);
+  }
+  [data-theme="monochrome"]{
+    --ck-win:#232327;--ck-bd:#3A3A3E;--ck-bda:#6A6A6E;--ck-glow:rgba(190,190,190,.16);
+    --ck-bar:linear-gradient(90deg,#2A2A2E,#323236);--ck-bar-tx:#9A9A9A;
+    --ck-bara:linear-gradient(90deg,#3A3A3E,#4A4A4E);--ck-bara-tx:#FFFFFF;
+    --ck-ctrl:#2A2A2E;--ck-ctrl-tx:#CFCFCF;--ck-ctrla:#3A3A3E;--ck-tb:#1A1A1D;--ck-muted:#9A9A9A;
+    --ck-rail:linear-gradient(180deg,#6A6A6E,#26262A);
+  }
+  /* ---- light chrome ---- */
+  [data-theme="light"]{
+    --ck-win:#F3F1ED;--ck-bd:#C4BEB4;--ck-bda:#9C8B6B;--ck-glow:rgba(139,111,61,.22);
+    --ck-bar:linear-gradient(180deg,#E8E4DC,#D7D2C8);--ck-bar-tx:#6B655A;
+    --ck-bara:linear-gradient(90deg,#C9B89A,#B89F78);--ck-bara-tx:#2A2418;
+    --ck-ctrl:#ECE8E1;--ck-ctrl-tx:#3A362E;--ck-ctrla:#DAD4C8;--ck-tb:#E4DFD5;--ck-muted:#8A8276;
+    --ck-rail:linear-gradient(180deg,#B89F78,#8B6F3D);
+  }
+  [data-theme="sepia"]{
+    --ck-win:#F0E7D4;--ck-bd:#CDBE9C;--ck-bda:#B0863E;--ck-glow:rgba(197,153,77,.25);
+    --ck-bar:linear-gradient(180deg,#E8DABA,#D8C9A8);--ck-bar-tx:#6B5638;
+    --ck-bara:linear-gradient(90deg,#C5994D,#B0863E);--ck-bara-tx:#2C1E0E;
+    --ck-ctrl:#E8DCC4;--ck-ctrl-tx:#3E2D1A;--ck-ctrla:#D8C9A8;--ck-tb:#E4D7B8;--ck-muted:#7A6A4C;
+    --ck-rail:linear-gradient(180deg,#C5994D,#5A4520);
+  }
+
+  /* void keeps its deeper deep-space wallpaper + brighter stars */
+  [data-theme="void"] body{
+    background:
+      radial-gradient(60% 42% at 50% 40%, rgba(150,120,190,.10) 0%, rgba(20,16,30,0) 60%),
+      radial-gradient(130% 95% at 50% -8%, #120D1C 0%, #0A0711 55%, #050308 100%);
+  }
+  [data-theme="void"] .stars span{background:#EFE8F8}
+  [data-theme="void"] #desktop::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(70% 30% at 50% 52%, rgba(184,148,217,.07), transparent 70%);
+  }
+
+  /* touch: larger tap targets */
+  @media (pointer:coarse){
+    .titlebar{padding:6px 6px 6px 10px;font-size:14px}
+    .titlebar .tbtn{width:28px;height:26px;font-size:15px}
+    #startbtn,.tasktab{padding-top:6px;padding-bottom:6px}
+    .dicon .lbl{font-size:12px}
+  }
+
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="desktop">
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="icons" id="icons" role="list"></div>
+</div>
+
+<div id="dragveil"></div>
+
+<div id="startmenu" role="menu" aria-label="Start menu">
+  <div class="sm-rail">Astral&nbsp;Compendium</div>
+  <div class="sm-items">
+    <div class="sm-label">Instruments</div>
+    <div id="sm-apps"></div>
+    <div class="sm-sep"></div>
+    <div class="sm-label">Theme</div>
+    <div class="sm-themes" id="sm-themes"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <button id="startbtn" aria-haspopup="true" aria-expanded="false">
+    <span class="s-glyph">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <polygon points="8,1 9.6,6.4 15,8 9.6,9.6 8,15 6.4,9.6 1,8 6.4,6.4" fill="#E663A0"/>
+      </svg>
+    </span>Start
+  </button>
+  <div class="tasktabs" id="tasktabs"></div>
+  <div id="clock"><span id="jclock">J—</span><span class="motto">festina lente</span></div>
+</div>
+
+<script src="/js/navkit.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- helpers ---------- */
+  function julianOf(d){ var s=new Date(d.getFullYear(),0,0); return Math.floor((d-s)/86400000); }
+  var coarse = window.matchMedia("(pointer:coarse)").matches;
+  var smallScreen = function(){ return window.innerWidth < 760; };
+
+  /* ---------- app registry ---------- */
+  var ICON = {
+    skeletol:'<svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="20" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.3"/><circle cx="23" cy="23" r="16.5" fill="none" stroke="#DDC9A5" stroke-width=".5" opacity=".5"/><path d="M23 7 L25.2 20.8 L39 23 L25.2 25.2 L23 39 L20.8 25.2 L7 23 L20.8 20.8 Z" fill="#DDC9A5"/><circle cx="35.3" cy="10.7" r="1.6" fill="#7A8FE0"/><circle cx="10.7" cy="10.7" r="1.6" fill="#B894D9"/><circle cx="10.7" cy="35.3" r="1.6" fill="#C5D86E"/><circle cx="35.3" cy="35.3" r="1.6" fill="#E663A0"/></svg>',
+    flagship:'<svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="20" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.3"/><path d="M13 32 Q23 36.5 33 32 L31 28 H15 Z" fill="#DDC9A5" fill-opacity=".9"/><line x1="23" y1="9" x2="23" y2="28" stroke="#DDC9A5" stroke-width="1.4"/><path d="M23 9.5 L33 13 L23 16.5 Z" fill="#E663A0"/><path d="M11 35.5 q3 1.6 6 0 q3 -1.6 6 0 q3 1.6 6 0" fill="none" stroke="#7A8FE0" stroke-width="1.1" stroke-opacity=".8"/><circle cx="31.5" cy="10.5" r="1.4" fill="#B894D9"/></svg>',
+    compass:'<svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="20" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.4"/><polygon points="23,7 26,23 23,39 20,23" fill="#E663A0"/><polygon points="7,23 23,20 39,23 23,26" fill="#7A8FE0" fill-opacity=".9"/><circle cx="23" cy="23" r="3.4" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.2"/></svg>',
+    map:'<svg width="46" height="46" viewBox="0 0 46 46"><rect x="5" y="8" width="36" height="30" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.3"/><path d="M5 8 L17 12 L29 8 L41 12 L41 38 L29 34 L17 38 L5 34 Z" fill="none" stroke="#B894D9" stroke-width="1"/><line x1="17" y1="12" x2="17" y2="38" stroke="#B894D9" stroke-width=".8"/><line x1="29" y1="8" x2="29" y2="34" stroke="#B894D9" stroke-width=".8"/><circle cx="31" cy="20" r="2.4" fill="#E663A0"/><path d="M14 28 q5 -6 10 0" fill="none" stroke="#C5D86E" stroke-width="1" stroke-dasharray="2 2"/></svg>',
+    log:'<svg width="46" height="46" viewBox="0 0 46 46"><rect x="9" y="6" width="28" height="34" rx="1.5" fill="#1A1525" stroke="#DDC9A5" stroke-width="1.3"/><line x1="9" y1="6" x2="9" y2="40" stroke="#E663A0" stroke-width="2.4"/><line x1="15" y1="15" x2="32" y2="15" stroke="#7A8FE0" stroke-width="1.2"/><line x1="15" y1="21" x2="32" y2="21" stroke="#B894D9" stroke-width="1.2"/><line x1="15" y1="27" x2="28" y2="27" stroke="#C5D86E" stroke-width="1.2"/><line x1="15" y1="33" x2="30" y2="33" stroke="#DDC9A5" stroke-width="1" stroke-opacity=".6"/></svg>'
+  };
+  var APPS = [
+    { id:"skeletol",name:"skele.t0l",    src:"/skeletol/",icon:ICON.skeletol,w:660, h:680, x:70,  y:30 },
+    { id:"flagship",name:"flag.sh1p",    src:"/flagship/",icon:ICON.flagship,w:660, h:680, x:110, y:50 },
+    { id:"compass", name:"The Compass",  src:"/compass/", icon:ICON.compass, w:680, h:700, x:40,  y:24 },
+    { id:"map",     name:"The Map",      src:"/map/",     icon:ICON.map,     w:600, h:560, x:150, y:60 },
+    { id:"log",     name:"The Ship Log", src:"/log/",     icon:ICON.log,     w:560, h:600, x:250, y:40 }
+  ];
+  var byId = {}; APPS.forEach(function(a){ byId[a.id]=a; });
+
+  /* ---------- starfield ---------- */
+  (function stars(){
+    var host=document.getElementById("stars"), n=70, h="";
+    for(var i=0;i<n;i++){
+      h+='<span style="left:'+(Math.random()*100).toFixed(2)+'%;top:'+(Math.random()*100).toFixed(2)
+        +'%;animation-delay:'+(Math.random()*4).toFixed(2)+'s;opacity:'+(0.3+Math.random()*0.6).toFixed(2)+'"></span>';
+    }
+    host.innerHTML=h;
+  })();
+
+  /* ---------- window manager ---------- */
+  var z=10, wins={}, veil=document.getElementById("dragveil");
+  var tasktabs=document.getElementById("tasktabs");
+
+  function ensureWin(app){
+    if(wins[app.id]) return wins[app.id];
+    var w=document.createElement("section");
+    w.className="win"; w.id="win-"+app.id; w.setAttribute("role","dialog");
+    w.setAttribute("aria-label",app.name); w.tabIndex=-1;
+    w.style.width=app.w+"px"; w.style.height=app.h+"px";
+    w.style.left=app.x+"px"; w.style.top=app.y+"px";
+    w.innerHTML=
+      '<header class="titlebar" data-drag>'
+        +'<span class="glyph">'+app.icon.replace(/width="46" height="46"/,'width="14" height="14"')+'</span>'
+        +'<span class="name">'+app.name+'</span>'
+        +'<button class="tbtn" data-min title="Minimize" aria-label="Minimize '+app.name+'">_</button>'
+        +'<button class="tbtn" data-maxbtn title="Maximize" aria-label="Maximize '+app.name+'">□</button>'
+        +'<button class="tbtn" data-close title="Close" aria-label="Close '+app.name+'">×</button>'
+      +'</header>'
+      +'<div class="winbody"><iframe title="'+app.name+'" src="'+app.src+'" loading="lazy"></iframe>'
+        +'<div class="resize" data-resize></div></div>';
+    document.getElementById("desktop").appendChild(w);
+    wins[app.id]=w;
+    wireWindow(app, w);
+    return w;
+  }
+
+  function maximizeFor(){ return smallScreen(); }
+
+  /* ----- maximize / restore ----- */
+  var userMax = {};
+  function applyMax(id){
+    var w=wins[id]; if(!w) return;
+    w.classList.toggle("max", !!userMax[id] || maximizeFor());
+    var b=w.querySelector("[data-maxbtn]");
+    if(b){
+      b.textContent = userMax[id] ? "❐" : "□";   /* ❐ : □ */
+      b.title = userMax[id] ? "Restore" : "Maximize";
+      b.setAttribute("aria-label", (userMax[id]?"Restore ":"Maximize ")+byId[id].name);
+    }
+  }
+  function toggleMax(id){
+    userMax[id] = !userMax[id];
+    applyMax(id);
+    bringFront(wins[id]); syncTabs(); saveLayout();
+  }
+
+  function openApp(id, noFocus){
+    var app=byId[id], w=ensureWin(app);
+    w.classList.add("open");
+    applyMax(id);
+    bringFront(w);
+    ensureTab(app);
+    syncTabs();
+    if(!noFocus) w.focus();
+    saveLayout();
+  }
+  function minimizeApp(id){
+    var w=wins[id]; if(!w) return;
+    w.classList.remove("open"); w.classList.remove("active"); syncTabs(); saveLayout();
+  }
+  function closeApp(id){
+    var w=wins[id]; if(!w) return;
+    w.classList.remove("open"); w.classList.remove("active"); removeTab(id); syncTabs(); saveLayout();
+  }
+  function bringFront(w){
+    Object.keys(wins).forEach(function(k){ wins[k].classList.remove("active"); });
+    w.classList.add("active"); w.style.zIndex=++z;
+  }
+
+  /* ----- layout persistence ----- */
+  var LKEY="desktop.layout.v1", restoring=false;
+  function saveLayout(){
+    if(restoring) return;
+    var geom={}, open=[], tabIds=Object.keys(tabs), active=null;
+    Object.keys(wins).forEach(function(id){
+      var w=wins[id];
+      geom[id]={ x:w.style.left, y:w.style.top, w:w.style.width, h:w.style.height };
+      if(w.classList.contains("open")) open.push({id:id, z:+w.style.zIndex||0});
+      if(w.classList.contains("active")) active=id;
+    });
+    open.sort(function(a,b){ return a.z-b.z; });   /* ascending stacking order */
+    try{ localStorage.setItem(LKEY, JSON.stringify({
+      geom:geom, open:open.map(function(o){return o.id;}), tabs:tabIds, active:active,
+      max:Object.keys(userMax).filter(function(id){ return userMax[id]; })
+    })); }catch(e){}
+  }
+  function restoreLayout(){
+    var saved=null;
+    try{ saved=JSON.parse(localStorage.getItem(LKEY)||"null"); }catch(e){}
+    if(!saved || !saved.tabs || !saved.tabs.length){ openApp("compass"); return; }
+    restoring=true;
+    saved.tabs.forEach(function(id){
+      if(!byId[id]) return;
+      var w=ensureWin(byId[id]); ensureTab(byId[id]);
+      var g=saved.geom&&saved.geom[id];
+      if(g && !smallScreen()){ w.style.left=g.x; w.style.top=g.y; w.style.width=g.w; w.style.height=g.h; }
+    });
+    (saved.max||[]).forEach(function(id){ if(byId[id]) userMax[id]=true; });
+    (saved.open||[]).forEach(function(id){
+      if(!byId[id]) return;
+      var w=wins[id]; if(!w) return;
+      w.classList.add("open");
+      applyMax(id);
+      w.style.zIndex=++z;
+    });
+    var act=saved.active && wins[saved.active] && wins[saved.active].classList.contains("open")
+      ? saved.active : (saved.open&&saved.open.length?saved.open[saved.open.length-1]:null);
+    if(act){ bringFront(wins[act]); }
+    syncTabs();
+    restoring=false;
+    if(!(saved.open&&saved.open.length)) openApp("compass");
+  }
+
+  /* ----- taskbar tabs ----- */
+  var tabs={};
+  function ensureTab(app){
+    if(tabs[app.id]) return;
+    var t=document.createElement("button");
+    t.className="tasktab"; t.dataset.app=app.id;
+    t.innerHTML='<span style="display:grid;place-items:center;width:14px;height:14px">'
+      +app.icon.replace(/width="46" height="46"/,'width="13" height="13"')+'</span>'+app.name;
+    t.addEventListener("click", function(){
+      var w=wins[app.id];
+      if(!w.classList.contains("open")){ openApp(app.id); }
+      else if(w.classList.contains("active")){ minimizeApp(app.id); }
+      else { w.classList.add("open"); bringFront(w); syncTabs(); }
+    });
+    tasktabs.appendChild(t); tabs[app.id]=t;
+  }
+  function removeTab(id){ if(tabs[id]){ tabs[id].remove(); delete tabs[id]; } }
+  function syncTabs(){
+    Object.keys(tabs).forEach(function(id){
+      var w=wins[id], open=w&&w.classList.contains("open")&&w.classList.contains("active");
+      tabs[id].classList.toggle("active", !!open);
+    });
+  }
+
+  /* ----- drag + resize (pointer-based, iframe-safe via veil) ----- */
+  function wireWindow(app, w){
+    var bar=w.querySelector("[data-drag]");
+    var grip=w.querySelector("[data-resize]");
+    w.addEventListener("pointerdown", function(){ bringFront(w); syncTabs(); saveLayout(); }, true);
+    w.querySelector("[data-min]").addEventListener("click", function(e){ e.stopPropagation(); minimizeApp(app.id); });
+    w.querySelector("[data-maxbtn]").addEventListener("click", function(e){ e.stopPropagation(); toggleMax(app.id); });
+    w.querySelector("[data-close]").addEventListener("click", function(e){ e.stopPropagation(); closeApp(app.id); });
+    bar.addEventListener("dblclick", function(e){
+      if(e.target.closest(".tbtn")) return;
+      toggleMax(app.id);                       /* classic: double-click titlebar */
+    });
+
+    var mode=null, sx, sy, ox, oy, ow, oh;
+    function start(e, m){
+      if(w.classList.contains("max")) return;          /* no drag/resize when maximized */
+      mode=m; sx=e.clientX; sy=e.clientY;
+      var r=w.getBoundingClientRect();
+      ox=r.left; oy=r.top; ow=r.width; oh=r.height;
+      veil.classList.add("on");
+      veil.style.cursor = m==="resize" ? "nwse-resize" : "default";
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", end);
+      e.preventDefault();
+    }
+    function move(e){
+      if(!mode) return;
+      var dx=e.clientX-sx, dy=e.clientY-sy;
+      if(mode==="drag"){
+        var nx=Math.max(0, Math.min(window.innerWidth-80, ox+dx));
+        var ny=Math.max(0, Math.min(window.innerHeight-60, oy+dy));
+        w.style.left=nx+"px"; w.style.top=ny+"px";
+      } else {
+        w.style.width=Math.max(240, ow+dx)+"px";
+        w.style.height=Math.max(160, oh+dy)+"px";
+      }
+    }
+    function end(){
+      mode=null; veil.classList.remove("on");
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", end);
+      saveLayout();
+    }
+    bar.addEventListener("pointerdown", function(e){
+      if(e.target.closest(".tbtn")) return;
+      start(e,"drag");
+    });
+    grip.addEventListener("pointerdown", function(e){ start(e,"resize"); });
+  }
+
+  /* ---------- desktop icons ---------- */
+  (function buildIcons(){
+    var host=document.getElementById("icons");
+    APPS.forEach(function(app){
+      var b=document.createElement("button");
+      b.className="dicon"; b.setAttribute("role","listitem"); b.dataset.app=app.id;
+      b.innerHTML='<span class="glyph">'+app.icon+'</span><span class="lbl">'+app.name+'</span>';
+      var openIt=function(){ openApp(app.id); clearSel(); };
+      b.addEventListener("dblclick", openIt);
+      b.addEventListener("click", function(){
+        if(coarse){ openIt(); }                 /* single tap on touch */
+        else { clearSel(); b.classList.add("sel"); }
+      });
+      b.addEventListener("keydown", function(e){   /* keyboard: open on Enter/Space */
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openIt(); }
+      });
+      host.appendChild(b);
+    });
+    function clearSel(){ host.querySelectorAll(".dicon.sel").forEach(function(x){x.classList.remove("sel");}); }
+    document.getElementById("desktop").addEventListener("pointerdown", function(e){
+      if(!e.target.closest(".dicon") && !e.target.closest(".win")) clearSel();
+    });
+  })();
+
+  /* ---------- start menu ---------- */
+  var startbtn=document.getElementById("startbtn"), startmenu=document.getElementById("startmenu");
+  function toggleStart(on){
+    var show = on===undefined ? !startmenu.classList.contains("on") : on;
+    startmenu.classList.toggle("on", show);
+    startbtn.classList.toggle("on", show);
+    startbtn.setAttribute("aria-expanded", show?"true":"false");
+  }
+  startbtn.addEventListener("click", function(e){ e.stopPropagation(); toggleStart(); });
+  document.addEventListener("pointerdown", function(e){
+    if(!e.target.closest("#startmenu") && !e.target.closest("#startbtn")) toggleStart(false);
+  });
+  (function buildStartApps(){
+    var host=document.getElementById("sm-apps");
+    APPS.forEach(function(app){
+      var b=document.createElement("button");
+      b.className="sm-item"; b.setAttribute("role","menuitem");
+      b.innerHTML='<span class="glyph">'+app.icon.replace(/width="46" height="46"/,'width="22" height="22"')+'</span>'+app.name;
+      b.addEventListener("click", function(){ openApp(app.id); toggleStart(false); });
+      host.appendChild(b);
+    });
+  })();
+
+  /* ---------- theme switcher (5 modes) ---------- */
+  (function themes(){
+    var MODES=[
+      {id:"void",       sw:"#0C0A14"},
+      {id:"dark",       sw:"#16121E"},
+      {id:"monochrome", sw:"#232327"},
+      {id:"win98",      sw:"#C0C0C0"},
+      {id:"light",      sw:"#ECE8E1"},
+      {id:"sepia",      sw:"#E8DCC4"}
+    ];
+    var host=document.getElementById("sm-themes");
+    var saved=null; try{ saved=localStorage.getItem("desktop.theme"); }catch(e){}
+    var current=saved||"win98";
+    document.documentElement.setAttribute("data-theme", current);
+    MODES.forEach(function(m){
+      var b=document.createElement("button");
+      b.style.background=m.sw; b.title=m.id; b.dataset.theme=m.id;
+      b.setAttribute("aria-label","Theme: "+m.id);
+      b.className=(m.id===current?"sel":"");
+      b.addEventListener("click", function(){
+        current=m.id;
+        document.documentElement.setAttribute("data-theme", m.id);
+        try{ localStorage.setItem("desktop.theme", m.id); }catch(e){}
+        host.querySelectorAll("button").forEach(function(x){ x.classList.toggle("sel", x.dataset.theme===m.id); });
+      });
+      host.appendChild(b);
+    });
+  })();
+
+  /* ---------- clock (Julian day) ---------- */
+  (function clock(){
+    var el=document.getElementById("jclock");
+    function tick(){ el.textContent="J"+julianOf(new Date()); }
+    tick(); setInterval(tick, 60000);
+  })();
+
+  /* ---------- responsive: re-maximize open windows on small screens ---------- */
+  window.addEventListener("resize", function(){
+    Object.keys(wins).forEach(function(id){
+      if(!wins[id].classList.contains("open")) return;
+      applyMax(id);                            /* respects user maximize */
+    });
+  });
+
+  /* ---------- keyboard: Escape minimizes the active window ---------- */
+  document.addEventListener("keydown", function(e){
+    if(e.key!=="Escape") return;
+    if(startmenu.classList.contains("on")){ toggleStart(false); return; }
+    var act=Object.keys(wins).filter(function(id){
+      return wins[id].classList.contains("open") && wins[id].classList.contains("active");
+    })[0];
+    if(act) minimizeApp(act);
+  });
+
+  /* ---------- boot: restore the last layout (else open the Compass) ---------- */
+  restoreLayout();
+})();
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("/sw.js").catch(function(e){ console.warn("SW registration failed", e); });
+    });
+  }
+</script>
+</body>
+</html>
