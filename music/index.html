@@ -47,6 +47,9 @@ main { position: relative; z-index: 1; }
 .player-info h2 { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
 .player-info .role { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--sage); text-transform: uppercase; margin-bottom: 1rem; }
 .player-info p { color: var(--muted); font-size: 0.9375rem; line-height: 1.65; max-width: 36rem; }
+.player-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; color: var(--rose); text-decoration: none; transition: opacity 0.2s; }
+.player-link:hover { opacity: 0.7; }
+.player-link::after { content: ' \2192'; }
 .embed-slot { margin-top: 1.5rem; padding: 2rem; background: var(--surface-2); border: 1px dashed rgba(90,74,106,.4); border-radius: 2px; display: flex; align-items: center; justify-content: center; min-height: 120px; }
 .embed-slot-label { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
 .section-label { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
@@ -75,8 +78,7 @@ main { position: relative; z-index: 1; }
 .archive-item-meta { margin-left: auto; font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); opacity: 0.6; flex-shrink: 0; }
 .page-exit { padding: 5rem 2rem 6rem; text-align: center; max-width: 40rem; margin: 0 auto; }
 .page-exit .glyph-divider { font-size: 1rem; color: var(--rose); opacity: 0.3; letter-spacing: 0.75rem; margin-bottom: 2rem; }
-.page-exit h3 { font-family: var(--serif); font-size: 1.75rem; font-weight: 400; color: var(--cream); margin-bottom: 1rem; }
-.page-exit p { font-size: 0.9375rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+.page-exit .motto { font-family: var(--serif); font-style: italic; font-size: 1.125rem; color: var(--sage); opacity: 0.65; margin-bottom: 2rem; letter-spacing: 0.02em; }
 .cta-button { display: inline-block; font-family: var(--mono); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--gold); padding: 1rem 2.5rem; text-decoration: none; border-radius: 2px; transition: background 0.2s var(--ease-out-expo), transform 0.15s var(--ease-out-expo); }
 .cta-button:hover { background: #f0cc6e; transform: translateY(-1px); }
 .cta-secondary { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
@@ -122,9 +124,9 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
 </nav>
 <main>
   <section class="music-hero">
-    <span class="music-hero-eyebrow">☉ Active Practice</span>
-    <h1 class="music-hero-title">Conservatory-trained multi-instrumentalist building a live practice across bass, oboe, and keys.</h1>
-    <p class="music-hero-sub">UC College-Conservatory of Music, 2014-18. The training was classical; the practice since has been everything else. Currently playing bass in Sunbeat and writing for keys and chamber contexts.</p>
+    <span class="music-hero-eyebrow">☉ Music</span>
+    <h1 class="music-hero-title">Oboe, piano, bass guitar. Twelve years so far.</h1>
+    <p class="music-hero-sub">I started at UC’s College-Conservatory of Music in 2014 on oboe. Since then the practice has moved through concert halls, field exercises, living rooms, and now a band rehearsal space on Thursdays at 7.</p>
   </section>
   <section class="music-hero" style="padding-top: 0;">
     <article class="featured-player">
@@ -135,9 +137,10 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
       <div class="featured-player-body">
         <span class="player-glyph">☉</span>
         <div class="player-info">
-          <h2>Sunbeat</h2>
-          <span class="role">Bass Guitar · Live Sets</span>
-          <p>Bass guitar in a live band context. The groove work I do here is where conservatory training meets stage energy: reading the room, locking into pocket, and serving the song.</p>
+          <h2>Mantaray</h2>
+          <span class="role">Bass Guitar</span>
+          <p>Three songs in progress. One album concept. A Halloween concert we’re working toward. I play bass and help with the planning side.</p>
+          <a href="https://www.instagram.com/mantaray.mp3/" class="player-link">@mantaray.mp3 on Instagram</a>
           <div class="embed-slot">
             <span class="embed-slot-label">Audio embed slot</span>
           </div>
@@ -146,22 +149,22 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
     </article>
   </section>
   <section class="practice-section">
-    <span class="section-label">The Instruments</span>
+    <span class="section-label">Instruments</span>
     <div class="practice-strip">
       <article class="practice-card">
         <span class="practice-card-glyph practice-card-glyph--gold">◈</span>
         <h3>Bass Guitar</h3>
-        <p>Primary live instrument. Sunbeat, session work, and groove-first playing grounded in harmony.</p>
+        <p>What I play live. Mantaray and whatever else comes up.</p>
       </article>
       <article class="practice-card">
         <span class="practice-card-glyph practice-card-glyph--rose">✦</span>
         <h3>Oboe</h3>
-        <p>Conservatory principal instrument. Double-reed precision, breath control, and the patience that comes from a decade of practice.</p>
+        <p>Where it started. Ten years of double-reed work, concert band, and the P&amp;G ensemble.</p>
       </article>
       <article class="practice-card">
         <span class="practice-card-glyph practice-card-glyph--sage">⟡</span>
         <h3>Piano &amp; Keys</h3>
-        <p>Compositional home base. Harmonic exploration, arrangement sketches, and the instrument I think in.</p>
+        <p>Where I write. Most of the composition happens here.</p>
       </article>
     </div>
   </section>
@@ -170,25 +173,25 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
     <div class="live-block">
       <span class="live-block-glyph">✶</span>
       <div>
-        <h3>Upcoming Performance</h3>
-        <p>Live sets in the Cincinnati area with Sunbeat. Performance dates confirmed closer to the window.</p>
-        <span class="date-pending">Fall 2026 · details forthcoming</span>
+        <h3>Halloween 2026</h3>
+        <p>Mantaray. Cincinnati. Details confirmed closer to the window.</p>
+        <span class="date-pending">Fall 2026</span>
       </div>
     </div>
   </section>
   <section class="archive-section">
-    <span class="section-label">Deeper Listening</span>
+    <span class="section-label">Writing</span>
     <ul class="archive-list">
+      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Merry Go Round</span><span class="archive-item-meta">Composition</span></li>
+      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Marine Biology (album)</span><span class="archive-item-meta">In progress</span></li>
       <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Practice recordings: oboe + piano</span><span class="archive-item-meta">Archive</span></li>
-      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Project Hearth: early compositional sketches</span><span class="archive-item-meta">Archive</span></li>
-      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Conservatory repertoire and recital excerpts</span><span class="archive-item-meta">CCM 2014-18</span></li>
+      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Conservatory repertoire</span><span class="archive-item-meta">CCM 2014-18</span></li>
     </ul>
   </section>
   <section class="page-exit">
     <div class="glyph-divider">✶ ⟡ ✶</div>
-    <h3>Want to play together?</h3>
-    <p>Open for session work, creative partnerships, and projects that need a musician who also builds systems.</p>
-    <a href="/collaborate/" class="cta-button">Let's Collaborate</a>
+    <p class="motto">Ornamentation and structure; fabula and syuzhet; as above, so below.</p>
+    <a href="/about/" class="cta-button">Learn More</a>
     <br>
     <a href="/" class="cta-secondary">← Back to Home</a>
   </section>
