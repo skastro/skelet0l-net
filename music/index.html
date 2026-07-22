@@ -36,6 +36,8 @@ main { position: relative; z-index: 1; }
 .music-hero-eyebrow { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); opacity: 0.8; margin-bottom: 1.5rem; }
 .music-hero-title { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 400; line-height: 1.1; color: var(--cream); margin-bottom: 1.25rem; text-wrap: balance; }
 .music-hero-sub { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.7; }
+.music-narrative { padding: 0 2rem 3rem; max-width: 56rem; margin: 0 auto; }
+.music-narrative p { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.7; margin-bottom: 1.5rem; }
 .featured-player { margin-top: 3rem; background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
 .featured-player .w98-titlebar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: linear-gradient(90deg, var(--plum), var(--ink-2)); border-bottom: 1px solid var(--border); }
 .w98-dots { display: flex; gap: 5px; }
@@ -61,13 +63,7 @@ main { position: relative; z-index: 1; }
 .practice-card-glyph--sage { color: var(--sage); }
 .practice-card h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--cream); margin-bottom: 0.4rem; }
 .practice-card p { font-size: 0.8125rem; color: var(--muted); line-height: 1.6; }
-.live-section { padding: 3rem 2rem 4rem; max-width: 56rem; margin: 0 auto; }
-.live-block { background: var(--surface-1); border: 1px solid rgba(94,138,114,.2); border-radius: 2px; padding: 2rem; display: flex; align-items: flex-start; gap: 1.5rem; }
-.live-block-glyph { font-size: 1.5rem; color: var(--sage); opacity: 0.6; flex-shrink: 0; margin-top: 0.2rem; }
-.live-block h3 { font-family: var(--serif); font-size: 1.375rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
-.live-block p { font-size: 0.9375rem; color: var(--muted); line-height: 1.6; }
-.live-block .date-pending { display: inline-block; margin-top: 0.75rem; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.06em; color: var(--sage); opacity: 0.7; }
-.archive-section { padding: 2rem 2rem 4rem; max-width: 56rem; margin: 0 auto; }
+.archive-section { padding: 3rem 2rem 4rem; max-width: 56rem; margin: 0 auto; }
 .archive-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
 .archive-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--surface-1); border: 1px solid rgba(90,74,106,.2); border-radius: 2px; transition: border-color 0.2s var(--ease-out-expo); text-decoration: none; }
 .archive-item:hover { border-color: var(--border); }
@@ -96,8 +92,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
   .featured-player-body { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
   .player-glyph { font-size: 2.5rem; }
   .practice-strip { grid-template-columns: 1fr; }
-  .practice-section, .live-section, .archive-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .live-block { flex-direction: column; gap: 1rem; }
+  .practice-section, .archive-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .music-narrative { padding-left: 1.5rem; padding-right: 1.5rem; }
   footer { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer-links { justify-content: flex-start; }
 }
@@ -123,8 +119,12 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
 <main>
   <section class="music-hero">
     <span class="music-hero-eyebrow">☉ Music</span>
-    <h1 class="music-hero-title">Oboe, piano, bass guitar. Twelve years so far.</h1>
-    <p class="music-hero-sub">I started at UC’s College-Conservatory of Music in 2014 on oboe. Since then the practice has moved through concert halls, field exercises, living rooms, and now a band rehearsal space on Thursdays at 7.</p>
+    <h1 class="music-hero-title">Music is my foundation.</h1>
+    <p class="music-hero-sub">I started piano at 3 and didn't practice much at all until later on — but the early experience would transform my mind into one that thinks in pitch, rhythm and motion as I built my own personal framework for discipline and constant improvement (改善).</p>
+  </section>
+  <section class="music-narrative">
+    <p>I gravitated towards flute and guitar first, and it paved the way for my love (and patience) for oboe. I went to study music at the University of Cincinnati College-Conservatory of Music, but didn't initially find the path I was searching for, but it taught me how to find that pathway. I discovered a capella, vocal coaching, band leadership and how to tap into the core essence of musicianship, regardless of the medium you use to interface with the art.</p>
+    <p>I took a detour to the Army, where I learned about true teamwork, thinking under duress, and how to use my body and spirit as the instrument of my expression. Any attempts to completely separate music from myself were futile. Those years taught me that music was an integral part of my soul. Now that I'm back in Cincy, I play oboe in a concert band, bass in a band called Mantaray, and I co-direct a choir as well.</p>
   </section>
   <section class="music-hero" style="padding-top: 0;">
     <article class="featured-player">
@@ -137,7 +137,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
         <div class="player-info">
           <h2>Mantaray</h2>
           <span class="role">Bass Guitar</span>
-          <p>I play bass and help with the planning side. Songs in progress, Halloween concert on the horizon.</p>
+          <p>I play bass and help with the planning side. Active and building.</p>
           <a href="https://www.instagram.com/mantaray.mp3/" class="player-link">@mantaray.mp3 on Instagram</a>
         </div>
       </div>
@@ -154,7 +154,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
       <article class="practice-card">
         <span class="practice-card-glyph practice-card-glyph--rose">✦</span>
         <h3>Oboe</h3>
-        <p>Where it started. Ten years of double-reed work, concert band, and the P&amp;G ensemble.</p>
+        <p>Where it started. Double-reed work, concert band, and ensemble playing.</p>
       </article>
       <article class="practice-card">
         <span class="practice-card-glyph practice-card-glyph--sage">⟡</span>
@@ -163,30 +163,18 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); pa
       </article>
     </div>
   </section>
-  <section class="live-section">
-    <span class="section-label">Live</span>
-    <div class="live-block">
-      <span class="live-block-glyph">✶</span>
-      <div>
-        <h3>Halloween 2026</h3>
-        <p>Mantaray. Cincinnati.</p>
-        <span class="date-pending">Fall 2026</span>
-      </div>
-    </div>
-  </section>
   <section class="archive-section">
     <span class="section-label">Writing</span>
     <ul class="archive-list">
       <li><a href="https://on.soundcloud.com/WWGheB25aSx2nykx7U" class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Merry Go Round</span><span class="archive-item-meta">Listen</span></a></li>
       <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Marine Biology (album)</span><span class="archive-item-meta">In progress</span></li>
-      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Practice recordings: oboe + piano</span><span class="archive-item-meta">Archive</span></li>
-      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Conservatory repertoire</span><span class="archive-item-meta">CCM 2014-18</span></li>
+      <li class="archive-item"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Conservatory repertoire</span><span class="archive-item-meta">CCM</span></li>
     </ul>
   </section>
   <section class="page-exit">
     <div class="glyph-divider">✶ ⟡ ✶</div>
-    <p class="motto">Ornamentation and structure; fabula and syuzhet; as above, so below.</p>
-    <a href="/about/" class="cta-button">Learn More</a>
+    <p class="motto">You can find phenomenal music at the intersection of rigor and instinct. Systems work, planning, and framework building borrows its logic from here: listen, count, respond, adjust and repeat.</p>
+    <a href="/about/" class="cta-button">About Me</a>
     <br>
     <a href="/" class="cta-secondary">← Back to Home</a>
   </section>
