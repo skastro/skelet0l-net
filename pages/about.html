@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #050208; --ink-2: #15101F; --panel: #1A1525; --plum: #241B33;
+  --surface-1: #0E0A16; --surface-2: #15101F; --surface-3: #1A1525;
+  --cream: #F5F5F0; --warm: #E8DFD5; --muted: #B8AEBC;
+  --gold: #E5BC5C; --rose: #9B6B7E; --sage: #5E8A72;
+  --border: rgba(90,74,106,.35); --border-strong: rgba(229,188,92,.4);
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: var(--sans); font-weight: 300; line-height: 1.6; letter-spacing: 0.01em; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+.about-hero { padding: 4rem 2rem; max-width: 48rem; margin: 0 auto; }
+.about-eyebrow { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); opacity: 0.8; margin-bottom: 1.5rem; }
+.about-title { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.2; color: var(--cream); margin-bottom: 1.5rem; text-wrap: balance; }
+.about-text { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.8; }
+.about-text p { margin-bottom: 1.5rem; }
+
+.about-section { padding: 0 2rem 4rem; max-width: 48rem; margin: 0 auto; }
+.about-section p { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.8; margin-bottom: 1.5rem; }
+
+@media (max-width: 768px) {
+  .about-hero { padding: 3rem 1.5rem 2rem; }
+  .about-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<main>
+  <section class="about-hero">
+    <span class="about-eyebrow">☽ About</span>
+    <h1 class="about-title">I've worn many different hats, and you'd never believe what was in common.</h1>
+  </section>
+
+  <section class="about-section">
+    <p>Full redraft in progress. This page is being rebuilt from a voice pass.</p>
+  </section>
+</main>
+</body>
+</html>
