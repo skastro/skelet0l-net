@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #050208; --ink-2: #15101F; --panel: #1A1525; --plum: #241B33;
+  --surface-1: #0E0A16; --surface-2: #15101F; --surface-3: #1A1525;
+  --cream: #F5F5F0; --warm: #E8DFD5; --muted: #B8AEBC;
+  --gold: #E5BC5C; --rose: #9B6B7E; --sage: #5E8A72;
+  --border: rgba(90,74,106,.35); --border-strong: rgba(229,188,92,.4);
+  --serif: 'Cormorant', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: var(--sans); font-weight: 300; line-height: 1.6; letter-spacing: 0.01em; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+.music-hero { padding: 4rem 2rem 3rem; max-width: 56rem; margin: 0 auto; }
+.music-hero-eyebrow { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); opacity: 0.8; margin-bottom: 1.5rem; }
+.music-hero-title { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 400; line-height: 1.1; color: var(--cream); margin-bottom: 1.25rem; text-wrap: balance; }
+.music-hero-sub { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.7; }
+.music-narrative { padding: 0 2rem 3rem; max-width: 56rem; margin: 0 auto; }
+.music-narrative p { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.7; margin-bottom: 1.5rem; }
+
+.featured-player { margin: 2rem 2rem 0; max-width: 56rem; margin-left: auto; margin-right: auto; background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+.w98-titlebar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: linear-gradient(90deg, var(--plum), var(--ink-2)); border-bottom: 1px solid var(--border); }
+.w98-dots { display: flex; gap: 5px; }
+.w98-dots span { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(184,174,188,.4); }
+.w98-dots span:last-child { background: rgba(229,188,92,.35); }
+.w98-title { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warm); margin-left: 0.25rem; }
+.featured-player-body { padding: 2.5rem; display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; }
+.player-glyph { font-size: 4rem; color: var(--gold); opacity: 0.6; line-height: 1; }
+.player-info h2 { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
+.player-info .role { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--sage); text-transform: uppercase; margin-bottom: 1rem; }
+.player-info p { color: var(--muted); font-size: 0.9375rem; line-height: 1.65; max-width: 36rem; }
+.player-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; color: var(--rose); text-decoration: none; transition: opacity 0.2s; }
+.player-link:hover { opacity: 0.7; }
+.player-link::after { content: ' \2192'; }
+
+.section-label { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+.practice-section { padding: 4rem 2rem; max-width: 56rem; margin: 0 auto; }
+.practice-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.practice-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; padding: 1.5rem; transition: border-color 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo); }
+.practice-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.practice-card-glyph { font-size: 1.5rem; margin-bottom: 1rem; display: block; opacity: 0.6; }
+.practice-card-glyph--gold { color: var(--gold); }
+.practice-card-glyph--rose { color: var(--rose); }
+.practice-card-glyph--sage { color: var(--sage); }
+.practice-card h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--cream); }
+
+.archive-section { padding: 3rem 2rem 4rem; max-width: 56rem; margin: 0 auto; }
+.archive-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.archive-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--surface-1); border: 1px solid rgba(90,74,106,.2); border-radius: 2px; transition: border-color 0.2s var(--ease-out-expo); text-decoration: none; }
+.archive-item:hover { border-color: var(--border); }
+.archive-item-glyph { font-size: 0.875rem; color: var(--rose); opacity: 0.5; flex-shrink: 0; }
+.archive-item-title { font-family: var(--serif); font-size: 1.0625rem; font-weight: 500; color: var(--cream); }
+.archive-item-meta { margin-left: auto; font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); opacity: 0.6; flex-shrink: 0; }
+
+.page-exit { padding: 4rem 2rem 5rem; text-align: center; max-width: 40rem; margin: 0 auto; }
+.page-exit .motto { font-family: var(--serif); font-style: italic; font-size: 1.125rem; color: var(--sage); opacity: 0.65; letter-spacing: 0.02em; }
+
+@media (max-width: 768px) {
+  .music-hero { padding: 3rem 1.5rem 2rem; }
+  .featured-player-body { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
+  .player-glyph { font-size: 2.5rem; }
+  .practice-strip { grid-template-columns: 1fr; }
+  .practice-section, .archive-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .music-narrative { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<main>
+  <section class="music-hero">
+    <span class="music-hero-eyebrow">☉ Music</span>
+    <h1 class="music-hero-title">Music is my foundation.</h1>
+    <p class="music-hero-sub">I started piano at 3 and didn't practice much at all until later on — but the early experience would transform my mind into one that thinks in pitch, rhythm and motion as I built my own personal framework for discipline and constant improvement (改善).</p>
+  </section>
+
+  <section class="music-narrative">
+    <p>I gravitated towards flute and guitar first, and it paved the way for my love (and patience) for oboe. I went to study music at the University of Cincinnati College-Conservatory of Music, but didn't initially find the path I was searching for, but it taught me how to find that pathway. I discovered a capella, vocal coaching, band leadership and how to tap into the core essence of musicianship, regardless of the medium you use to interface with the art.</p>
+    <p>I took a detour to the Army, where I learned about true teamwork, thinking under duress, and how to use my body and spirit as the instrument of my expression. Any attempts to completely separate music from myself were futile. Those years taught me that music was an integral part of my soul. Now that I'm back in Cincy, I play oboe in a concert band, bass in a band called Mantaray, and I co-direct a choir as well.</p>
+  </section>
+
+  <article class="featured-player">
+    <div class="w98-titlebar">
+      <div class="w98-dots"><span></span><span></span><span></span></div>
+      <span class="w98-title">Now Playing</span>
+    </div>
+    <div class="featured-player-body">
+      <span class="player-glyph">☉</span>
+      <div class="player-info">
+        <h2>Mantaray</h2>
+        <span class="role">Bass Guitar</span>
+        <p>I play bass for Mantaray.</p>
+        <a href="https://www.instagram.com/mantaray.mp3/" class="player-link" target="_blank" rel="noopener">@mantaray.mp3 on Instagram</a>
+      </div>
+    </div>
+  </article>
+
+  <section class="practice-section">
+    <span class="section-label">Instruments</span>
+    <div class="practice-strip">
+      <article class="practice-card">
+        <span class="practice-card-glyph practice-card-glyph--gold">◈</span>
+        <h3>Bass Guitar</h3>
+      </article>
+      <article class="practice-card">
+        <span class="practice-card-glyph practice-card-glyph--rose">✦</span>
+        <h3>Oboe</h3>
+      </article>
+      <article class="practice-card">
+        <span class="practice-card-glyph practice-card-glyph--sage">⟡</span>
+        <h3>Piano &amp; Keys</h3>
+      </article>
+    </div>
+  </section>
+
+  <section class="archive-section">
+    <span class="section-label">Writing</span>
+    <ul class="archive-list">
+      <li><a href="https://on.soundcloud.com/WWGheB25aSx2nykx7U" class="archive-item" target="_blank" rel="noopener"><span class="archive-item-glyph">☽</span><span class="archive-item-title">Zelda</span><span class="archive-item-meta">Listen</span></a></li>
+    </ul>
+  </section>
+
+  <section class="page-exit">
+    <p class="motto">You can find phenomenal music at the intersection of rigor and instinct. Systems work, planning, and framework building borrows its logic from here: listen, count, respond, adjust and repeat.</p>
+  </section>
+</main>
+</body>
+</html>
