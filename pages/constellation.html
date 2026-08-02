@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound Map — skele.t0l</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --void: #080610;
+  --panel: #131020;
+  --plum: #251E32;
+  --cream: #F0EAE2;
+  --gold: #E2C564;
+  --muted: #8A7F92;
+  --grunge: #F2A0A0;
+  --hiphop: #F2C49A;
+  --jazz: #9AD4F2;
+  --electronic: #B4F2A0;
+  --prog: #D4B8F2;
+  --altrock: #F2D88A;
+  --roots: #E8D9A0;
+  --self: #E2C564;
+}
+
+body {
+  background: var(--void);
+  color: var(--cream);
+  font-family: 'IBM Plex Sans', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  cursor: default;
+}
+
+#canvas-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+
+#constellation {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+}
+
+.title-block {
+  position: fixed;
+  top: 20px;
+  left: 22px;
+  z-index: 10;
+}
+
+.title-block h1 {
+  font-family: 'Cormorant', serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  opacity: 0.8;
+}
+
+.title-block p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.filter-bar {
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  z-index: 10;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  max-width: 320px;
+  justify-content: flex-end;
+}
+
+.filter-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--plum);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 120ms;
+}
+
+.filter-btn:hover { border-color: var(--cream); color: var(--cream); }
+.filter-btn.active { color: var(--void); border-color: transparent; }
+.filter-btn[data-filter="all"].active { background: var(--cream); }
+.filter-btn[data-filter="rhythm"].active { background: #F2C49A; }
+.filter-btn[data-filter="harmony"].active { background: #9AD4F2; }
+.filter-btn[data-filter="voicemelody"].active { background: #D4B8F2; }
+.filter-btn[data-filter="instinct"].active { background: #E2C564; }
+
+.legend {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.legend-item { display: flex; align-items: center; gap: 7px; }
+.legend-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.legend-line { width: 14px; height: 2px; flex-shrink: 0; border-radius: 1px; }
+.legend-title { font-size: 7px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 6px 0 2px; }
+
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  background: var(--panel);
+  border: 1px solid var(--plum);
+  padding: 11px 14px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  max-width: 230px;
+  opacity: 0;
+  transition: opacity 120ms;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+}
+
+.tooltip.visible { opacity: 1; }
+.tooltip .name { font-family: 'Cormorant', serif; font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.tooltip .cluster { font-family: 'IBM Plex Mono', monospace; font-size: 8px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 5px; }
+.tooltip .role { font-size: 10px; line-height: 1.4; opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+<svg id="constellation"></svg>
+
+<div class="title-block">
+  <h1>Influence Constellation</h1>
+  <p>skele.t0l · sound genealogy</p>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="rhythm">Rhythm</button>
+  <button class="filter-btn" data-filter="harmony">Harmony</button>
+  <button class="filter-btn" data-filter="voicemelody">Voice / Melody</button>
+  <button class="filter-btn" data-filter="instinct">Instinct</button>
+</div>
+
+<div class="legend">
+  <div class="legend-title">Clusters</div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--altrock)"></div><span>Alt-Rock & Desert</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--hiphop)"></div><span>Hip Hop & R&B</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--jazz)"></div><span>Jazz Fusion</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--grunge)"></div><span>Grunge Furnace</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--electronic)"></div><span>Electronic</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--prog)"></div><span>Prog</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background: var(--roots)"></div><span>Roots & Americana</span></div>
+  <div class="legend-title">Dimensions</div>
+  <div class="legend-item"><div class="legend-line" style="background: #F2C49A"></div><span>Rhythm</span></div>
+  <div class="legend-item"><div class="legend-line" style="background: #9AD4F2"></div><span>Harmony</span></div>
+  <div class="legend-item"><div class="legend-line" style="background: #D4B8F2"></div><span>Voice / Melody</span></div>
+  <div class="legend-item"><div class="legend-line" style="background: #E2C564"></div><span>Instinct / Groove</span></div>
+</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="name"></div>
+  <div class="cluster"></div>
+  <div class="role"></div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+var canvas = document.getElementById('canvas-bg');
+var ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth * window.devicePixelRatio;
+  canvas.height = window.innerHeight * window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  drawStars();
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  for (var i = 0; i < 300; i++) {
+    ctx.beginPath();
+    ctx.arc(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 0.7 + 0.2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(240,234,226,' + (Math.random() * 0.45 + 0.05) + ')';
+    ctx.fill();
+  }
+  for (var i = 0; i < 35; i++) {
+    ctx.beginPath();
+    ctx.arc(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 0.9 + 0.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(240,234,226,' + (Math.random() * 0.5 + 0.3) + ')';
+    ctx.fill();
+  }
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+var groupColors = {
+  center: '#F0EAE2', self: '#E2C564', grunge: '#F2A0A0', hiphop: '#F2C49A',
+  jazz: '#9AD4F2', electronic: '#B4F2A0', prog: '#D4B8F2', altrock: '#F2D88A', roots: '#E8D9A0'
+};
+
+var clusterLabels = {
+  center: '', self: 'Active Project', grunge: 'Grunge Furnace', hiphop: 'Hip Hop & R&B',
+  jazz: 'Jazz Fusion', electronic: 'Electronic', prog: 'Prog & Technique',
+  altrock: 'Alt-Rock & Desert Groove', roots: 'Roots & Americana'
+};
+
+var dimColors = { rhythm: '#F2C49A', harmony: '#9AD4F2', voicemelody: '#D4B8F2', instinct: '#E2C564' };
+
+var nodes = [
+  { id: 'tony', name: 'skele.t0l', group: 'center', role: 'The convergence point.', size: 20 },
+  { id: 'mantaray', name: 'Mantaray', group: 'self', role: 'The band. Instinct and groove obsession.', size: 14 },
+  { id: 'qotsa', name: 'Queens of the Stone Age', group: 'altrock', role: 'Desert-pocket minimalism. Nobody does it better.', size: 14 },
+  { id: 'muse', name: 'Muse', group: 'altrock', role: 'Countertenor as power. Voice permission.', size: 10 },
+  { id: 'strokes', name: 'The Strokes', group: 'altrock', role: 'Laconic cool. Upper register magnetism.', size: 9 },
+  { id: 'radiohead', name: 'Radiohead', group: 'prog', role: 'Experimental made inevitable.', size: 11 },
+  { id: 'deftones', name: 'Deftones', group: 'altrock', role: 'Heaviness as atmosphere.', size: 10 },
+  { id: 'kendrick', name: 'Kendrick Lamar', group: 'hiphop', role: 'Structural ambition. Albums as architecture.', size: 10 },
+  { id: 'doom', name: 'MF DOOM', group: 'hiphop', role: 'Internal rhyme density. Mask as mythology.', size: 9 },
+  { id: 'kanye', name: 'Kanye West', group: 'hiphop', role: 'Production as architecture.', size: 10 },
+  { id: 'paak', name: 'Anderson .Paak', group: 'hiphop', role: 'Drummer-singer. Pocket IS identity.', size: 9 },
+  { id: 'thundercat', name: 'Thundercat', group: 'jazz', role: 'Bass as lead voice.', size: 10 },
+  { id: 'domijdbeck', name: 'DOMi & JD Beck', group: 'jazz', role: 'Complexity that communicates.', size: 9 },
+  { id: 'mingus', name: 'Mingus', group: 'jazz', role: 'Compositional bass. Rage + tenderness.', size: 9 },
+  { id: 'vgm', name: 'VGM', group: 'electronic', role: 'NES counterpoint through limitation.', size: 10 },
+  { id: 'lcd', name: 'LCD Soundsystem', group: 'electronic', role: 'Motorik-disco discipline.', size: 8 },
+  { id: 'louiscole', name: 'Louis Cole', group: 'altrock', role: 'Manic precision.', size: 9 },
+  { id: 'primus', name: 'Primus', group: 'prog', role: 'Slap bass as lead voice.', size: 9 },
+  { id: 'khruangbin', name: 'Khruangbin', group: 'altrock', role: 'Space between notes.', size: 9 },
+  { id: 'jungle', name: 'Jungle', group: 'altrock', role: 'Disco-soul perfectionism.', size: 8 },
+  { id: 'hendrix', name: 'Hendrix', group: 'roots', role: 'Blues as psychedelia.', size: 10 },
+  { id: 'joni', name: 'Joni Mitchell', group: 'roots', role: 'Complete ownership. Mood-as-tuning.', size: 10 },
+  { id: 'miley', name: 'Miley Cyrus', group: 'roots', role: 'Genre fearlessness.', size: 8 },
+  { id: 'ethel', name: 'Ethel Cain', group: 'roots', role: 'Gothic Americana. Grit + acceptance.', size: 8 },
+  { id: 'smtb', name: 'Show Me the Body', group: 'grunge', role: 'Essence over clarity.', size: 8 },
+  { id: 'nirvana', name: 'Nirvana', group: 'grunge', role: 'Three chords and a scream.', size: 9 },
+  { id: 'xtc', name: 'XTC', group: 'altrock', role: 'Angular pop. Songwriting as architecture.', size: 8 }
+];
+
+var links = [
+  { source: 'tony', target: 'qotsa', dim: 'rhythm', strength: 0.9 },
+  { source: 'tony', target: 'thundercat', dim: 'rhythm', strength: 0.7 },
+  { source: 'tony', target: 'paak', dim: 'rhythm', strength: 0.7 },
+  { source: 'tony', target: 'primus', dim: 'rhythm', strength: 0.6 },
+  { source: 'mantaray', target: 'tony', dim: 'rhythm', strength: 0.8 },
+  { source: 'mantaray', target: 'deftones', dim: 'rhythm', strength: 0.7 },
+  { source: 'qotsa', target: 'khruangbin', dim: 'rhythm', strength: 0.7 },
+  { source: 'lcd', target: 'jungle', dim: 'rhythm', strength: 0.6 },
+  { source: 'louiscole', target: 'domijdbeck', dim: 'rhythm', strength: 0.7 },
+  { source: 'tony', target: 'radiohead', dim: 'harmony', strength: 0.7 },
+  { source: 'tony', target: 'mingus', dim: 'harmony', strength: 0.6 },
+  { source: 'tony', target: 'vgm', dim: 'harmony', strength: 0.7 },
+  { source: 'tony', target: 'joni', dim: 'harmony', strength: 0.7 },
+  { source: 'radiohead', target: 'deftones', dim: 'harmony', strength: 0.5 },
+  { source: 'joni', target: 'xtc', dim: 'harmony', strength: 0.5 },
+  { source: 'xtc', target: 'radiohead', dim: 'harmony', strength: 0.5 },
+  { source: 'mingus', target: 'thundercat', dim: 'harmony', strength: 0.6 },
+  { source: 'louiscole', target: 'domijdbeck', dim: 'harmony', strength: 0.5 },
+  { source: 'tony', target: 'muse', dim: 'voicemelody', strength: 0.8 },
+  { source: 'tony', target: 'strokes', dim: 'voicemelody', strength: 0.7 },
+  { source: 'tony', target: 'miley', dim: 'voicemelody', strength: 0.6 },
+  { source: 'tony', target: 'joni', dim: 'voicemelody', strength: 0.6 },
+  { source: 'muse', target: 'strokes', dim: 'voicemelody', strength: 0.7 },
+  { source: 'miley', target: 'ethel', dim: 'voicemelody', strength: 0.5 },
+  { source: 'doom', target: 'kendrick', dim: 'voicemelody', strength: 0.6 },
+  { source: 'hendrix', target: 'joni', dim: 'voicemelody', strength: 0.4 },
+  { source: 'tony', target: 'qotsa', dim: 'instinct', strength: 0.9 },
+  { source: 'tony', target: 'hendrix', dim: 'instinct', strength: 0.7 },
+  { source: 'tony', target: 'paak', dim: 'instinct', strength: 0.7 },
+  { source: 'tony', target: 'vgm', dim: 'instinct', strength: 0.8 },
+  { source: 'mantaray', target: 'tony', dim: 'instinct', strength: 0.9 },
+  { source: 'mantaray', target: 'deftones', dim: 'instinct', strength: 0.7 },
+  { source: 'mantaray', target: 'qotsa', dim: 'instinct', strength: 0.7 },
+  { source: 'domijdbeck', target: 'smtb', dim: 'instinct', strength: 0.5 },
+  { source: 'smtb', target: 'qotsa', dim: 'instinct', strength: 0.5 },
+  { source: 'khruangbin', target: 'jungle', dim: 'instinct', strength: 0.6 },
+  { source: 'louiscole', target: 'domijdbeck', dim: 'instinct', strength: 0.6 },
+  { source: 'nirvana', target: 'qotsa', dim: 'instinct', strength: 0.5 },
+  { source: 'hendrix', target: 'qotsa', dim: 'instinct', strength: 0.6 },
+  { source: 'kanye', target: 'kendrick', dim: 'instinct', strength: 0.5 },
+  { source: 'joni', target: 'louiscole', dim: 'instinct', strength: 0.4 },
+  { source: 'ethel', target: 'nirvana', dim: 'instinct', strength: 0.4 },
+  { source: 'lcd', target: 'khruangbin', dim: 'instinct', strength: 0.4 }
+];
+
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+var svg = d3.select('#constellation').attr('width', width).attr('height', height);
+
+var centerNode = nodes.find(function(n) { return n.id === 'tony'; });
+centerNode.fx = width / 2;
+centerNode.fy = height / 2;
+
+var simulation = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(function(d) { return d.id; }).distance(function(d) {
+    if (d.source.id === 'tony' || d.target.id === 'tony') return 160;
+    if (d.strength > 0.7) return 80;
+    return 100;
+  }).strength(function(d) { return d.strength * 0.15; }))
+  .force('charge', d3.forceManyBody().strength(function(d) {
+    if (d.id === 'tony') return -900;
+    if (d.id === 'mantaray') return -400;
+    return -140;
+  }))
+  .force('center', d3.forceCenter(width / 2, height / 2).strength(0.03))
+  .force('collision', d3.forceCollide().radius(function(d) { return d.size + 18; }))
+  .force('radial', d3.forceRadial(function(d) {
+    if (d.id === 'tony') return 0;
+    if (d.group === 'self') return 80;
+    return 220;
+  }, width / 2, height / 2).strength(function(d) {
+    return d.group === 'self' ? 0.5 : 0.2;
+  }));
+
+var defs = svg.append('defs');
+var filter = defs.append('filter').attr('id', 'glow').attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%');
+filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
+var feMerge = filter.append('feMerge');
+feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+var linkGroup = svg.append('g');
+var linkElements = linkGroup.selectAll('line').data(links).join('line')
+  .attr('stroke', function(d) { return dimColors[d.dim]; })
+  .attr('stroke-opacity', function(d) { return (d.source === 'tony' || (d.source && d.source.id === 'tony')) ? 0.15 : 0.08; })
+  .attr('stroke-width', function(d) { return d.strength > 0.7 ? 1.2 : 0.6; });
+
+var nodeGroup = svg.append('g');
+var nodeElements = nodeGroup.selectAll('g').data(nodes).join('g').attr('cursor', 'grab')
+  .call(d3.drag()
+    .on('start', function(event, d) { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag', function(event, d) { d.fx = event.x; d.fy = event.y; })
+    .on('end', function(event, d) { if (!event.active) simulation.alphaTarget(0); if (d.id !== 'tony') { d.fx = null; d.fy = null; } }));
+
+nodeElements.append('circle').attr('r', function(d) { return d.size + 4; })
+  .attr('fill', function(d) { return groupColors[d.group]; })
+  .attr('opacity', function(d) { return d.id === 'tony' ? 0.08 : 0.04; })
+  .attr('filter', 'url(#glow)');
+
+nodeElements.append('circle').attr('class', 'main-circle').attr('r', function(d) { return d.size; })
+  .attr('fill', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 'var(--void)' : groupColors[d.group]; })
+  .attr('stroke', function(d) { return groupColors[d.group]; })
+  .attr('stroke-width', function(d) { return d.id === 'tony' ? 2.5 : d.id === 'mantaray' ? 2 : 1; })
+  .attr('opacity', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 1 : 0.9; })
+  .attr('filter', function(d) { return d.size >= 12 ? 'url(#glow)' : null; });
+
+nodeElements.filter(function(d) { return d.id === 'tony'; }).append('circle').attr('r', 5).attr('fill', 'var(--gold)').attr('filter', 'url(#glow)');
+nodeElements.filter(function(d) { return d.id === 'mantaray'; }).append('circle').attr('r', 3.5).attr('fill', 'var(--gold)').attr('opacity', 0.8);
+
+nodeElements.append('text').text(function(d) { return d.name; })
+  .attr('x', 0).attr('y', function(d) { return d.size + 14; })
+  .attr('text-anchor', 'middle').attr('fill', 'var(--cream)')
+  .attr('font-family', "'IBM Plex Mono', monospace")
+  .attr('font-size', function(d) { return d.id === 'tony' ? '11px' : d.size >= 10 ? '9px' : '8px'; })
+  .attr('letter-spacing', '0.03em')
+  .attr('opacity', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 0.9 : 0.55; });
+
+var tooltip = document.getElementById('tooltip');
+
+nodeElements.on('mouseenter', function(event, d) {
+  tooltip.querySelector('.name').textContent = d.name;
+  tooltip.querySelector('.cluster').textContent = clusterLabels[d.group];
+  tooltip.querySelector('.role').textContent = d.role;
+  tooltip.classList.add('visible');
+  var connected = links.filter(function(l) { return l.source.id === d.id || l.target.id === d.id; });
+  linkElements.attr('stroke-opacity', function(l) { return (l.source.id === d.id || l.target.id === d.id) ? 0.7 : 0.015; })
+    .attr('stroke-width', function(l) { return (l.source.id === d.id || l.target.id === d.id) ? 2.5 : 0.3; });
+  var connectedIds = new Set([d.id]);
+  connected.forEach(function(l) { connectedIds.add(l.source.id); connectedIds.add(l.target.id); });
+  nodeElements.select('.main-circle').attr('opacity', function(n) { return connectedIds.has(n.id) ? 1 : 0.08; });
+  nodeElements.select('text').attr('opacity', function(n) { return n.id === d.id ? 1 : connectedIds.has(n.id) ? 0.8 : 0.04; });
+});
+
+nodeElements.on('mousemove', function(event) {
+  var x = event.clientX + 14, y = event.clientY - 8;
+  tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
+  var rect = tooltip.getBoundingClientRect();
+  if (rect.right > window.innerWidth) tooltip.style.left = (event.clientX - rect.width - 14) + 'px';
+  if (rect.bottom > window.innerHeight) tooltip.style.top = (event.clientY - rect.height - 8) + 'px';
+});
+
+nodeElements.on('mouseleave', function() {
+  tooltip.classList.remove('visible');
+  linkElements.attr('stroke-opacity', function(d) { return (d.source.id === 'tony') ? 0.15 : 0.08; })
+    .attr('stroke-width', function(d) { return d.strength > 0.7 ? 1.2 : 0.6; });
+  nodeElements.select('.main-circle').attr('opacity', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 1 : 0.9; });
+  nodeElements.select('text').attr('opacity', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 0.9 : 0.55; });
+});
+
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    var f = this.dataset.filter;
+    if (f === 'all') {
+      linkElements.attr('display', null).attr('stroke-opacity', function(d) { return d.source.id === 'tony' ? 0.15 : 0.08; })
+        .attr('stroke-width', function(d) { return d.strength > 0.7 ? 1.2 : 0.6; });
+      nodeElements.select('.main-circle').attr('opacity', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 1 : 0.9; });
+      nodeElements.select('text').attr('opacity', function(d) { return (d.id === 'tony' || d.id === 'mantaray') ? 0.9 : 0.55; });
+    } else {
+      linkElements.attr('display', function(d) { return d.dim === f ? null : 'none'; })
+        .attr('stroke-opacity', function(d) { return d.dim === f ? 0.55 : 0; })
+        .attr('stroke-width', function(d) { return d.dim === f ? 2 : 0; });
+      var connectedIds = new Set(['tony', 'mantaray']);
+      links.filter(function(l) { return l.dim === f; }).forEach(function(l) {
+        connectedIds.add(typeof l.source === 'object' ? l.source.id : l.source);
+        connectedIds.add(typeof l.target === 'object' ? l.target.id : l.target);
+      });
+      nodeElements.select('.main-circle').attr('opacity', function(n) { return connectedIds.has(n.id) ? 1 : 0.06; });
+      nodeElements.select('text').attr('opacity', function(n) { return connectedIds.has(n.id) ? 0.7 : 0.03; });
+    }
+  });
+});
+
+simulation.on('tick', function() {
+  linkElements.attr('x1', function(d) { return d.source.x; }).attr('y1', function(d) { return d.source.y; })
+    .attr('x2', function(d) { return d.target.x; }).attr('y2', function(d) { return d.target.y; });
+  nodeElements.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
+});
+
+window.addEventListener('resize', function() {
+  var w = window.innerWidth, h = window.innerHeight;
+  svg.attr('width', w).attr('height', h);
+  centerNode.fx = w / 2; centerNode.fy = h / 2;
+  simulation.force('center', d3.forceCenter(w / 2, h / 2).strength(0.03));
+  simulation.alpha(0.3).restart();
+  resizeCanvas();
+});
+</script>
+</body>
+</html>
