@@ -103,93 +103,37 @@
     padding:0;font-size:0}
   .sm-themes button.sel{border-color:#fff #404040 #404040 #fff;outline:2px solid var(--accent, #9B6B7E);outline-offset:-2px}
 
-  /* themed chrome */
-  html:not([data-theme="win98"]) .win{
-    background:var(--ck-win);border:1px solid var(--ck-bd);border-radius:0;
-    box-shadow:0 10px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
-  }
-  html:not([data-theme="win98"]) .win.active{
-    border-color:var(--ck-bda);
-    box-shadow:0 12px 42px rgba(0,0,0,.5), 0 0 20px var(--ck-glow), 0 0 0 1px var(--ck-bda);
-  }
-  html:not([data-theme="win98"]) .titlebar{
-    background:var(--ck-bar);color:var(--ck-bar-tx);border-bottom:1px solid var(--ck-bd);
-  }
+  /* themed chrome - keeping all existing theme CSS */
+  html:not([data-theme="win98"]) .win{background:var(--ck-win);border:1px solid var(--ck-bd);border-radius:0;box-shadow:0 10px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05)}
+  html:not([data-theme="win98"]) .win.active{border-color:var(--ck-bda);box-shadow:0 12px 42px rgba(0,0,0,.5), 0 0 20px var(--ck-glow), 0 0 0 1px var(--ck-bda)}
+  html:not([data-theme="win98"]) .titlebar{background:var(--ck-bar);color:var(--ck-bar-tx);border-bottom:1px solid var(--ck-bd)}
   html:not([data-theme="win98"]) .win.active .titlebar{background:var(--ck-bara);color:var(--ck-bara-tx)}
   html:not([data-theme="win98"]) .titlebar .tbtn{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
   html:not([data-theme="win98"]) .titlebar .tbtn:active{filter:brightness(.85)}
   html:not([data-theme="win98"]) .winbody{border:1px solid var(--ck-bd);background:var(--void, #050208)}
-  html:not([data-theme="win98"]) .resize{
-    background:linear-gradient(135deg,transparent 50%,var(--ck-bd) 50%,var(--ck-bd) 60%,transparent 60%,
-      transparent 72%,var(--ck-bd) 72%,var(--ck-bd) 82%,transparent 82%);
-  }
+  html:not([data-theme="win98"]) .resize{background:linear-gradient(135deg,transparent 50%,var(--ck-bd) 50%,var(--ck-bd) 60%,transparent 60%,transparent 72%,var(--ck-bd) 72%,var(--ck-bd) 82%,transparent 82%)}
   html:not([data-theme="win98"]) #taskbar{background:var(--ck-tb);border-top:1px solid var(--ck-bd)}
-  html:not([data-theme="win98"]) #startbtn,
-  html:not([data-theme="win98"]) .tasktab{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
-  html:not([data-theme="win98"]) #startbtn:active,
-  html:not([data-theme="win98"]) #startbtn.on,
-  html:not([data-theme="win98"]) .tasktab.active{background:var(--ck-ctrla);color:var(--ck-bara-tx);border-color:var(--ck-bda)}
+  html:not([data-theme="win98"]) #startbtn,html:not([data-theme="win98"]) .tasktab{background:var(--ck-ctrl);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
+  html:not([data-theme="win98"]) #startbtn:active,html:not([data-theme="win98"]) #startbtn.on,html:not([data-theme="win98"]) .tasktab.active{background:var(--ck-ctrla);color:var(--ck-bara-tx);border-color:var(--ck-bda)}
   html:not([data-theme="win98"]) #clock{background:var(--ck-tb);color:var(--ck-ctrl-tx);border:1px solid var(--ck-bd)}
   html:not([data-theme="win98"]) #clock .motto{color:var(--ck-muted)}
   html:not([data-theme="win98"]) #startmenu{background:var(--ck-win);border:1px solid var(--ck-bd);box-shadow:0 12px 42px rgba(0,0,0,.5)}
   html:not([data-theme="win98"]) #startmenu .sm-rail{background:var(--ck-rail)}
   html:not([data-theme="win98"]) .sm-item{color:var(--ck-ctrl-tx)}
-  html:not([data-theme="win98"]) .sm-item:hover,
-  html:not([data-theme="win98"]) .sm-item:focus-visible{background:var(--ck-bara);color:var(--ck-bara-tx)}
+  html:not([data-theme="win98"]) .sm-item:hover,html:not([data-theme="win98"]) .sm-item:focus-visible{background:var(--ck-bara);color:var(--ck-bara-tx)}
   html:not([data-theme="win98"]) .sm-sep{background:var(--ck-bd);border-bottom-color:transparent}
   html:not([data-theme="win98"]) .sm-label{color:var(--ck-muted)}
   html:not([data-theme="win98"]) .sm-themes button.sel{outline-color:var(--ck-bda)}
-  html:not([data-theme="win98"]) .dicon:focus-visible,
-  html:not([data-theme="win98"]) .dicon.sel{border-color:var(--ck-bda);background:rgba(184,148,217,.16)}
+  html:not([data-theme="win98"]) .dicon:focus-visible,html:not([data-theme="win98"]) .dicon.sel{border-color:var(--ck-bda);background:rgba(184,148,217,.16)}
 
-  [data-theme="void"]{
-    --ck-win:#14111C;--ck-bd:#3A3350;--ck-bda:#5A4A78;--ck-glow:rgba(184,148,217,.18);
-    --ck-bar:linear-gradient(90deg,#1C1828,#231C30);--ck-bar-tx:#9A91AE;
-    --ck-bara:linear-gradient(90deg,#2A1E3A,#3A2150);--ck-bara-tx:#F0E7FA;
-    --ck-ctrl:#1A1626;--ck-ctrl-tx:#CFC6DE;--ck-ctrla:#241C34;--ck-tb:#0E0B16;--ck-muted:#9A86C0;
-    --ck-rail:linear-gradient(180deg,#6E4F9C,#241634);
-  }
-  [data-theme="dark"]{
-    --ck-win:#16121E;--ck-bd:#2B2436;--ck-bda:#6E5A2E;--ck-glow:rgba(229,188,92,.20);
-    --ck-bar:linear-gradient(90deg,#1A1626,#221C2E);--ck-bar-tx:#A9A2B8;
-    --ck-bara:linear-gradient(90deg,#3A2E16,#4A3A1C);--ck-bara-tx:#F5E9D2;
-    --ck-ctrl:#1A1626;--ck-ctrl-tx:#C9C2D4;--ck-ctrla:#2A2236;--ck-tb:#0C0A12;--ck-muted:#C8A24E;
-    --ck-rail:linear-gradient(180deg,#8A6A2E,#2A2012);
-  }
-  [data-theme="monochrome"]{
-    --ck-win:#232327;--ck-bd:#3A3A3E;--ck-bda:#6A6A6E;--ck-glow:rgba(190,190,190,.16);
-    --ck-bar:linear-gradient(90deg,#2A2A2E,#323236);--ck-bar-tx:#9A9A9A;
-    --ck-bara:linear-gradient(90deg,#3A3A3E,#4A4A4E);--ck-bara-tx:#FFFFFF;
-    --ck-ctrl:#2A2A2E;--ck-ctrl-tx:#CFCFCF;--ck-ctrla:#3A3A3E;--ck-tb:#1A1A1D;--ck-muted:#9A9A9A;
-    --ck-rail:linear-gradient(180deg,#6A6A6E,#26262A);
-  }
-  [data-theme="win98"]{
-    --ck-win:#C0C0C0;--ck-bd:#404040;--ck-bda:#000080;--ck-glow:rgba(0,0,128,.2);
-    --ck-bar:linear-gradient(90deg,#808080,#9a8aa6);--ck-bar-tx:#cfc6da;
-    --ck-bara:linear-gradient(90deg,#000080,#1084d0);--ck-bara-tx:#fff;
-    --ck-ctrl:#C0C0C0;--ck-ctrl-tx:#1a1a1a;--ck-ctrla:#b4b4b4;--ck-tb:#C0C0C0;--ck-muted:#3a2b52;
-    --ck-rail:linear-gradient(180deg,#000080,#3a2b52);
-  }
-  [data-theme="light"]{
-    --ck-win:#F3F1ED;--ck-bd:#C4BEB4;--ck-bda:#9C8B6B;--ck-glow:rgba(139,111,61,.22);
-    --ck-bar:linear-gradient(180deg,#E8E4DC,#D7D2C8);--ck-bar-tx:#6B655A;
-    --ck-bara:linear-gradient(90deg,#C9B89A,#B89F78);--ck-bara-tx:#2A2418;
-    --ck-ctrl:#ECE8E1;--ck-ctrl-tx:#3A362E;--ck-ctrla:#DAD4C8;--ck-tb:#E4DFD5;--ck-muted:#8A8276;
-    --ck-rail:linear-gradient(180deg,#B89F78,#8B6F3D);
-  }
-  [data-theme="sepia"]{
-    --ck-win:#F0E7D4;--ck-bd:#CDBE9C;--ck-bda:#B0863E;--ck-glow:rgba(197,153,77,.25);
-    --ck-bar:linear-gradient(180deg,#E8DABA,#D8C9A8);--ck-bar-tx:#6B5638;
-    --ck-bara:linear-gradient(90deg,#C5994D,#B0863E);--ck-bara-tx:#2C1E0E;
-    --ck-ctrl:#E8DCC4;--ck-ctrl-tx:#3E2D1A;--ck-ctrla:#D8C9A8;--ck-tb:#E4D7B8;--ck-muted:#7A6A4C;
-    --ck-rail:linear-gradient(180deg,#C5994D,#5A4520);
-  }
+  [data-theme="void"]{--ck-win:#14111C;--ck-bd:#3A3350;--ck-bda:#5A4A78;--ck-glow:rgba(184,148,217,.18);--ck-bar:linear-gradient(90deg,#1C1828,#231C30);--ck-bar-tx:#9A91AE;--ck-bara:linear-gradient(90deg,#2A1E3A,#3A2150);--ck-bara-tx:#F0E7FA;--ck-ctrl:#1A1626;--ck-ctrl-tx:#CFC6DE;--ck-ctrla:#241C34;--ck-tb:#0E0B16;--ck-muted:#9A86C0;--ck-rail:linear-gradient(180deg,#6E4F9C,#241634)}
+  [data-theme="dark"]{--ck-win:#16121E;--ck-bd:#2B2436;--ck-bda:#6E5A2E;--ck-glow:rgba(229,188,92,.20);--ck-bar:linear-gradient(90deg,#1A1626,#221C2E);--ck-bar-tx:#A9A2B8;--ck-bara:linear-gradient(90deg,#3A2E16,#4A3A1C);--ck-bara-tx:#F5E9D2;--ck-ctrl:#1A1626;--ck-ctrl-tx:#C9C2D4;--ck-ctrla:#2A2236;--ck-tb:#0C0A12;--ck-muted:#C8A24E;--ck-rail:linear-gradient(180deg,#8A6A2E,#2A2012)}
+  [data-theme="monochrome"]{--ck-win:#232327;--ck-bd:#3A3A3E;--ck-bda:#6A6A6E;--ck-glow:rgba(190,190,190,.16);--ck-bar:linear-gradient(90deg,#2A2A2E,#323236);--ck-bar-tx:#9A9A9A;--ck-bara:linear-gradient(90deg,#3A3A3E,#4A4A4E);--ck-bara-tx:#FFFFFF;--ck-ctrl:#2A2A2E;--ck-ctrl-tx:#CFCFCF;--ck-ctrla:#3A3A3E;--ck-tb:#1A1A1D;--ck-muted:#9A9A9A;--ck-rail:linear-gradient(180deg,#6A6A6E,#26262A)}
+  [data-theme="win98"]{--ck-win:#C0C0C0;--ck-bd:#404040;--ck-bda:#000080;--ck-glow:rgba(0,0,128,.2);--ck-bar:linear-gradient(90deg,#808080,#9a8aa6);--ck-bar-tx:#cfc6da;--ck-bara:linear-gradient(90deg,#000080,#1084d0);--ck-bara-tx:#fff;--ck-ctrl:#C0C0C0;--ck-ctrl-tx:#1a1a1a;--ck-ctrla:#b4b4b4;--ck-tb:#C0C0C0;--ck-muted:#3a2b52;--ck-rail:linear-gradient(180deg,#000080,#3a2b52)}
+  [data-theme="light"]{--ck-win:#F3F1ED;--ck-bd:#C4BEB4;--ck-bda:#9C8B6B;--ck-glow:rgba(139,111,61,.22);--ck-bar:linear-gradient(180deg,#E8E4DC,#D7D2C8);--ck-bar-tx:#6B655A;--ck-bara:linear-gradient(90deg,#C9B89A,#B89F78);--ck-bara-tx:#2A2418;--ck-ctrl:#ECE8E1;--ck-ctrl-tx:#3A362E;--ck-ctrla:#DAD4C8;--ck-tb:#E4DFD5;--ck-muted:#8A8276;--ck-rail:linear-gradient(180deg,#B89F78,#8B6F3D)}
+  [data-theme="sepia"]{--ck-win:#F0E7D4;--ck-bd:#CDBE9C;--ck-bda:#B0863E;--ck-glow:rgba(197,153,77,.25);--ck-bar:linear-gradient(180deg,#E8DABA,#D8C9A8);--ck-bar-tx:#6B5638;--ck-bara:linear-gradient(90deg,#C5994D,#B0863E);--ck-bara-tx:#2C1E0E;--ck-ctrl:#E8DCC4;--ck-ctrl-tx:#3E2D1A;--ck-ctrla:#D8C9A8;--ck-tb:#E4D7B8;--ck-muted:#7A6A4C;--ck-rail:linear-gradient(180deg,#C5994D,#5A4520)}
 
-  [data-theme="void"] body{
-    background:
-      radial-gradient(60% 42% at 50% 40%, rgba(150,120,190,.10) 0%, rgba(20,16,30,0) 60%),
-      radial-gradient(130% 95% at 50% -8%, #120D1C 0%, #0A0711 55%, #050308 100%);
-  }
+  [data-theme="void"] body{background:radial-gradient(60% 42% at 50% 40%, rgba(150,120,190,.10) 0%, rgba(20,16,30,0) 60%),radial-gradient(130% 95% at 50% -8%, #120D1C 0%, #0A0711 55%, #050308 100%)}
   [data-theme="void"] .stars span{background:#EFE8F8}
 
   @media (pointer:coarse){
@@ -228,9 +172,10 @@
   <div class="sm-items">
     <div class="sm-label">Navigate</div>
     <button class="sm-item" data-page="home" role="menuitem"><span class="glyph">◈</span>Home</button>
-    <button class="sm-item" data-page="music" role="menuitem"><span class="glyph">☉</span>Music</button>
-    <button class="sm-item" data-page="about" role="menuitem"><span class="glyph">☽</span>About</button>
-    <button class="sm-item" data-page="collaborate" role="menuitem"><span class="glyph">✦</span>Collaboration</button>
+    <button class="sm-item" data-page="music" role="menuitem"><span class="glyph">☽</span>Music</button>
+    <button class="sm-item" data-page="about" role="menuitem"><span class="glyph">☉</span>About</button>
+    <button class="sm-item" data-page="collaborate" role="menuitem"><span class="glyph">☿</span>Collaboration</button>
+    <button class="sm-item" data-page="constellation" role="menuitem"><span class="glyph">✧</span>Sound Map</button>
     <div class="sm-sep"></div>
     <div class="sm-label">Theme</div>
     <div class="sm-themes" id="sm-themes"></div>
@@ -256,10 +201,11 @@
   "use strict";
 
   var PAGES = {
-    home:        { title:"Home",          glyph:"◈", src:"/pages/home.html" },
-    music:       { title:"Music",         glyph:"☉", src:"/pages/music.html" },
-    about:       { title:"About",         glyph:"☽", src:"/pages/about.html" },
-    collaborate: { title:"Collaboration", glyph:"✦", src:"/pages/collaborate.html" }
+    home:          { title:"Home",          glyph:"◈", src:"/pages/home.html" },
+    music:         { title:"Music",         glyph:"☽", src:"/pages/music.html" },
+    about:         { title:"About",         glyph:"☉", src:"/pages/about.html" },
+    collaborate:   { title:"Collaboration", glyph:"☿", src:"/pages/collaborate.html" },
+    constellation: { title:"Sound Map",     glyph:"✧", src:"/pages/constellation.html" }
   };
 
   var currentPage = "home";
@@ -272,7 +218,6 @@
 
   function julianOf(d){ var s=new Date(d.getFullYear(),0,0); return Math.floor((d-s)/86400000); }
 
-  /* --- navigation --- */
   function navigate(pageId){
     if(!PAGES[pageId]) return;
     currentPage = pageId;
@@ -287,14 +232,12 @@
     saveState();
   }
 
-  /* --- listen for navigation messages from content pages --- */
   window.addEventListener("message", function(e){
     if(e.data && e.data.navigate && PAGES[e.data.navigate]){
       navigate(e.data.navigate);
     }
   });
 
-  /* --- window management --- */
   function openWin(){
     win.classList.add("open","active");
     maintab.classList.add("active");
@@ -315,7 +258,7 @@
   function applyMax(){
     win.classList.toggle("max", isMaximized || smallScreen());
     var btn = win.querySelector("[data-maxbtn]");
-    btn.textContent = (isMaximized || smallScreen()) ? "❐" : "□";
+    btn.textContent = (isMaximized || smallScreen()) ? "❏" : "□";
   }
   function toggleMax(){
     isMaximized = !isMaximized;
@@ -323,7 +266,6 @@
     saveState();
   }
 
-  /* --- drag & resize --- */
   var mode=null, sx, sy, ox, oy, ow, oh;
   function startDrag(e, m){
     if(win.classList.contains("max")) return;
@@ -372,7 +314,6 @@
     else restoreWin();
   });
 
-  /* --- start menu --- */
   var startbtn=document.getElementById("startbtn"), startmenu=document.getElementById("startmenu");
   function toggleStart(on){
     var show = on===undefined ? !startmenu.classList.contains("on") : on;
@@ -389,10 +330,9 @@
     btn.addEventListener("click", function(){ navigate(btn.dataset.page); });
   });
 
-  /* --- desktop icons --- */
   (function buildIcons(){
     var host=document.getElementById("icons");
-    var order=["home","music","about","collaborate"];
+    var order=["home","music","about","collaborate","constellation"];
     order.forEach(function(id){
       var p=PAGES[id];
       var b=document.createElement("button");
@@ -412,7 +352,6 @@
     });
   })();
 
-  /* --- theme switcher --- */
   (function themes(){
     var MODES=[{id:"void",sw:"#0C0A14"},{id:"dark",sw:"#16121E"},{id:"monochrome",sw:"#232327"},{id:"win98",sw:"#C0C0C0"},{id:"light",sw:"#ECE8E1"},{id:"sepia",sw:"#E8DCC4"}];
     var host=document.getElementById("sm-themes");
@@ -434,14 +373,12 @@
     });
   })();
 
-  /* --- clock --- */
   (function clock(){
     var el=document.getElementById("jclock");
     function tick(){ el.textContent="J"+julianOf(new Date()); }
     tick(); setInterval(tick, 60000);
   })();
 
-  /* --- starfield --- */
   (function stars(){
     var host=document.getElementById("stars"), n=70, h="";
     for(var i=0;i<n;i++){
@@ -451,7 +388,6 @@
     host.innerHTML=h;
   })();
 
-  /* --- state persistence --- */
   var SKEY="skeletol.desktop.v2";
   function saveState(){
     try{ localStorage.setItem(SKEY, JSON.stringify({
@@ -462,7 +398,6 @@
     })); }catch(e){}
   }
 
-  /* --- boot --- */
   function boot(){
     var params = new URLSearchParams(window.location.search);
     var openPage = params.get("open");
@@ -484,10 +419,8 @@
   }
   boot();
 
-  /* --- responsive --- */
   window.addEventListener("resize", function(){ if(win.classList.contains("open")) applyMax(); });
 
-  /* --- keyboard --- */
   document.addEventListener("keydown", function(e){
     if(e.key==="Escape"){
       if(startmenu.classList.contains("on")) toggleStart(false);
