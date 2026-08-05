@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<defs>
+<linearGradient id="h1" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#7A8FE0"/>
+  <stop offset="0.33" stop-color="#B894D9"/>
+  <stop offset="0.66" stop-color="#E663A0"/>
+  <stop offset="1" stop-color="#E5BC5C"/>
+</linearGradient>
+<linearGradient id="h2" x1="1" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#C5D86E"/>
+  <stop offset="0.5" stop-color="#7A8FE0"/>
+  <stop offset="1" stop-color="#E663A0"/>
+</linearGradient>
+<linearGradient id="h3" x1="0.5" y1="0" x2="0.5" y2="1">
+  <stop offset="0" stop-color="#B894D9"/>
+  <stop offset="0.5" stop-color="#E5BC5C"/>
+  <stop offset="1" stop-color="#7A8FE0"/>
+</linearGradient>
+<filter id="smudge">
+  <feGaussianBlur stdDeviation="2.5" result="b"/>
+  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+<filter id="burn">
+  <feGaussianBlur stdDeviation="3" result="b"/>
+  <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect width="400" height="400" fill="#050208"/>
+
+<!-- Heavy charcoal ground -->
+<circle cx="200" cy="200" r="185" fill="none" stroke="#0C0916" stroke-width="25" opacity="0.6"/>
+<circle cx="200" cy="200" r="160" fill="none" stroke="#110E1A" stroke-width="18" opacity="0.5"/>
+<circle cx="200" cy="200" r="138" fill="none" stroke="#0E0B15" stroke-width="12" opacity="0.45"/>
+<circle cx="200" cy="200" r="118" fill="none" stroke="#110E1A" stroke-width="8" opacity="0.35"/>
+<circle cx="200" cy="200" r="100" fill="none" stroke="#0C0916" stroke-width="5" opacity="0.25"/>
+
+<!-- Geometry erased through the charcoal -->
+
+<!-- Grand trine -->
+<polygon points="200,48 338,288 62,288" fill="none" stroke="url(#h1)" stroke-width="1.4" opacity="0.55" filter="url(#smudge)"/>
+
+<!-- Inverted trine -->
+<polygon points="200,352 338,112 62,112" fill="none" stroke="url(#h2)" stroke-width="0.9" opacity="0.25" filter="url(#smudge)"/>
+
+<!-- Wheel -->
+<circle cx="200" cy="200" r="158" fill="none" stroke="url(#h3)" stroke-width="0.6" opacity="0.3" filter="url(#smudge)"/>
+
+<!-- Opposition -->
+<line x1="200" y1="42" x2="200" y2="358" stroke="url(#h3)" stroke-width="0.8" opacity="0.35" filter="url(#smudge)"/>
+
+<!-- Square -->
+<rect x="88" y="88" width="224" height="224" fill="none" stroke="url(#h1)" stroke-width="0.7" opacity="0.2" transform="rotate(45 200 200)" filter="url(#smudge)"/>
+
+<!-- Quincunx rays -->
+<line x1="200" y1="48" x2="330" y2="155" stroke="#B894D9" stroke-width="0.4" opacity="0.12"/>
+<line x1="200" y1="48" x2="70" y2="155" stroke="#7A8FE0" stroke-width="0.4" opacity="0.12"/>
+
+<!-- THE STAR -->
+<path d="M200 138 L213 187 L262 200 L213 213 L200 262 L187 213 L138 200 L187 187 Z" 
+  fill="none" stroke="url(#h1)" stroke-width="2.5" opacity="0.9" filter="url(#burn)"/>
+<path d="M200 155 L209 191 L245 200 L209 209 L200 245 L191 209 L155 200 L191 191 Z" 
+  fill="url(#h1)" opacity="0.1"/>
+
+<!-- Convergence point -->
+<circle cx="200" cy="200" r="4" fill="#F5F5F0" opacity="0.15" filter="url(#burn)"/>
+<circle cx="200" cy="200" r="2.5" fill="#F5F5F0" opacity="0.5" filter="url(#smudge)"/>
+<circle cx="200" cy="200" r="1" fill="#FFFFFF" opacity="0.95"/>
+</svg>
