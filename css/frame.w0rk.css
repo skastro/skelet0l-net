@@ -1,18 +1,11 @@
 /* ============================================================
-   frame.w0rk — Theme System v1
+   frame.w0rk — Design Token System
    Portable design-system stylesheet (source of truth)
    skele.t0l · festina lente
-   Versioning: vM.YY.JJJ.II
-   ------------------------------------------------------------
-   This is the reusable kit. Import it anywhere:
-       <link rel="stylesheet" href="css/frame.w0rk.css">
-   Switch modes by setting a data attribute on <html> or any
-   container:  data-theme="dark|light|monochrome|sepia|win98"
-   Element pastels (Quadruplicity) stay CONSTANT across all modes.
    ============================================================ */
 
 /* ---- Fonts (Google Fonts) -------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
 
 /* ============================================================
    1. LOCKED TOKENS
@@ -27,16 +20,41 @@
   --water:       #7A8FE0;   /* Cornflower · Listening           */
   --earth:       #C5D86E;   /* Chartreuse · Writing             */
 
+  /* Convergence — the fifth element                            */
+  --wisteria:    #CC99CC;   /* Spirit · convergence · threshold */
+
   /* Magnum Opus — alchemical framing layer                     */
   --nigredo:     #050208;   /* blackening                       */
   --albedo:      #F5F5F0;   /* whitening                        */
   --rubedo:      #C5994D;   /* sepia-gold reddening             */
   --pearl:       #DDC9A5;   /* champagne · threshold / 0.5      */
 
-  /* Type stack */
-  --display: 'Cinzel', serif;                    /* caps / display      */
-  --body:    'Cormorant Garamond', Georgia, serif;/* body + italic      */
-  --mono:    'Roboto Mono', ui-monospace, monospace; /* skele.t0l labels */
+  /* Semantic accents (page-level)                              */
+  --gold:        #E5BC5C;   /* Primary accent · CTA             */
+  --rose:        #9B6B7E;   /* Secondary warmth                 */
+  --sage:        #5E8A72;   /* Tertiary · grounding             */
+
+  /* Surfaces                                                   */
+  --ink:         #050208;   /* True background                  */
+  --ink-2:       #15101F;   /* Elevated surface                 */
+  --surface-1:   #0E0A16;   /* Card background                  */
+  --surface-2:   #15101F;   /* Raised card                      */
+  --surface-3:   #1A1525;   /* Highest elevation                */
+  --plum:        #241B33;   /* Titlebar / deep accent surface   */
+
+  /* Text                                                       */
+  --cream:       #F5F5F0;   /* Primary text                     */
+  --warm:        #E8DFD5;   /* Secondary text                   */
+  --muted:       #B8AEBC;   /* Subdued / metadata               */
+
+  /* Borders                                                    */
+  --border:      rgba(90,74,106,.35);
+  --border-strong: rgba(229,188,92,.4);
+
+  /* Type stack                                                 */
+  --display: 'Cormorant', Georgia, serif;          /* headings  */
+  --sans:    'IBM Plex Sans', system-ui, sans-serif;/* body      */
+  --mono:    'IBM Plex Mono', ui-monospace, monospace;/* labels  */
 
   /* Scale */
   --measure: 68ch;
@@ -45,11 +63,11 @@
 
   /* Motion */
   --ease: cubic-bezier(.2, .6, .2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ============================================================
-   2. THEME MODES — semantic variables
-   bg / text / text-muted / head / accent / rule
+   2. THEME MODES — semantic overrides
    ============================================================ */
 
 /* Dark — the void with gold accent (default) */
@@ -62,6 +80,17 @@
   --head:      #F5F5F0;
   --accent:    #E5BC5C;
   --rule:      #2B2436;
+}
+
+/* Void — deeper than dark, purple atmosphere */
+[data-theme="void"] {
+  --bg:        #050208;
+  --surface:   #0E0A16;
+  --text:      #F5F5F0;
+  --text-muted:#9A86C0;
+  --head:      #F0E7FA;
+  --accent:    #B894D9;
+  --rule:      #3A3350;
 }
 
 /* Light — grey morning workspace */
@@ -99,14 +128,13 @@
 
 /* Windows 98 — cosmic desktop */
 [data-theme="win98"] {
-  --bg:        #1A1525;       /* desktop ether        */
-  --surface:   #C0C0C0;       /* beveled grey chrome  */
-  --text:      #F5F5F0;       /* on desktop           */
+  --bg:        #1A1525;
+  --surface:   #C0C0C0;
+  --text:      #F5F5F0;
   --text-muted:#B5AEC2;
   --head:      #F5F5F0;
-  --accent:    #E663A0;       /* fuchsia title bar    */
+  --accent:    #E663A0;
   --rule:      #2B2436;
-  /* bevel tokens */
   --bevel-light: #FFFFFF;
   --bevel-dark:  #808080;
   --bevel-deep:  #404040;
@@ -123,9 +151,11 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--body);
-  font-size: clamp(1.05rem, 0.6vw + 1rem, 1.2rem);
-  line-height: 1.55;
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(1rem, 0.5vw + 0.9rem, 1.125rem);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
   transition: background .4s var(--ease), color .4s var(--ease);
   -webkit-font-smoothing: antialiased;
 }
@@ -137,115 +167,119 @@ h1, h2, h3 {
   line-height: 1.1;
   letter-spacing: 0.02em;
   margin: 0 0 0.5em;
+  text-wrap: balance;
 }
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 400; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); }
 
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 
+/* Utility classes */
 .mono { font-family: var(--mono); font-size: 0.82em; letter-spacing: 0.02em; }
 .caps { font-family: var(--display); text-transform: uppercase; letter-spacing: 0.16em; }
 .eyebrow {
   font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.32em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
 }
 
 /* ============================================================
    4. COMPONENTS
    ============================================================ */
 
-/* Swatch */
-.fw-swatch {
-  border: 1px solid var(--rule);
+/* W98 Card — the chrome surface */
+.fw-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--surface);
+  transition: border-color 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
 }
-.fw-swatch .chip { height: 84px; }
-.fw-swatch .meta { padding: 0.6rem 0.7rem; }
-.fw-swatch .meta .name { font-family: var(--display); font-size: 0.95rem; letter-spacing: 0.04em; }
-.fw-swatch .meta .hex  { font-family: var(--mono); font-size: 0.72rem; color: var(--text-muted); }
-
-/* Codex card — the canonical specimen surface */
-.fw-card {
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  position: relative;
-}
-.fw-card::before {
-  content: "";
-  position: absolute; inset: 6px;
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  pointer-events: none;
-  opacity: 0.5;
+.fw-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
 }
 
-/* ---- Windows 98 chrome ----------------------------------- */
-.fw-win {
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: var(--bevel-light, #fff) var(--bevel-deep, #404040) var(--bevel-deep, #404040) var(--bevel-light, #fff);
-  box-shadow: 1px 1px 0 var(--bevel-dark, #808080), inset 1px 1px 0 #dfdfdf;
-  color: #1a1a1a;
+/* W98 Titlebar */
+.fw-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(90deg, var(--plum), var(--ink-2));
+  border-bottom: 1px solid var(--border);
+}
+.fw-titlebar .dots {
+  display: flex;
+  gap: 5px;
+}
+.fw-titlebar .dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,174,188,.4);
+}
+.fw-titlebar .dots span:last-child {
+  background: rgba(229,188,92,.35);
+}
+.fw-titlebar .title {
   font-family: var(--mono);
-  width: 100%;
-  max-width: 480px;
-}
-.fw-win__bar {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--accent, #E663A0);
-  color: #fff;
-  padding: 3px 4px 3px 7px;
-  font-family: var(--display);
-  font-size: 0.8rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-left: 0.25rem;
 }
-.fw-win__close {
-  width: 18px; height: 16px;
-  display: grid; place-items: center;
-  background: #C0C0C0; color: #1a1a1a;
-  font-family: var(--mono); font-size: 0.7rem; line-height: 1;
-  border: 1px solid;
-  border-color: #fff #404040 #404040 #fff;
+
+/* Card link */
+.fw-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
-.fw-win__menu {
-  display: flex; gap: 0.9rem;
-  padding: 2px 8px;
-  font-size: 0.68rem;
-  border-bottom: 1px solid #808080;
+.fw-card-link:hover { opacity: 0.7; }
+.fw-card-link::after { content: ' \2192'; }
+
+/* CTA Button */
+.fw-cta {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: background 0.2s var(--ease-out-expo), transform 0.15s var(--ease-out-expo);
 }
-.fw-win__menu u { text-decoration: underline; }
-.fw-win__well {
-  margin: 8px;
-  padding: 1.4rem 1.1rem;
-  background: var(--void);
-  border: 1px solid;
-  border-color: #404040 #fff #fff #404040;
-  color: var(--pearl);
-  text-align: center;
-}
-.fw-win__well .glyphs { font-size: 1.4rem; letter-spacing: 0.5rem; color: var(--air); }
-.fw-win__well .motto { font-family: var(--body); font-style: italic; font-size: 1.5rem; color: var(--albedo); margin-top: 0.3rem; }
-.fw-win__taskbar {
-  display: flex; align-items: center; justify-content: space-between;
-  margin: 8px; padding: 3px 4px;
-  border-top: 1px solid #fff;
-  font-size: 0.66rem;
-}
-.fw-win__start {
-  font-family: var(--display); font-weight: 600; letter-spacing: 0.04em;
-  padding: 2px 9px;
-  border: 1px solid; border-color: #fff #404040 #404040 #fff;
-  background: #C0C0C0;
-}
-.fw-win__clock {
-  padding: 2px 8px;
-  border: 1px solid; border-color: #404040 #fff #fff #404040;
-}
+.fw-cta:hover { background: #f0cc6e; transform: translateY(-1px); }
 
 /* ---- Starfield ------------------------------------------- */
 .fw-stars {
@@ -261,7 +295,6 @@ a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset:
 
 /* ============================================================
    5. WIN98 GLOBAL SKIN
-   When the whole page is in win98 mode, dress sections as chrome.
    ============================================================ */
 [data-theme="win98"] body { background: var(--void); }
 [data-theme="win98"] .fw-card {
@@ -271,12 +304,19 @@ a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset:
   border-color: #fff #404040 #404040 #fff;
   border-radius: 0;
 }
-[data-theme="win98"] .fw-card::before { display: none; }
+[data-theme="win98"] .fw-card:hover { transform: none; }
 [data-theme="win98"] h1,
 [data-theme="win98"] h2,
 [data-theme="win98"] h3 { color: #1a1a1a; }
 
+/* ============================================================
+   6. RESPONSIVE & A11Y
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
+}
+
+@media (max-width: 768px) {
+  :root { --gutter: 1.5rem; }
 }
