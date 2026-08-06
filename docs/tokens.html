@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>frame.w0rk — Token Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #050208;
+  --ink-2: #15101F;
+  --surface-1: #0E0A16;
+  --surface-2: #15101F;
+  --surface-3: #1A1525;
+  --plum: #241B33;
+  --cream: #F5F5F0;
+  --warm: #E8DFD5;
+  --muted: #B8AEBC;
+  --gold: #E5BC5C;
+  --rose: #9B6B7E;
+  --sage: #5E8A72;
+  --wisteria: #CC99CC;
+  --air: #B894D9;
+  --fire: #E663A0;
+  --water: #7A8FE0;
+  --earth: #C5D86E;
+  --nigredo: #050208;
+  --albedo: #F5F5F0;
+  --rubedo: #C5994D;
+  --pearl: #DDC9A5;
+  --border: rgba(90,74,106,.35);
+  --border-strong: rgba(229,188,92,.4);
+  --display: 'Cormorant', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+html { font-size: 16px; }
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.6;
+  padding: 3rem 2rem 5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+.header { margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.header h1 { font-family: var(--display); font-size: 2.5rem; font-weight: 400; color: var(--cream); margin-bottom: 0.5rem; }
+.header p { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); }
+section { margin-bottom: 4rem; }
+section h2 { font-family: var(--display); font-size: 1.5rem; font-weight: 500; color: var(--cream); margin-bottom: 0.25rem; }
+section .subtitle { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
+.swatch { border: 1px solid var(--border); border-radius: 2px; overflow: hidden; background: var(--surface-1); }
+.swatch .chip { height: 72px; position: relative; }
+.swatch .chip::after { content: ''; position: absolute; inset: 0; border-bottom: 1px solid var(--border); }
+.swatch .meta { padding: 0.6rem 0.7rem; }
+.swatch .name { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; color: var(--cream); margin-bottom: 0.2rem; }
+.swatch .hex { font-family: var(--mono); font-size: 0.625rem; color: var(--muted); }
+.type-row { margin-bottom: 2rem; padding: 1.5rem; background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; }
+.type-row .label { font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.type-display { font-family: var(--display); font-size: 2.5rem; font-weight: 400; color: var(--cream); line-height: 1.2; }
+.type-sans { font-family: var(--sans); font-size: 1.0625rem; font-weight: 300; color: var(--cream); line-height: 1.7; max-width: 60ch; }
+.type-mono { font-family: var(--mono); font-size: 0.8125rem; font-weight: 400; color: var(--cream); letter-spacing: 0.02em; }
+.surfaces { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+.surface-row { display: flex; align-items: center; padding: 1.25rem 1.5rem; gap: 1.5rem; }
+.surface-row .label { font-family: var(--mono); font-size: 0.6875rem; color: var(--muted); min-width: 100px; }
+.surface-row .value { font-family: var(--mono); font-size: 0.6875rem; color: var(--cream); opacity: 0.7; }
+.component-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.comp-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+.comp-titlebar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: linear-gradient(90deg, var(--plum), var(--ink-2)); border-bottom: 1px solid var(--border); }
+.comp-dots { display: flex; gap: 5px; }
+.comp-dots span { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(184,174,188,.4); }
+.comp-dots span:last-child { background: rgba(229,188,92,.35); }
+.comp-title { font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warm); margin-left: 0.25rem; }
+.comp-body { padding: 1.5rem; }
+.comp-body p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+.cta-specimen { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; padding: 2rem; background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; }
+.cta-btn { display: inline-block; font-family: var(--mono); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 2.5rem; text-decoration: none; border-radius: 2px; cursor: pointer; border: none; transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1); }
+.cta-btn:hover { transform: translateY(-1px); }
+.cta-btn--gold { background: var(--gold); color: var(--ink); }
+.cta-btn--wisteria { background: var(--wisteria); color: var(--ink); }
+.cta-btn--outline { background: transparent; color: var(--cream); border: 1px solid var(--border-strong); }
+.motion-row { display: flex; gap: 2rem; align-items: center; padding: 1.5rem; background: var(--surface-1); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 1rem; }
+.motion-label { font-family: var(--mono); font-size: 0.6875rem; color: var(--muted); min-width: 120px; }
+.motion-bar { width: 200px; height: 4px; background: var(--plum); border-radius: 2px; position: relative; overflow: hidden; }
+.motion-bar span { position: absolute; left: 0; top: 0; height: 100%; width: 0; background: var(--gold); border-radius: 2px; animation: motion-demo 2s infinite; }
+.motion-bar--expo span { animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+.motion-bar--ease span { animation-timing-function: cubic-bezier(.2, .6, .2, 1); }
+@keyframes motion-demo { 0% { width: 0; } 50% { width: 100%; } 100% { width: 0; } }
+@media (max-width: 768px) {
+  body { padding: 2rem 1.25rem 4rem; }
+  .swatches { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .component-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>frame.w0rk</h1>
+  <p>Design Token Reference · skele.t0l · Source of truth</p>
+</div>
+<section>
+  <h2>Quadruplicity</h2>
+  <div class="subtitle">Elemental pastels (constant across all themes)</div>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#B894D9"></div><div class="meta"><div class="name">--air</div><div class="hex">#B894D9 · Orchid · Reading</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#E663A0"></div><div class="meta"><div class="name">--fire</div><div class="hex">#E663A0 · Fuchsia · Speaking</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#7A8FE0"></div><div class="meta"><div class="name">--water</div><div class="hex">#7A8FE0 · Cornflower · Listening</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#C5D86E"></div><div class="meta"><div class="name">--earth</div><div class="hex">#C5D86E · Chartreuse · Writing</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#CC99CC"></div><div class="meta"><div class="name">--wisteria</div><div class="hex">#CC99CC · Spirit · Convergence</div></div></div>
+  </div>
+</section>
+<section>
+  <h2>Magnum Opus</h2>
+  <div class="subtitle">Alchemical framing layer</div>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#050208"></div><div class="meta"><div class="name">--nigredo</div><div class="hex">#050208 · Blackening</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#F5F5F0"></div><div class="meta"><div class="name">--albedo</div><div class="hex">#F5F5F0 · Whitening</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#C5994D"></div><div class="meta"><div class="name">--rubedo</div><div class="hex">#C5994D · Reddening</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#DDC9A5"></div><div class="meta"><div class="name">--pearl</div><div class="hex">#DDC9A5 · Champagne · Threshold</div></div></div>
+  </div>
+</section>
+<section>
+  <h2>Semantic Accents</h2>
+  <div class="subtitle">Page-level color roles</div>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#E5BC5C"></div><div class="meta"><div class="name">--gold</div><div class="hex">#E5BC5C · Primary CTA</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#9B6B7E"></div><div class="meta"><div class="name">--rose</div><div class="hex">#9B6B7E · Secondary warmth</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#5E8A72"></div><div class="meta"><div class="name">--sage</div><div class="hex">#5E8A72 · Tertiary · Grounding</div></div></div>
+  </div>
+</section>
+<section>
+  <h2>Surfaces</h2>
+  <div class="subtitle">Depth scale (dark mode)</div>
+  <div class="surfaces">
+    <div class="surface-row" style="background:#050208"><div class="label">--ink</div><div class="value">#050208 · True background</div></div>
+    <div class="surface-row" style="background:#0E0A16"><div class="label">--surface-1</div><div class="value">#0E0A16 · Card background</div></div>
+    <div class="surface-row" style="background:#15101F"><div class="label">--surface-2</div><div class="value">#15101F · Raised card</div></div>
+    <div class="surface-row" style="background:#1A1525"><div class="label">--surface-3</div><div class="value">#1A1525 · Highest elevation</div></div>
+    <div class="surface-row" style="background:#241B33"><div class="label">--plum</div><div class="value">#241B33 · Titlebar / deep accent</div></div>
+  </div>
+</section>
+<section>
+  <h2>Text Colors</h2>
+  <div class="subtitle">Hierarchy</div>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#F5F5F0"></div><div class="meta"><div class="name">--cream</div><div class="hex">#F5F5F0 · Primary text</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#E8DFD5"></div><div class="meta"><div class="name">--warm</div><div class="hex">#E8DFD5 · Secondary text</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#B8AEBC"></div><div class="meta"><div class="name">--muted</div><div class="hex">#B8AEBC · Subdued / metadata</div></div></div>
+  </div>
+</section>
+<section>
+  <h2>Typography</h2>
+  <div class="subtitle">Three-font stack</div>
+  <div class="type-row">
+    <div class="label">--display · Cormorant · Headings</div>
+    <div class="type-display">Ornamentation and structure; as above, so below.</div>
+  </div>
+  <div class="type-row">
+    <div class="label">--sans · IBM Plex Sans · Body (300/400/500)</div>
+    <div class="type-sans">Musician, analyst, planner, and builder making useful and non-useful things. I play bass for Mantaray, build frameworks and tools under the name skele.t0l.</div>
+  </div>
+  <div class="type-row">
+    <div class="label">--mono · IBM Plex Mono · Labels / Nav / Code</div>
+    <div class="type-mono">SKELE.T0L · HOME · MUSIC · ABOUT · COLLABORATION · festina lente</div>
+  </div>
+</section>
+<section>
+  <h2>Components</h2>
+  <div class="subtitle">Reusable chrome patterns</div>
+  <div class="component-grid">
+    <div class="comp-card">
+      <div class="comp-titlebar">
+        <div class="comp-dots"><span></span><span></span><span></span></div>
+        <span class="comp-title">W98 Card</span>
+      </div>
+      <div class="comp-body">
+        <p>The canonical surface. Plum-gradient titlebar with three dots, ink body, subtle border. Hover lifts 2px with border-strong.</p>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-titlebar">
+        <div class="comp-dots"><span></span><span></span><span></span></div>
+        <span class="comp-title">Featured Player</span>
+      </div>
+      <div class="comp-body">
+        <p>Large glyph + info layout for the active project. Same card chrome, grid interior with role eyebrow and link.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>Buttons</h2>
+  <div class="subtitle">Interactive affordances</div>
+  <div class="cta-specimen">
+    <button class="cta-btn cta-btn--gold">Primary CTA</button>
+    <button class="cta-btn cta-btn--wisteria">Wisteria</button>
+    <button class="cta-btn cta-btn--outline">Outline</button>
+  </div>
+</section>
+<section>
+  <h2>Motion</h2>
+  <div class="subtitle">Easing curves</div>
+  <div class="motion-row">
+    <div class="motion-label">--ease-out-expo</div>
+    <div class="motion-bar motion-bar--expo"><span></span></div>
+  </div>
+  <div class="motion-row">
+    <div class="motion-label">--ease (default)</div>
+    <div class="motion-bar motion-bar--ease"><span></span></div>
+  </div>
+</section>
+<section>
+  <h2>Borders</h2>
+  <div class="subtitle">Edge treatments</div>
+  <div class="swatches" style="grid-template-columns: 1fr 1fr;">
+    <div style="padding:1.5rem; border:1px solid rgba(90,74,106,.35); border-radius:2px; background:var(--surface-1);">
+      <div class="name" style="font-family:var(--mono);font-size:0.6875rem;color:var(--cream);">--border</div>
+      <div class="hex" style="font-family:var(--mono);font-size:0.625rem;color:var(--muted);margin-top:0.25rem;">rgba(90,74,106,.35) · Default edge</div>
+    </div>
+    <div style="padding:1.5rem; border:1px solid rgba(229,188,92,.4); border-radius:2px; background:var(--surface-1);">
+      <div class="name" style="font-family:var(--mono);font-size:0.6875rem;color:var(--cream);">--border-strong</div>
+      <div class="hex" style="font-family:var(--mono);font-size:0.625rem;color:var(--muted);margin-top:0.25rem;">rgba(229,188,92,.4) · Hover / emphasis</div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
